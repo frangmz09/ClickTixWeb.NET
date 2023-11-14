@@ -1,18 +1,938 @@
-html {
-  font-size: 14px;
+.home,
+.home * {
+    box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.home {
+    background: #ffffff;
+    width: 1370px;
+    height: 1636px;
+    position: relative;
+    overflow: hidden;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.rectangle-209 {
+    width: 1370px;
+    height: 342px;
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    overflow: visible;
+}
+
+.filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 1370px;
+    height: 60px;
+    position: absolute;
+    left: 0px;
+    top: 392px;
+}
+
+.rectangle-212 {
+    background: #d9d9d9;
+    flex-shrink: 0;
+    width: 1370px;
+    height: 60px;
+    position: relative;
+}
+
+.frame-60 {
+    padding: 0px 1px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: absolute;
+    left: 33px;
+    top: 15px;
+}
+
+.rectangle-213 {
+    border-radius: 0px;
+    flex-shrink: 0;
+    width: 228px;
+    height: 30px;
+    position: relative;
+    overflow: visible;
+}
+
+.frame-58 {
+    display: flex;
+    flex-direction: row;
+    gap: 44px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: absolute;
+    left: 24px;
+    top: 6px;
+}
+
+.seleccione-sucursal {
+    color: #000000;
+    text-align: left;
+    font: 400 15px "Righteous-Regular", sans-serif;
+    position: relative;
+}
+
+.ordenar-abajo-1 {
+    flex-shrink: 0;
+    width: 14.52px;
+    height: 15px;
+    position: relative;
+}
+
+.frame-61 {
+    padding: 0px 1px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: absolute;
+    left: 292px;
+    top: 15px;
+}
+
+.rectangle-2132 {
+    border-radius: 0px;
+    flex-shrink: 0;
+    width: 228px;
+    height: 30px;
+    position: relative;
+    overflow: visible;
+}
+
+.seleccione-pelicula {
+    color: #000000;
+    text-align: left;
+    font: 400 15px "Righteous-Regular", sans-serif;
+    position: relative;
+}
+
+.peliculas-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 840px;
+    position: absolute;
+    left: 0px;
+    top: 452px;
+}
+
+.rectangle-288 {
+    background: #ffffff;
+    flex-shrink: 0;
+    width: 1370px;
+    height: 830px;
+    position: relative;
+}
+
+.pelicula {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: absolute;
+    left: 106px;
+    top: 48px;
+}
+
+.rectangle-216 {
+    background: #d9d9d9;
+    flex-shrink: 0;
+    width: 233px;
+    height: 357px;
+    position: relative;
+}
+
+.image-6 {
+    flex-shrink: 0;
+    width: 189px;
+    height: 283px;
+    position: absolute;
+    left: 22px;
+    top: 26px;
+}
+
+.nombre-pelicula {
+    color: #000000;
+    text-align: left;
+    font: 400 16px "Righteous-Regular", sans-serif;
+    position: absolute;
+    left: 37px;
+    top: 324px;
+}
+
+.banner {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 1370px;
+    height: 342px;
+    position: absolute;
+    left: 0px;
+    top: 60px;
+}
+
+.image-10 {
+    flex-shrink: 0;
+    width: 1370px;
+    height: 332px;
+    position: relative;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 1370px;
+    position: absolute;
+    left: 0px;
+    top: 1292px;
+}
+
+.frame-150 {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.frame-82 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 1370px;
+    position: relative;
+}
+
+.rectangle-218 {
+    background: #1c1c1c;
+    flex-shrink: 0;
+    width: 1370px;
+    height: 309px;
+    position: relative;
+}
+
+.frame-79 {
+    display: flex;
+    flex-direction: row;
+    gap: 163px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 1290px;
+    position: absolute;
+    left: 80px;
+    top: 34px;
+}
+
+.frame-78 {
+    display: flex;
+    flex-direction: row;
+    gap: 111px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.frame-67 {
+    display: flex;
+    flex-direction: column;
+    gap: 49px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.clicktix {
+    color: #ffffff;
+    text-align: left;
+    font: 800 24px "Roboto-ExtraBold", sans-serif;
+    position: relative;
+}
+
+.frame-66 {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.frame-63 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.rectangle-190 {
+    background: #f3f1f1;
+    border-radius: 10px;
+    flex-shrink: 0;
+    width: 43px;
+    height: 37px;
+    position: relative;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.facebook-1 {
+    flex-shrink: 0;
+    width: 35px;
+    height: 25px;
+    position: absolute;
+    left: 4px;
+    top: 6px;
+}
+
+.frame-64 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.rectangle-191 {
+    background: #f3f1f1;
+    border-radius: 10px;
+    flex-shrink: 0;
+    width: 43px;
+    height: 37px;
+    position: relative;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.instagram-1 {
+    flex-shrink: 0;
+    width: 27.57px;
+    height: 25px;
+    position: absolute;
+    left: 8px;
+    top: 6px;
+}
+
+.frame-65 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.rectangle-192 {
+    background: #f3f1f1;
+    border-radius: 10px;
+    flex-shrink: 0;
+    width: 43px;
+    height: 37px;
+    position: relative;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.buscar-1 {
+    flex-shrink: 0;
+    width: 36px;
+    height: 25px;
+    position: absolute;
+    left: 4px;
+    top: 6px;
+}
+
+.frame-68 {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.cartelera {
+    color: #ffffff;
+    text-align: left;
+    font: 800 20px "Roboto-ExtraBold", sans-serif;
+    position: relative;
+    width: 84px;
+    height: 25px;
+}
+
+.estrenos {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 84px;
+    height: 25px;
+}
+
+.ventas-anticipadas {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 181px;
+    height: 25px;
+}
+
+.peliculas-2-d {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 181px;
+    height: 25px;
+}
+
+.peliculas-3-d {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 181px;
+    height: 25px;
+}
+
+.peliculas-4-d {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 181px;
+    height: 25px;
+}
+
+.peliculas-5-d {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 181px;
+    height: 25px;
+}
+
+.comfort {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 181px;
+    height: 25px;
+}
+
+.frame-77 {
+    display: flex;
+    flex-direction: row;
+    gap: 39px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 676px;
+    position: relative;
+}
+
+.frame-69 {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.premium-class {
+    color: #ffffff;
+    text-align: left;
+    font: 800 20px "Roboto-ExtraBold", sans-serif;
+    position: relative;
+    width: 218px;
+    height: 25px;
+}
+
+.concursos {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 111px;
+    height: 25px;
+}
+
+.beneficios-clicktix-fan {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 218px;
+    height: 25px;
+}
+
+.descuentos {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 218px;
+    height: 25px;
+}
+
+.frame-76 {
+    display: flex;
+    flex-direction: row;
+    gap: 34px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 419px;
+    position: relative;
+}
+
+.frame-75 {
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.frame-70 {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.cines {
+    color: #ffffff;
+    text-align: left;
+    font: 800 20px "Roboto-ExtraBold", sans-serif;
+    position: relative;
+    width: 155px;
+    height: 25px;
+}
+
+.precios {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 111px;
+    height: 25px;
+}
+
+.formatos {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 111px;
+    height: 25px;
+}
+
+.cumplea-os-y-grupos {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 209px;
+    height: 25px;
+}
+
+.entradas-online {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 209px;
+    height: 25px;
+}
+
+.frame-74 {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.frame-71 {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.regal-cine {
+    color: #ffffff;
+    text-align: left;
+    font: 800 20px "Roboto-ExtraBold", sans-serif;
+    position: relative;
+    width: 155px;
+    height: 25px;
+}
+
+.experiencias {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 209px;
+    height: 25px;
+}
+
+.frame-72 {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.comercial {
+    color: #ffffff;
+    text-align: left;
+    font: 800 20px "Roboto-ExtraBold", sans-serif;
+    position: relative;
+    width: 155px;
+    height: 25px;
+}
+
+.ventas-corporativas {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 209px;
+    height: 25px;
+}
+
+.frame-73 {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.store {
+    color: #ffffff;
+    text-align: left;
+    font: 800 20px "Roboto-ExtraBold", sans-serif;
+    position: relative;
+    width: 155px;
+    height: 25px;
+}
+
+.calidad-en-productos {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 209px;
+    height: 25px;
+}
+
+.bases-clicktix-store {
+    color: #ffffff;
+    text-align: left;
+    font: 300 14px "Roboto-Light", sans-serif;
+    position: relative;
+    width: 209px;
+    height: 25px;
+}
+
+.frame-81 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 1370px;
+    position: relative;
+}
+
+.rectangle-219 {
+    flex-shrink: 0;
+    width: 1370px;
+    height: 35px;
+    position: relative;
+    overflow: visible;
+}
+
+.frame-80 {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: absolute;
+    left: 19px;
+    top: 5px;
+}
+
+.simbolo-de-copyright-2 {
+    flex-shrink: 0;
+    width: 41px;
+    height: 21px;
+    position: relative;
+}
+
+.copyright-clicktix-2023 {
+    color: #000000;
+    text-align: left;
+    font: 300 12px "Roboto-Light", sans-serif;
+    position: relative;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 1370px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.rectangle-208 {
+    background: #d9d9d9;
+    flex-shrink: 0;
+    width: 1370px;
+    height: 60px;
+    position: relative;
+}
+
+.frame-55 {
+    display: flex;
+    flex-direction: row;
+    gap: 65px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    height: 42px;
+    position: absolute;
+    left: 0px;
+    top: 6px;
+}
+
+.frame-54 {
+    display: flex;
+    flex-direction: row;
+    gap: 351px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.captura-removebg-preview-1 {
+    flex-shrink: 0;
+    width: 129.66px;
+    height: 40px;
+    position: relative;
+}
+
+.frame-51 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.rectangle-193 {
+    background: #f3f1f1;
+    border-radius: 10px;
+    flex-shrink: 0;
+    width: 336px;
+    height: 20px;
+    position: relative;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.frame-50 {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: absolute;
+    left: 14.34px;
+    top: 3px;
+}
+
+.buscar-2-1 {
+    flex-shrink: 0;
+    width: 28px;
+    height: 12px;
+    position: relative;
+}
+
+.buscar-pel-cula {
+    color: #858383;
+    text-align: left;
+    font: 400 13px "Roboto-Regular", sans-serif;
+    position: relative;
+    width: 168px;
+    height: 14px;
+}
+
+.frame-53 {
+    display: flex;
+    flex-direction: row;
+    gap: 29px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    height: 55px;
+    position: relative;
+}
+
+.frame-52 {
+    display: flex;
+    flex-direction: row;
+    gap: 29px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.frame-47 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.rectangle-210 {
+    border-radius: 0px;
+    flex-shrink: 0;
+    width: 157px;
+    height: 30px;
+    position: relative;
+    overflow: visible;
 }
 
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.ingresar {
+    color: #ffffff;
+    text-align: left;
+    font: 400 16px "Righteous-Regular", sans-serif;
+    position: absolute;
+    left: 39.34px;
+    top: 4.5px;
+}
+
+.frame-48 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.rectangle-211 {
+    border-radius: 0px;
+    flex-shrink: 0;
+    width: 157px;
+    height: 30px;
+    position: relative;
+    overflow: visible;
+}
+
+.registrar {
+    color: #b32317;
+    text-align: left;
+    font: 400 16px "Righteous-Regular", sans-serif;
+    position: absolute;
+    left: 30.34px;
+    top: 5px;
+}
+
+.frame-49 {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.mi-cuenta {
+    flex-shrink: 0;
+    width: 44.65px;
+    height: 40px;
+    position: relative;
 }

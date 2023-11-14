@@ -4,31 +4,78 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ClickTixWeb</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ClickTixWeb.styles.css" asp-append-version="true" />
+    <style>
+        a,
+        button,
+        input,
+        select,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            text-decoration: none;
+            appearance: none;
+            background: none;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ClickTixWeb</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        <div class="navbar">
+            <div class="rectangle-208"></div>
+            <div class="frame-55">
+                <div class="frame-54">
+                    <img class="captura-removebg-preview-1" src="~/imgs/captura-removebg-preview-10.png" />
+                    <div class="frame-51">
+                        <div class="rectangle-193"></div>
+                        <div class="frame-50">
+                            <img class="buscar-2-1" src="~/imgs/buscar-2-10.png" />
+                            <div class="buscar-pel-cula">Buscar película...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="frame-53">
+                    <div class="frame-52">
+                        <div class="frame-47">
+                            <svg class="rectangle-210"
+                                 width="158"
+                                 height="30"
+                                 viewBox="0 0 158 30"
+                                 fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.655273 15C0.655273 6.71573 7.371 0 15.6553 0H142.655C150.94 0 157.655 6.71573 157.655 15V15C157.655 23.2843 150.94 30 142.655 30H15.6553C7.371 30 0.655273 23.2843 0.655273 15V15Z"
+                                      fill="#B32317" />
+                            </svg>
+                            <div class="ingresar">INGRESAR</div>
+                        </div>
+                        <div class="frame-48">
+                            <svg class="rectangle-211"
+                                 width="158"
+                                 height="30"
+                                 viewBox="0 0 158 30"
+                                 fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.6553 1.5H142.655C150.111 1.5 156.155 7.54416 156.155 15C156.155 22.4558 150.111 28.5 142.655 28.5H15.6553C8.19943 28.5 2.15527 22.4558 2.15527 15C2.15527 7.54416 8.19943 1.5 15.6553 1.5Z"
+                                      fill="white"
+                                      stroke="#B32317"
+                                      stroke-width="3" />
+                            </svg>
+                            <div class="registrar">REGISTRAR</div>
+                        </div>
+                    </div>
+                    <div class="frame-49">
+                        <img class="mi-cuenta" src="~/imgs/mi-cuenta0.png" />
+                    </div>
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -37,8 +84,77 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - ClickTixWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="footer">
+            <div class="frame-150">
+                <div class="frame-82">
+                    <div class="rectangle-218"></div>
+                    <div class="frame-79">
+                        <div class="frame-78">
+                            <div class="frame-67">
+                                <div class="clicktix">Clicktix</div>
+                                <div class="frame-66">
+                                    <div class="frame-63">
+                                        <div class="rectangle-190"></div>
+                                        <img class="facebook-1" src="~/imgs/facebook-10.png" />
+                                    </div>
+                                    <div class="frame-64">
+                                        <div class="rectangle-191"></div>
+                                        <img class="instagram-1" src="~/imgs/instagram-10.png" />
+                                    </div>
+                                    <div class="frame-65">
+                                        <div class="rectangle-192"></div>
+                                        <img class="buscar-1" src="~/imgs/buscar-10.png" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="frame-68">
+                                <div class="cartelera">Cartelera</div>
+                                <div class="estrenos">Estrenos</div>
+                                <div class="ventas-anticipadas">Ventas Anticipadas</div>
+                                <div class="peliculas-2-d">Peliculas 2D</div>
+                                <div class="peliculas-3-d">Peliculas 3D</div>
+                                <div class="peliculas-4-d">Peliculas 4D</div>
+                                <div class="peliculas-5-d">Peliculas 5D</div>
+                                <div class="comfort">Comfort</div>
+                            </div>
+                        </div>
+                        <div class="frame-77">
+                            <div class="frame-69">
+                                <div class="premium-class">Premium Class</div>
+                                <div class="concursos">Concursos</div>
+                                <div class="beneficios-clicktix-fan">Beneficios Clicktix Fan</div>
+                                <div class="descuentos">Descuentos</div>
+                            </div>
+                            <div class="frame-76">
+                                <div class="frame-75">
+                                    <div class="frame-70">
+                                        <div class="cines">Cines</div>
+                                        <div class="precios">Precios</div>
+                                        <div class="formatos">Formatos</div>
+                                        <div class="cumplea-os-y-grupos">Cumpleaños y grupos</div>
+                                        <div class="entradas-online">Entradas online</div>
+                                    </div>
+                                    <div class="frame-74">
+                                        <div class="frame-71">
+                                            <div class="regal-cine">Regalá Cine</div>
+                                            <div class="experiencias">Experiencias</div>
+                                        </div>
+                                        <div class="frame-72">
+                                            <div class="comercial">Comercial</div>
+                                            <div class="ventas-corporativas">Ventas corporativas</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="frame-73">
+                                    <div class="store">Store</div>
+                                    <div class="calidad-en-productos">Calidad en productos</div>
+                                    <div class="bases-clicktix-store">Bases Clicktix Store</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
