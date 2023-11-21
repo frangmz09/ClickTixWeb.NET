@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<!-- Section-->
+<section class="py-5">
+    <div class="container">
+
+        <div class="row">
+            <div class="mt-3 bg-dark rounded col-6 p-3 offset-1">
+                <form>
+                    <h1 class="text-white-50 mb-2">Registrate</h1>
+                    <div class="row">
+                        <!-- Nombre -->
+                        <div class="form-group col-6">
+                            <label for="numeroTarjeta" class="text-light">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" required>
+                        </div>
+                        <!-- Apellido -->
+                        <div class="form-group col-5">
+                            <label for="codigoSeguridad" class="text-light">Apellido:</label>
+                            <input type="text" class="form-control" id="apellido" placeholder="Ingrese su apellido" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Email -->
+                        <div class="form-group col-11">
+                            <label for="dniTitular" class="text-light">Email:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Ingrese su email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Contraseña -->
+                        <div class="form-group col-6">
+                            <label for="numeroTarjeta" class="text-light">Contraseña:</label>
+                            <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
+                        </div>
+                        <!-- confirmar contraseña -->
+                        <div class="form-group col-5">
+                            <label for="numeroTarjeta" class="text-light">Confirme su contraseña:</label>
+                            <input type="password" class="form-control" id="password" placeholder="Confirme su contraseña" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Fecha de nacimiento -->
+                        <div class="form-group col-6">
+                            <label for="numeroTarjeta" class="text-light">Fecha de nacimiento:</label>
+                            <input type="date" class="form-control" id="fecha_nacimiento">
+                        </div>
+                        <!-- Genero -->
+                        <div class="form-group col-5">
+                            <label for="Genero" class="text-light">Genero:</label>
+                            <select class="form-control" id="Genero">
+                                <option>Masculino</option>
+                                <option>Femenino</option>
+                                <option>No Binario</option>
+                                <option>Messi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Ceular -->
+                        <div class="form-group col-6">
+                            <label for="celular" class="text-light">Numero de Celular:</label>
+                            <input type="number" class="form-control" id="numeroCelular" placeholder="Ingrese su numero de celular" required>
+                        </div>
+                        <!-- Sucursal Habitual -->
+                        <div class="form-group col-5">
+                            <label for="Genero" class="text-light">Sucursal Habitual:</label>
+                            <select class="form-control" id="sucursal">
+                                <option>Abasto</option>
+                                <option>Devoto</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="condiciones p-3">
+                        <div class="row">
+                            <!-- Checkbox 1 -->
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="checkbox1" required>
+                                <label class="form-check-label" for="checkbox1 "><p class="text-light">Deseo Recibir mails de estrenos y promociones.</p></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Checkbox 2 -->
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="checkbox2" required>
+                                <label class="form-check-label" for="checkbox2"><p class="text-light">¿Ya compraste el pack de ClickTix fan por las boleterias?.</p></label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Botón de Enviar -->
+                    <button type="submit" class="btn btn-primary mt-3" class="text-light">Enviar</button>
+                </form>
+
+            </div>
+
+            <!-- Foto de promocion -->
+            <div class="col-5 mt-3 rounded">
+                <img src="https://dummyimage.com/350x600/dee2e6/6c757d.jpg" alt="Imagen de referencia" class="img-fluid">
+            </div>
+
+        </div>
+</section>

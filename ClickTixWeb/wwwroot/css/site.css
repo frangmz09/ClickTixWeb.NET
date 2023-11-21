@@ -615,7 +615,7 @@ progress {
 }
 
     .blockquote-footer::before {
-        content: "— ";
+        content: "ï¿½ï¿½";
     }
 
 .img-fluid {
@@ -12402,4 +12402,8 @@ textarea.form-control-lg {
     .d-print-none {
         display: none !important;
     }
+}
+.btn-auto-width {
+    width: auto;
+    white-space: nowrap;
 }

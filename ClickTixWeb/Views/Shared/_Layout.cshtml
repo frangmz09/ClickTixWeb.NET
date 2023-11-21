@@ -20,7 +20,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/home">
                     <img src="" alt="ClickTix">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -28,10 +28,12 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     </ul>
                     <form class="d-flex ">
-                        <button class="btn btn-danger me-2" type="submit">INGRESAR</button>
-                        <button class="btn btn-outline-danger rounded me-5" type="submit">REGISTRAR</button>
-                        <button class="btn btn-outline-dark rounded-circle" type="submit"> <i class="fa-solid fa-user"></i> </button>
-                    </form>
+                    <a href="/login" class="btn btn-danger me-2" role="button">INGRESAR</a>
+                    <a href="/register" class="btn btn-outline-danger rounded me-5" role="button">REGISTRAR</a>
+                    <a href="/tustickets" class="btn btn-outline-dark rounded-circle" role="button">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                </form>
                 </div>
             </div>
         </nav>
@@ -42,6 +44,11 @@
             @RenderBody()
         </main>
     </div>
+
+
+
+
+
 <!-- Footer-->
     <footer class="bg-dark text-light">
         <div class="container py-5">
