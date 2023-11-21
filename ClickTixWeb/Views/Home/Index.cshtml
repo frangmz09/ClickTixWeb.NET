@@ -2,51 +2,58 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="">
-    <div class="filtros">
-        <div class="rectangle-212"></div>
-        <div class="frame-60">
-            <svg class="rectangle-213"
-                 width="228"
-                 height="30"
-                 viewBox="0 0 228 30"
-                 fill="none"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 10C0 4.47715 4.47715 0 10 0H218C223.523 0 228 4.47715 228 10V20C228 25.5228 223.523 30 218 30H10C4.47716 30 0 25.5228 0 20V10Z"
-                      fill="#FAFAFA" />
-            </svg>
-
-            <div class="frame-58">
-                <div class="seleccione-sucursal">Seleccione Sucursal</div>
-                <img class="ordenar-abajo-1" src="~/imgs/ordenar-abajo-10.png" />
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">PROMOCIONES</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Espacio para mostrar promociones</p>
+        </div>
+    </div>
+</header>
+<!-- Section-->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <select class="form-select form-select-lg" aria-label=".form-select-sm example">
+                    <option selected>Sucursales</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <select class="form-select form-select-lg" aria-label=".form-select-sm example">
+                    <option selected>Pelicula</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <div class="col-5">
+                <form class="">
+                    <input class="form-control mr-sm-2 p-2 form-select-lg" type="search" placeholder="Buscar peliculas..." aria-label="Search">
+                </form>
             </div>
         </div>
-        <div class="frame-61">
-            <svg class="rectangle-2132"
-                 width="228"
-                 height="30"
-                 viewBox="0 0 228 30"
-                 fill="none"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 10C0 4.47715 4.47715 0 10 0H218C223.523 0 228 4.47715 228 10V20C228 25.5228 223.523 30 218 30H10C4.47716 30 0 25.5228 0 20V10Z"
-                      fill="#FAFAFA" />
-            </svg>
 
-            <div class="frame-58">
-                <div class="seleccione-pelicula">Seleccione Pelicula</div>
-                <img class="ordenar-abajo-1" src="~/imgs/ordenar-abajo-11.png" />
-            </div>
+    </div>
+
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <a href="" style="text-decoration: none; color: inherit;">
+                <div class="col mb-5">
+                    <div class="card shadow-sm">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="https://dummyimage.com/350x500/dee2e6/6c757d.jpg" alt="..." />
+                    </div>
+                    <div class="card-sub text-center">
+                        <h5 class="fw-bolder mt-2 align-content-center">FROZEN</h5>
+                    </div>
+
+                </div>
+            </a>
         </div>
     </div>
-    <div class="peliculas-contenedor">
-        <div class="rectangle-288"></div>
-        <div class="pelicula">
-            <div class="rectangle-216"></div>
-            <img class="image-6" src="~/imgs/image-60.png" />
-            <div class="nombre-pelicula">NOMBRE - PELICULA</div>
-        </div>
-    </div>
-    <div class="banner">
-        <img class="image-10" src="~/imgs/image-100.png" />
-    </div>
-</div>
+</section>
