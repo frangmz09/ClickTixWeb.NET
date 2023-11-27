@@ -2,6 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model List<Pelicula>
+
 <!-- Header-->
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
@@ -42,18 +44,34 @@
 
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <a href="/detalle" style="text-decoration: none; color: inherit;">
-                <div class="col mb-5">
-                    <div class="card shadow-sm">
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/350x500/dee2e6/6c757d.jpg" alt="..." />
-                    </div>
-                    <div class="card-sub text-center">
-                        <h5 class="fw-bolder mt-2 align-content-center">FROZEN</h5>
-                    </div>
 
-                </div>
-            </a>
+            @foreach (var pelicula in Model)
+            {
+  @*               <div class="pelicula">
+                    <img src="@pelicula.ImagenUrl" alt="@pelicula.Titulo" />
+                    <h3>@pelicula.Titulo</h3>
+                </div> *@
+                <a href="/detalle" style="text-decoration: none; color: inherit;">
+                    <div class="col mb-5">
+                        <div class="card shadow-sm">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="~/imgs/peliculas/@pelicula.Portada" alt="..." />
+                        </div>
+                        <div class="card-sub text-center">
+                            <h5 class="fw-bolder mt-2 align-content-center">@pelicula.Titulo</h5>
+                        </div>
+
+                    </div>
+                </a>
+            }
+            
+            
+            
+            
+            
+            
+            
+
         </div>
     </div>
 </section>
