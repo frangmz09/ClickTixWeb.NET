@@ -1,0 +1,59 @@
+﻿@model ClickTixWeb.Models.Funcion
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Funcion</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdDimension" class="control-label"></label>
+                <select asp-for="IdDimension" class="form-control" asp-items="ViewBag.IdDimension"></select>
+                <span asp-validation-for="IdDimension" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdPelicula" class="control-label"></label>
+                <select asp-for="IdPelicula" class="form-control" asp-items="ViewBag.IdPelicula"></select>
+                <span asp-validation-for="IdPelicula" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdSala" class="control-label"></label>
+                <select asp-for="IdSala" class="form-control" asp-items="ViewBag.IdSala"></select>
+                <span asp-validation-for="IdSala" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdiomaFuncion" class="control-label"></label>
+                <input asp-for="IdiomaFuncion" class="form-control" />
+                <span asp-validation-for="IdiomaFuncion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TurnoId" class="control-label"></label>
+                <select asp-for="TurnoId" class="form-control" asp-items="ViewBag.TurnoId"></select>
+                <span asp-validation-for="TurnoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
