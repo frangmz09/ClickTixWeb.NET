@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ClickTixWeb.Models.Funcion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdiomaFuncion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdDimensionNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPeliculaNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSalaNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Turno)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdiomaFuncion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdDimensionNavigation.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPeliculaNavigation.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSalaNavigation.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Turno.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
