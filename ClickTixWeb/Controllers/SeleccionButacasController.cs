@@ -23,21 +23,48 @@ namespace ClickTixWeb.Controllers
         public IActionResult ConfirmarButacas(int idFuncion, string selectedSeats)
         {
 
+
+            FuncionStrings funcionStrings = new FuncionStrings();
+
             var funcionEncontrada = _context.Funcions.Find(idFuncion);
 
-            var nombrePelicula = from funcion in _context.Funcions
+
+
+            var consulta = from funcion in _context.Funcions
                                  join pelicula in _context.Peliculas on funcion.IdPelicula equals pelicula.Id
+                                 join dimension in _context.Dimensions on funcion.IdDimension equals dimension.Id
+                                 join turno in _context.Turnos on funcion.TurnoId equals turno.Id
+                                 join sala in _context.Salas on funcion.IdSala equals sala.Id
                                  where funcion.IdPelicula == funcionEncontrada.IdPelicula
                                  select new
                                  {
-                                     TituloPelicula = pelicula.Titulo
-                                 };
+                                     TituloPelicula = pelicula.Titulo,
+                                     DimensionFuncion = dimension.Dimension1,
+                                     TurnoFuncion = turno.Hora,
+                                     SalaFuncion = sala.NroSala
+                                 }; 
+
+
+
 
             string tituloFinal = "";
-            foreach (var item in nombrePelicula)
+            string dimensionFinal = "";
+            string turnoFinal = "";
+            string salaFinal = "";
+
+            foreach (var item in consulta)
             {
                 tituloFinal = item.TituloPelicula;
+                dimensionFinal = item.DimensionFuncion;
+                turnoFinal = item.TurnoFuncion +"";
+                salaFinal = item.SalaFuncion + "";
             }
+
+
+            funcionStrings.Pelicula = tituloFinal;
+            funcionStrings.Dimension = dimensionFinal;
+            funcionStrings.Turno = turnoFinal;
+            funcionStrings.Sala = salaFinal;
 
 
 
@@ -52,7 +79,7 @@ namespace ClickTixWeb.Controllers
             {
                 Funcion = funcionEncontrada,
                 Asientos = seatIds,
-                TituloPelicula = tituloFinal,
+                FuncionStrings = funcionStrings,
             };
             return View("~/Views/Compra/Index.cshtml", viewModel);
         }
