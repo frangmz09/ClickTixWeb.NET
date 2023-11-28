@@ -98,7 +98,7 @@
                             <div class="row "><h2>@Model.Funcion.Fecha</h2></div>
                             <div class="row"><h4>@Model.FuncionStrings.Pelicula</h4></div>
                             <div class="row"><h4>Hora : @Model.FuncionStrings.Turno</h4></div>
-                            <div class="row"><p>Idioma: @Model.Funcion.IdiomaFuncion</p></div>
+                            <div class="row"><p>Idioma: Español</p></div>
                             <div class="row"><p>Dimension: @Model.FuncionStrings.Dimension</p></div>
                             <div class="row"><p>Numero de Sala: @Model.FuncionStrings.Sala</p></div>
                         </div>
@@ -106,8 +106,8 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-6"><p>Numero de Entradas: @Model.Asientos.Length</p></div>
-                    <div class="col-6"><p>Precio unitario: $@Model.Funcion.IdDimension</p></div>
+                    <div class="col-6"><p>Numero de Entradas: @Model.FuncionStrings.Asientos</p></div>
+                    <div class="col-6"><p>Precio unitario: $1000</p></div>
                     @foreach (int asiento in Model.Asientos)
                     {
                         // aca falta buscar la info del asiento mediante el ID
@@ -134,8 +134,8 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-6 text-center">CLICKTIX ABASTO @Model.Funcion.IdSala</div>
-                    <div class="col-6 text-center">18-15159778-3 @Model.Funcion.IdSala</div>
+                    <div class="col-6 text-center"> @Model.FuncionStrings.Sucursal </div>
+                    <div class="col-6 text-center"> @Model.FuncionStrings.CuitSucursal</div>
                 </div>
             </div>
 

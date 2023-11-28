@@ -30,41 +30,11 @@ namespace ClickTixWeb.Controllers
 
 
 
-            var consulta = from funcion in _context.Funcions
-                                 join pelicula in _context.Peliculas on funcion.IdPelicula equals pelicula.Id
-                                 join dimension in _context.Dimensions on funcion.IdDimension equals dimension.Id
-                                 join turno in _context.Turnos on funcion.TurnoId equals turno.Id
-                                 join sala in _context.Salas on funcion.IdSala equals sala.Id
-                                 where funcion.IdPelicula == funcionEncontrada.IdPelicula
-                                 select new
-                                 {
-                                     TituloPelicula = pelicula.Titulo,
-                                     DimensionFuncion = dimension.Dimension1,
-                                     TurnoFuncion = turno.Hora,
-                                     SalaFuncion = sala.NroSala
-                                 }; 
+            FuncionStrings fs =  ObtenerFuncionStrings(idFuncion);
 
 
 
 
-            string tituloFinal = "";
-            string dimensionFinal = "";
-            string turnoFinal = "";
-            string salaFinal = "";
-
-            foreach (var item in consulta)
-            {
-                tituloFinal = item.TituloPelicula;
-                dimensionFinal = item.DimensionFuncion;
-                turnoFinal = item.TurnoFuncion +"";
-                salaFinal = item.SalaFuncion + "";
-            }
-
-
-            funcionStrings.Pelicula = tituloFinal;
-            funcionStrings.Dimension = dimensionFinal;
-            funcionStrings.Turno = turnoFinal;
-            funcionStrings.Sala = salaFinal;
 
 
 
@@ -79,7 +49,7 @@ namespace ClickTixWeb.Controllers
             {
                 Funcion = funcionEncontrada,
                 Asientos = seatIds,
-                FuncionStrings = funcionStrings,
+                FuncionStrings = fs,
             };
             return View("~/Views/Compra/Index.cshtml", viewModel);
         }
@@ -162,6 +132,31 @@ namespace ClickTixWeb.Controllers
             {
                 return View();
             }
+        }
+
+        public FuncionStrings ObtenerFuncionStrings(int funcionIdABuscar)
+        {
+            var funcionStrings = (from f in _context.Funcions
+                                  join pelicula in _context.Peliculas on f.IdPelicula equals pelicula.Id
+                                  join dimension in _context.Dimensions on f.IdDimension equals dimension.Id
+                                  join sala in _context.Salas on f.IdSala equals sala.Id
+                                  join idiomaGroup in _context.Idiomas on f.IdiomaFuncion equals idiomaGroup.Idioma1 into idiomaGroup
+                                  from idioma in idiomaGroup.DefaultIfEmpty()  // Left join
+                                  join turno in _context.Turnos on f.TurnoId equals turno.Id
+                                  join sucursal in _context.Sucursals on sala.IdSucursal equals sucursal.Id
+                                  where f.Id == funcionIdABuscar
+                                  select new FuncionStrings
+                                  {
+                                      Dimension = dimension.Dimension1,
+                                      Pelicula = pelicula.Titulo,
+                                      Sala = sala.NroSala.ToString(),
+                                      Idioma = idioma != null ? idioma.Idioma1 : "Sin idioma",  // Manejar la posibilidad de un idioma nulo
+                                      Turno = turno.Hora.ToString(),
+                                      Sucursal = sucursal.Nombre,
+                                      CuitSucursal = sucursal.Cuit.ToString(),
+                                  }).FirstOrDefault();
+
+            return funcionStrings;
         }
     }
 }
