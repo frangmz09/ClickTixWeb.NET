@@ -33,27 +33,32 @@ namespace ClickTixWeb.Controllers
             var nombrePelicula = from funcion in _context.Funcions
                                  join pelicula in _context.Peliculas on funcion.IdPelicula equals pelicula.Id
                                  join dimension in _context.Dimensions on funcion.IdDimension equals dimension.Id
+                                 join turno in _context.Turnos on funcion.TurnoId equals turno.Id
                                  where funcion.IdPelicula == funcionEncontrada.IdPelicula
                                  select new
                                  {
                                      TituloPelicula = pelicula.Titulo,
-                                     DimensionFuncion = dimension.Dimension1
-                                 };
+                                     DimensionFuncion = dimension.Dimension1,
+                                     TurnoFuncion = turno.Hora
+                                 }; 
 
 
 
 
             string tituloFinal = "";
             string dimensionFinal = "";
+            string turnoFinal = "";
             foreach (var item in nombrePelicula)
             {
                 tituloFinal = item.TituloPelicula;
                 dimensionFinal = item.DimensionFuncion;
+                turnoFinal = item.TurnoFuncion +"";
             }
 
 
             funcionStrings.Pelicula = tituloFinal;
             funcionStrings.Dimension = dimensionFinal;
+            funcionStrings.Turno = turnoFinal;
 
 
 
