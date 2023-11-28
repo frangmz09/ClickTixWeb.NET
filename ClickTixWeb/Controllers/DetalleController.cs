@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ClickTixWeb.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClickTixWeb.Controllers
@@ -8,7 +9,22 @@ namespace ClickTixWeb.Controllers
         // GET: DetalleController
         public ActionResult Index()
         {
+
             return View();
+        }
+        public IActionResult CambioFecha(string fecha)
+        {
+            var turnos = ObtenerTurnosPorFecha(fecha);
+
+            return PartialView("_TurnosPartial", turnos);
+        }
+
+        private List<Turno> ObtenerTurnosPorFecha(string fecha)
+        {
+
+
+            return null;
+
         }
 
         // GET: DetalleController/Details/5
