@@ -546,13 +546,13 @@ public partial class ClicktixContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnType("int(11)")
                 .HasColumnName("id_usuario");
-            entity.Property(e => e.apellido)
+            entity.Property(e => e.Apellido)
                 .HasMaxLength(45)
                 .HasColumnName("apellido");
-            entity.Property(e => e.nombre)
+            entity.Property(e => e.Nombre)
                 .HasMaxLength(45)
                 .HasColumnName("nombre");
-            entity.Property(e => e.pass)
+            entity.Property(e => e.Pass)
                 .HasMaxLength(45)
                 .HasColumnName("pass");
         });

@@ -37,10 +37,11 @@ public class RegisterController : Controller
             
             var usuarioWeb = new UsuarioWeb
             {
+
+                Nombre = model.Nombre,
+                Apellido = model.Apellido,
                 
-                nombre = model.nombre,
-                apellido = model.apellido,
-                pass = model.pass,
+                Pass = model.Pass,
                 email = model.email,
                 fnac = model.fnac,
                 genero = model.genero,
