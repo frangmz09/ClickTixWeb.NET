@@ -30,4 +30,8 @@ public partial class Funcion
     public virtual ICollection<Ticket> Tickets { get; } = new List<Ticket>();
 
     public virtual Turno Turno { get; set; } = null!;
+
+
+
+
 }

@@ -6,5 +6,6 @@
         public List<Funcion> ProximasFunciones { get; set; }
 
 
+
     }
 }
