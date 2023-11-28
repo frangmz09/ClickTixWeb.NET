@@ -7,55 +7,58 @@
 
         <div class="row">
             <div class="mt-3 bg-dark rounded col-6 p-3 offset-1">
-                <form>
+
+                  <form method="post" asp-controller="Register"  asp-action="Create" method="post">
+
+                    @Html.AntiForgeryToken()
                     <h1 class="text-white-50 mb-2">Registrate</h1>
                     <div class="row">
                         <!-- Nombre -->
                         <div class="form-group col-6">
-                            <label for="numeroTarjeta" class="text-light">Nombre:</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" required>
+                            <label for="nombre" class="text-light">Nombre:</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese su nombre" required>
                         </div>
                         <!-- Apellido -->
                         <div class="form-group col-5">
-                            <label for="codigoSeguridad" class="text-light">Apellido:</label>
-                            <input type="text" class="form-control" id="apellido" placeholder="Ingrese su apellido" required>
+                            <label for="apellido" class="text-light">Apellido:</label>
+                            <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese su apellido" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <!-- Email -->
                         <div class="form-group col-11">
-                            <label for="dniTitular" class="text-light">Email:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Ingrese su email" required>
+                            <label for="email" class="text-light">Email:</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Ingrese su email" required>
                         </div>
                     </div>
                     <div class="row">
                         <!-- Contraseña -->
                         <div class="form-group col-6">
-                            <label for="numeroTarjeta" class="text-light">Contraseña:</label>
-                            <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
+                            <label for="pass" class="text-light">Contraseña:</label>
+                            <input type="pass" class="form-control" name="pass" id="pass" placeholder="Ingrese su contraseña" required>
                         </div>
                         <!-- confirmar contraseña -->
                         <div class="form-group col-5">
-                            <label for="numeroTarjeta" class="text-light">Confirme su contraseña:</label>
-                            <input type="password" class="form-control" id="password" placeholder="Confirme su contraseña" required>
+                            <label for="pass" class="text-light">Confirme su contraseña:</label>
+                            <input type="pass" class="form-control" name="passc" id="pass" placeholder="Confirme su contraseña" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <!-- Fecha de nacimiento -->
                         <div class="form-group col-6">
-                            <label for="numeroTarjeta" class="text-light">Fecha de nacimiento:</label>
-                            <input type="date" class="form-control" id="fecha_nacimiento">
+                            <label for="fnac" class="text-light">Fecha de nacimiento:</label>
+                            <input type="date" class="form-control" name="fnac" id="fnac">
                         </div>
                         <!-- Genero -->
                         <div class="form-group col-5">
-                            <label for="Genero" class="text-light">Genero:</label>
-                            <select class="form-control" id="Genero">
-                                <option>Masculino</option>
-                                <option>Femenino</option>
-                                <option>No Binario</option>
-                                <option>Messi</option>
+                            <label for="genero" class="text-light">Genero:</label>
+                            <select class="form-control"name="genero" id="genero">
+                                <option value="1">Masculino</option>
+                                <option value="2">Femenino</option>
+                                <option value="3">No Binario</option>
+                                
                             </select>
                         </div>
                     </div>
@@ -64,14 +67,14 @@
                         <!-- Ceular -->
                         <div class="form-group col-6">
                             <label for="celular" class="text-light">Numero de Celular:</label>
-                            <input type="number" class="form-control" id="numeroCelular" placeholder="Ingrese su numero de celular" required>
+                            <input type="text" class="form-control" name="genero" id="celular" placeholder="Ingrese su numero de celular" required>
                         </div>
                         <!-- Sucursal Habitual -->
                         <div class="form-group col-5">
-                            <label for="Genero" class="text-light">Sucursal Habitual:</label>
-                            <select class="form-control" id="sucursal">
-                                <option>Abasto</option>
-                                <option>Devoto</option>
+                            <label for="sucursal_habitual" class="text-light">Sucursal Habitual:</label>
+                            <select class="form-control" name ="sucursal_habitual"id="sucursal_habitual">
+                                <option value="1">Abasto</option>
+                                <option value="2">Devoto</option>
                             </select>
                         </div>
                     </div>

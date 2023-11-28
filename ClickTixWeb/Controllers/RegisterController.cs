@@ -1,83 +1,72 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ClickTixWeb.Models; // Asegúrate de importar el espacio de nombres que contiene tu modelo de usuario
 
-namespace ClickTixWeb.Controllers
+public class RegisterController : Controller
 {
-    public class RegisterController : Controller
+    private readonly ClicktixContext _context;
+
+    public RegisterController(ClicktixContext context)
     {
-        // GET: RegisterController
-        public ActionResult Index()
-        {
-            return View();
-        }
+        _context = context;
+    }
 
-        // GET: RegisterController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+    // GET: RegisterController
+    public ActionResult Index()
+    {
+        return View();
+    }
 
-        // GET: RegisterController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+    // GET: RegisterController/Details/5
+    public ActionResult Details(int id)
+    {
+        return View();
+    }
 
-        // POST: RegisterController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+    // GET: RegisterController/Create
+
+
+
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult Create(UsuarioWeb model)
+    {
+        if (ModelState.IsValid)
         {
-            try
+            
+            var usuarioWeb = new UsuarioWeb
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+                
+                nombre = model.nombre,
+                apellido = model.apellido,
+                pass = model.pass,
+                email = model.email,
+                fnac = model.fnac,
+                genero = model.genero,
+                celular = model.celular,
+                sucursal_habitual = model.sucursal_habitual
+            };
+
+            _context.UsuarioWebs.Add(usuarioWeb);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Login");
         }
 
-        // GET: RegisterController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        return View(model);
+    }
 
-        // POST: RegisterController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: RegisterController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: RegisterController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+
+
+
+
+    // Otros métodos...
+
+    private bool UsuarioExists(int id)
+    {
+        return _context.UsuarioWebs.Any(e => e.IdUsuario == id);
     }
 }

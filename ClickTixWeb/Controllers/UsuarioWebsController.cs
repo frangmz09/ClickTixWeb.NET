@@ -55,7 +55,7 @@ namespace ClickTixWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido,Pass")] UsuarioWeb usuarioWeb)
+        public async Task<IActionResult> Create([Bind("IdUsuario,nombre,apellido,pass,email,fnac,genero,celular,sucursal_habitual")] UsuarioWeb usuarioWeb)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace ClickTixWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,Nombre,Apellido,Pass")] UsuarioWeb usuarioWeb)
+        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,nombre,apellido,pass,email,fnac,genero,celular,sucursal_habitual")] UsuarioWeb usuarioWeb)
         {
             if (id != usuarioWeb.IdUsuario)
             {
