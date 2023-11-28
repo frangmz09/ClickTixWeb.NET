@@ -40,31 +40,45 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Apellido)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pass)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fnac)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.genero)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.celular)
-                </td>
-                <td>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fnac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.celular)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sucursal_habitual)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fnac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.celular)
+            </td>
+            <td>
                     @Html.DisplayFor(modelItem => item.sucursal_habitual)
                 </td>
                 <td>
