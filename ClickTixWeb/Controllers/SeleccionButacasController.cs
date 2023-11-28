@@ -23,10 +23,6 @@ namespace ClickTixWeb.Controllers
         public IActionResult ConfirmarButacas(int idFuncion, string selectedSeats)
         {
 
-
-
-
-
             var funcionEncontrada = _context.Funcions.Find(idFuncion);
 
             var nombrePelicula = from funcion in _context.Funcions
