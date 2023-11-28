@@ -3,7 +3,7 @@
 }
 
 <div class="container  mt-4">
-    <div class="row">
+@*     <div class="row">
         <div class="col-3">
             <select class="form-select form-select-md" aria-label=".form-select-sm example">
                 <option selected>Sucursales</option>
@@ -22,47 +22,52 @@
         </div>
 
     </div>
+ *@
 
+ @model DetalleViewModel
 </div>
 <section class="container mt-3 mb-5 ">
     <div class="row shadow p-5 rounded">
         <div class="col-md-4 mb-2 text-center">
-            <img src="https://dummyimage.com/200x350/dee2e6/6c757d.jpg" alt="Nombre de la Película" class="img-fluid rounded">
+            
+            <img src="~/imgs/peliculas/@Model.Pelicula.Portada" alt="Nombre de la Película" class="img-fluid rounded">
+                  
         </div>
 
         <div class="col-md-8 mb-3">
-            <h2 class="mb-4">Nombre de la Película</h2>
-            <p><strong>Género:</strong> Acción</p>
-            <p><strong>Duración:</strong> 2h 30min</p>
-            <p><strong>Clasificación:</strong> PG-13</p>
-            <p><strong>Descripción:</strong>COCO (2017). En esta vibrante historia de Disney y Pixar, un joven músico llamado Miguel (Anthony González) se embarca en un extraordinario viaje a la mágica tierra de sus antepasados. Allí, el encantador embustero Héctor (Gael García Bernal), se convierte en un inesperado amigo que ayuda a Miguel a descubrir los misterios detrás de las historias y tradiciones de su familia.</p>
-
+           
+            <h2 class="mb-4">@Model.Pelicula.Titulo</h2>
+            <p><strong>Género:</strong> @Model.Pelicula.IdCategoria</p>
+            <p><strong>Duración:</strong> @Model.Pelicula.Duracion minutos</p>
+            <p><strong>Clasificación:</strong> @Model.Pelicula.IdClasificacion</p>
+            <p><strong>Descripción:</strong> @Model.Pelicula.Descripcion</p>
+            
         </div>
         <hr>
         <div class="card text-center">
             <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active fw-bolder text-danger" aria-current="true" href="#">20/11</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link fw-bolder text-danger" href="#">21/11</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link  fw-bolder text-danger" href="#">22/11</a>
-                    </li>
+                <ul class="nav nav-tabs card-header-tabs" id="dateTabs">
+                    @foreach (var funcion in Model.ProximasFunciones)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active fw-bolder text-danger" aria-current="true" href="#" data-date="@funcion.Fecha">@funcion.Fecha</a>
+                        </li>                    
+                    }
                 </ul>
             </div>
-            <div class="card-body ">
+            @foreach (var funcion in Model.ProximasFunciones)
+            {
+                <div class="card-body" id="turnoContainer">
 
-                <div class="row">
-                    <p class="fw-bolder fs-5  text-start">2D</p>
-                </div>
-                <div class="row">
-                    <button class="btn btn-danger text-start btn-auto-width m-1">hh:mm</button><button class="btn btn-danger text-start btn-auto-width m-1">hh:mm</button>
-                </div>
+                    <div class="row">
+                        <p class="fw-bolder fs-5  text-start">@funcion.IdDimension</p>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-danger text-start btn-auto-width m-1">Turno : @funcion.TurnoId </button>
+                    </div>
 
-            </div>
+                </div>
+            }
         </div>
     </div>
 
@@ -73,7 +78,34 @@
     </div>
 
     <div style="height: 100px;">
-    </div>
+    </div
 
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dateTabs a').click(function (e) {
+            e.preventDefault();
+
+            var date = $(this).data('date');
+
+            cargarTurnos(date);
+        });
+    });
+
+    function cargarTurnos(fecha) {
+
+        $.ajax({
+            url: '/TuControlador/TuAccion',
+            type: 'GET',
+            data: { fecha: fecha },
+            success: function (data) {
+                $('#turnoContainer').html(data);
+            },
+            error: function () {
+                alert('Error al cargar los turnos.');
+            }
+        });
+    }
+</script>
 </section>

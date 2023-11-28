@@ -2,8 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model List<Pelicula>
-
+@model Tuple<List<Pelicula>, List<Sucursal>>
 <!-- Header-->
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
@@ -17,61 +16,50 @@
 <section class="py-5">
     <div class="container">
         <div class="row">
-            <div class="col-3">
-                <select class="form-select form-select-lg" aria-label=".form-select-sm example">
+            @* <div class="col-3">
+                <select class="form-select form-select-lg sucursalSelect" aria-label=".form-select-lg example" id="sucursalSelect">
                     <option selected>Sucursales</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    @foreach (var sucursal in Model.Item2)
+                    {
+                        <option value="@sucursal.Id">@sucursal.Nombre</option>
+                    }
                 </select>
             </div>
             <div class="col-3">
-                <select class="form-select form-select-lg" aria-label=".form-select-sm example">
-                    <option selected>Pelicula</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select class="form-select form-select-lg peliculaSelect " aria-label=".form-select-sm example" id="peliculaSelect">
+                    <option selected>Peliculas</option>
+                    @foreach (var pelicula in Model.Item1)
+                    {
+                        <option value="@pelicula.Id">@pelicula.Titulo</option>
+                    }
                 </select>
             </div>
             <div class="col-5">
-                <form class="">
+                <div class="" id="search">
                     <input class="form-control mr-sm-2 p-2 form-select-lg" type="search" placeholder="Buscar peliculas..." aria-label="Search">
-                </form>
-            </div>
+                </div>
+            </div> *@
         </div>
 
     </div>
 
     <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-            @foreach (var pelicula in Model)
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="resultadosContainer">
+            @foreach (var pelicula in Model.Item1)
             {
-  @*               <div class="pelicula">
-                    <img src="@pelicula.ImagenUrl" alt="@pelicula.Titulo" />
-                    <h3>@pelicula.Titulo</h3>
-                </div> *@
-                <a href="/detalle" style="text-decoration: none; color: inherit;">
-                    <div class="col mb-5">
+                <form method="post" asp-controller="Home" asp-action="Detalle">
+                    <input type="hidden" name="peliculaId" value="@pelicula.Id" />
+                    <button class="col mb-5 btn" type="submit">
                         <div class="card shadow-sm">
-                            <!-- Product image-->
                             <img class="card-img-top" src="~/imgs/peliculas/@pelicula.Portada" alt="..." />
                         </div>
                         <div class="card-sub text-center">
                             <h5 class="fw-bolder mt-2 align-content-center">@pelicula.Titulo</h5>
                         </div>
-
-                    </div>
-                </a>
+                    </button>
+                </form>
             }
-            
-            
-            
-            
-            
-            
-            
-
         </div>
     </div>
+   
 </section>
