@@ -158,11 +158,19 @@ namespace ClickTixWeb.Controllers
         [ValidateAntiForgeryToken]
 
 
+
         public IActionResult Login(string email, string password)
         {
             if (UsuarioAutenticado(email, password))
             {
-                // Autenticación exitosa, redirige a la página principal o a donde sea necesario.
+                // Autenticación exitosa, establecer el valor en la sesión.
+                HttpContext.Session.SetString("UsuarioEmail", email);
+
+                // Obtener y almacenar el nombre del usuario en la sesión
+                string nombreUsuario = ObtenerNombreUsuario(email);
+                HttpContext.Session.SetString("UsuarioNombre", nombreUsuario);
+
+                // Redirige a la página principal o a donde sea necesario.
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -171,6 +179,25 @@ namespace ClickTixWeb.Controllers
                 ViewData["Error"] = "Credenciales incorrectas";
                 return View("Login");
             }
+        }
+
+        private string ObtenerNombreUsuario(string email)
+        {
+            // Aquí debes implementar la lógica para obtener el nombre del usuario
+            // Puedes hacer una consulta a la base de datos u otro método que tengas para obtener el nombre.
+            var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.email == email);
+            return usuario != null ? $"{usuario.Nombre} {usuario.Apellido}" : string.Empty;
+        }
+        public IActionResult CerrarSesion()
+        {
+            // Elimina todos los valores de la sesión
+            HttpContext.Session.Clear();
+
+            // O específicamente para un valor:
+            // HttpContext.Session.Remove("UsuarioEmail");
+
+            // Redirige a donde sea necesario después de cerrar sesión
+            return RedirectToAction("Index", "Home");
         }
 
         private bool UsuarioWebExists(int id)

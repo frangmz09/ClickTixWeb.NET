@@ -24,17 +24,21 @@
                 <img src="~/imgs/logo.png" alt="ClickTix">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    </ul>
-                    <form class="d-flex ">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                </ul>
+                <form class="d-flex">
                     <a href="/login" class="btn btn-danger me-2" role="button">INGRESAR</a>
                     <a href="/register" class="btn btn-outline-danger rounded me-5" role="button">REGISTRAR</a>
+                    @if (!string.IsNullOrEmpty(ViewData["UsuarioNombre"] as string))
+                    {
+                        <span class="navbar-text">Bienvenido, @ViewData["UsuarioNombre"]</span>
+                    }
                     <a href="/tustickets" class="btn btn-outline-dark rounded-circle" role="button">
                         <i class="fa-solid fa-user"></i>
                     </a>
                 </form>
-                </div>
+            </div>
             </div>
         </nav>
 
