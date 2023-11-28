@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ClickTixWeb.Controllers
 {
@@ -44,7 +45,19 @@ namespace ClickTixWeb.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("~/Views/SeleccionButacas/Index.cshtml", funcion);
+            var (filas, columnas) = ObtenerFilasYColumnasPorFuncion(funcionId);
+
+            List<Asiento> asientos = ObtenerAsientosPorFuncion(funcionId);
+
+            var viewModel = new SeleccionButacasViewModel
+            {
+                Funcion = funcion,
+                Filas = filas,
+                Columnas = columnas,
+                Asientos = asientos
+            };
+
+            return View("~/Views/SeleccionButacas/Index.cshtml", viewModel);
         }
 
         private List<Turno> ObtenerTurnosPorFechaYIdPelicula(DateOnly fecha, int idPelicula)
@@ -60,6 +73,26 @@ namespace ClickTixWeb.Controllers
             return turnos;
         }
 
+        public List<Asiento> ObtenerAsientosPorFuncion(int idFuncion)
+        {
+            List<Asiento> listaAsientos = _context.Asientos
+                .Where(a => a.IdFuncion == idFuncion)
+                .ToList();
+
+            return listaAsientos;
+        }
+
+        public (int Filas, int Columnas) ObtenerFilasYColumnasPorFuncion(int idFuncion)
+        {
+            var resultado = (from s in _context.Salas
+                             join f in _context.Funcions on s.Id equals f.IdSala
+                             join a in _context.Asientos on f.Id equals a.IdFuncion
+                             where f.Id == idFuncion
+                             select new { s.Filas, s.Columnas })
+                             .FirstOrDefault();
+
+            return (resultado?.Filas ?? 0, resultado?.Columnas ?? 0);
+        }
         // GET: DetalleController/Details/5
         public ActionResult Details(int id)
         {

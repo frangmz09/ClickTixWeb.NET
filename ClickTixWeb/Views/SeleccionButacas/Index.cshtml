@@ -1,25 +1,43 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model Funcion
+
+@model SeleccionButacasViewModel
 
 <section class="py-5">
     <div class="container bg-light">
         <div class="row p-3">
-            <div class="col-4 fw-bolder">Pelicula id: @Model.IdPelicula</div>
-            <div class="col-4 fw-bolder">sala id: @Model.IdSala   (deberia ser nombre sucursal)</div>
-            <div class="col-4 fw-bolder">turno id: @Model.TurnoId (deberia ser horario)</div>
+            <div class="col-4 fw-bolder">Pelicula id: @Model.Funcion.IdPelicula</div>
+            <div class="col-4 fw-bolder">sala id: @Model.Funcion.IdSala   (deberia ser nombre sucursal)</div>
+            <div class="col-4 fw-bolder">turno id: @Model.Funcion.TurnoId (deberia ser horario)</div>
         </div>
         <div class="row">
             <div class="col-8 bg-dark mt-5 rounded text-center text-light fw-bolder offset-2"> PANTALLA </div>
         </div>
         <div class="container mt-5 justify-content-center p-5">
-            <div class="row filaAsientos">
-                <button class="btn btn-light" style="width: fit-content;"><i class="fa-solid fa-couch"></i></button>
-                <button class="btn btn-light" style="width: fit-content;"><i class="fa-solid fa-couch" style="color: #ff090f;"></i></button>
-                <button class="btn btn-light" style="width: fit-content;"><i class="fa-solid fa-couch" style="color: #04a312;"></i></button>
+            
 
-            </div>
+
+
+
+            @foreach (var asiento in Model.Asientos)
+            {
+
+                @if (asiento.Disponible == 1)
+                {
+                    <button class="btn btn-light" style="width: fit-content;"><i class="fa-solid fa-couch"></i></button>
+                }
+                else
+                {
+                    <button class="btn btn-light" style="width: fit-content;"><i class="fa-solid fa-couch" style="color: #ff090f;"></i></button>
+                }
+
+
+            }
+
+           @*  <div class="row filaAsientos">
+                <button class="btn btn-light" style="width: fit-content;"><i class="fa-solid fa-couch" style="color: #04a312;"></i></button>
+            </div> *@
         </div>
         <div class="container justify-content-center "><a href="/compra"><button class="btn btn-danger fw-bolder">Confirmar asientos</button></a></div>
        
