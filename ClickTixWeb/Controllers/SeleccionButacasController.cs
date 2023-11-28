@@ -23,7 +23,12 @@ namespace ClickTixWeb.Controllers
         public IActionResult ConfirmarButacas(int idFuncion, string selectedSeats)
         {
 
+
+            FuncionStrings funcionStrings = new FuncionStrings();
+
             var funcionEncontrada = _context.Funcions.Find(idFuncion);
+
+
 
             var nombrePelicula = from funcion in _context.Funcions
                                  join pelicula in _context.Peliculas on funcion.IdPelicula equals pelicula.Id
@@ -33,11 +38,17 @@ namespace ClickTixWeb.Controllers
                                      TituloPelicula = pelicula.Titulo
                                  };
 
+
+
+
             string tituloFinal = "";
             foreach (var item in nombrePelicula)
             {
                 tituloFinal = item.TituloPelicula;
             }
+
+
+            funcionStrings.Pelicula = tituloFinal;
 
 
 
@@ -52,7 +63,7 @@ namespace ClickTixWeb.Controllers
             {
                 Funcion = funcionEncontrada,
                 Asientos = seatIds,
-                TituloPelicula = tituloFinal,
+                FuncionStrings = funcionStrings,
             };
             return View("~/Views/Compra/Index.cshtml", viewModel);
         }
