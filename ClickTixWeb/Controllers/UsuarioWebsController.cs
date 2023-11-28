@@ -51,7 +51,7 @@ namespace ClickTixWeb.Controllers
         // POST: UsuarioWebs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido,Pass,email,fnac,genero,celular,sucursalHabitual")] UsuarioWeb usuarioWeb)
+        public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido,Pass,Passc,email,fnac,genero,celular,sucursalHabitual")] UsuarioWeb usuarioWeb)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +81,7 @@ namespace ClickTixWeb.Controllers
         // POST: UsuarioWebs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,Nombre,Apellido,Pass,email,fnac,genero,celular,sucursalHabitual")] UsuarioWeb usuarioWeb)
+        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,Nombre,Apellido,Pass,Passc,email,fnac,genero,celular,sucursalHabitual")] UsuarioWeb usuarioWeb)
         {
             if (id != usuarioWeb.IdUsuario)
             {

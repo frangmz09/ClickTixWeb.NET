@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClickTixWeb.Models;
 
@@ -11,7 +12,10 @@ public partial class UsuarioWeb
 
     public string? Apellido { get; set; }
 
+   
+
     public string? Pass { get; set; }
+
 
     public string? email { get; set; }
 
