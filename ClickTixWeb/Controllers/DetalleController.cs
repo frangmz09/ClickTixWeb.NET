@@ -1,30 +1,43 @@
 ﻿using ClickTixWeb.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClickTixWeb.Controllers
 {
     public class DetalleController : Controller
     {
+
+        private readonly ClicktixContext _context;
+
         // GET: DetalleController
         public ActionResult Index()
         {
 
             return View();
         }
-        public IActionResult CambioFecha(string fecha)
+        public IActionResult CambioFecha(string fecha, int idPelicula)
         {
-            var turnos = ObtenerTurnosPorFecha(fecha);
+            DateOnly fechaSeleccionada = DateOnly.FromDateTime(DateTime.Parse(fecha).Date);
+
+            var turnos = ObtenerTurnosPorFechaYIdPelicula(fechaSeleccionada, idPelicula);
+
+
 
             return PartialView("_TurnosPartial", turnos);
         }
 
-        private List<Turno> ObtenerTurnosPorFecha(string fecha)
+        private List<Turno> ObtenerTurnosPorFechaYIdPelicula(DateOnly fecha, int idPelicula)
         {
 
+            var turnos = _context.Funcions
+                .Where(f => f.IdPelicula == idPelicula && f.Fecha == fecha)
+                .Select(f => new Turno
+                {
+                })
+                .ToList();
 
-            return null;
-
+            return turnos;
         }
 
         // GET: DetalleController/Details/5

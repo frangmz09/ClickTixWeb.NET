@@ -1,0 +1,12 @@
+﻿<!-- _TurnosPartial.cshtml en Views/Shared -->
+@model List<Turno>
+
+<div>
+    <h3>Turnos para la fecha @ViewBag.Fecha:</h3>
+    <ul>
+        @foreach (var turno in Model)
+        {
+            <li>@turno.Hora</li>
+        }
+    </ul>
+</div>

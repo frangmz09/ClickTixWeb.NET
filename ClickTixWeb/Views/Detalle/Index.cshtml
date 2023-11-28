@@ -58,8 +58,8 @@
             @foreach (var funcion in Model.ProximasFunciones)
             {
                 <div class="card-body" id="turnoContainer">
-
-                    <div class="row">
+@*                     @Html.Partial("_TurnosPartial",Model.ProximasFunciones)
+ *@                    <div class="row">
                         <p class="fw-bolder fs-5  text-start">@funcion.IdDimension</p>
                     </div>
                     <div class="row">
@@ -68,6 +68,7 @@
 
                 </div>
             }
+
         </div>
     </div>
 
@@ -96,7 +97,7 @@
     function cargarTurnos(fecha) {
 
         $.ajax({
-            url: '/TuControlador/TuAccion',
+            url: '/DetalleController/CambioFecha',
             type: 'GET',
             data: { fecha: fecha },
             success: function (data) {

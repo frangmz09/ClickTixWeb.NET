@@ -4,5 +4,7 @@
     {
         public Pelicula Pelicula { get; set; }
         public List<Funcion> ProximasFunciones { get; set; }
+
+
     }
 }
