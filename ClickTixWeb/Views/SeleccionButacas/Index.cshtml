@@ -14,32 +14,62 @@
         <div class="row">
             <div class="col-8 bg-dark mt-5 rounded text-center text-light fw-bolder offset-2"> PANTALLA </div>
         </div>
-        <div class="container mt-5 justify-content-center p-5">
-            
 
-
-
-
-            @foreach (var asiento in Model.Asientos)
-            {
-
-                @if (asiento.Disponible == 1)
-                {
-                    <button class="btn btn-light" style="width: fit-content;"><i class="fa-solid fa-couch"></i></button>
-                }
-                else
-                {
-                    <button class="btn btn-light" style="width: fit-content;"><i class="fa-solid fa-couch" style="color: #ff090f;"></i></button>
+        <form method="post" asp-controller="SeleccionButacas" asp-action="ConfirmarButacas">
+            <div class="container mt-5 justify-content-center p-5">
+                @{
+                    var selectedSeats = new List<int>();
                 }
 
+                @foreach (var asiento in Model.Asientos)
+                {
+                    if (asiento.Disponible == 1)
+                    {
+                        <button type="button"  class="btn btn-light butaca" data-estado="disponible" data-asiento-id="@asiento.Id" style="width: fit-content;"><i class="fa-solid fa-couch"></i></button>
+                    }
+                    else
+                    {
+                        <button type="button"  class="btn btn-light butaca" data-estado="ocupado" data-asiento-id="@asiento.Id" style="width: fit-content;" disabled><i class="fa-solid fa-couch" style="color: #ff090f;"></i></button>
+                    }
+                }
+                <input type="hidden" id="idFuncion" name="idFuncion" value="@Model.Funcion.Id" />
+                <input type="hidden" id="selectedSeatsInput" name="SelectedSeats" />
+            </div>
 
-            }
-
-           @*  <div class="row filaAsientos">
-                <button class="btn btn-light" style="width: fit-content;"><i class="fa-solid fa-couch" style="color: #04a312;"></i></button>
-            </div> *@
-        </div>
-        <div class="container justify-content-center "><a href="/compra"><button class="btn btn-danger fw-bolder">Confirmar asientos</button></a></div>
-       
+            <div class="container justify-content-center">
+                <button type="submit" class="btn btn-danger fw-bolder" id="confirmarAsientos">Confirmar asientos</button>
+            </div>
+        </form>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            var selectedSeats = [];
+
+            $('.butaca[data-estado="disponible"]').on('click', function () {
+                var seatId = $(this).data('asiento-id');
+
+                if ($(this).css('background-color') === 'rgb(4, 163, 18)') {
+                    selectedSeats = selectedSeats.filter(id => id !== seatId);
+                    $(this).css('background-color', '');
+                } else if (selectedSeats.length < 4) {
+                    selectedSeats.push(seatId);
+                    $(this).css('background-color', '#04a312');
+                }
+
+                console.log('Asientos seleccionados:', selectedSeats);
+
+                $('#selectedSeatsInput').val(JSON.stringify(selectedSeats));
+            });
+
+            $('#confirmarAsientos').on('click', function (e) {
+                if (selectedSeats.length === 0) {
+                    e.preventDefault();
+                    alert('Seleccione al menos un asiento antes de confirmar.');
+                }
+            });
+        });
+    </script>
+
+
 </section>

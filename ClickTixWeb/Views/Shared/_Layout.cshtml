@@ -8,14 +8,13 @@
         <meta name="author" content="" />
         <title>@ViewData["Title"] - ClickTixWeb</title>
         <!-- Favicon-->
-        <link rel="icon" type="" href="~/lib/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="~/lib/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="~/css/site.css" rel="stylesheet" />
-
-        <script src="https://kit.fontawesome.com/1836fc5ff0.js" crossorigin="anonymous"></script>
-    </head>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,12 +27,17 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 </ul>
                 <form class="d-flex">
-                    <a href="/login" class="btn btn-danger me-2" role="button">INGRESAR</a>
-                    <a href="/register" class="btn btn-outline-danger rounded me-5" role="button">REGISTRAR</a>
+
                     @if (!string.IsNullOrEmpty(ViewData["UsuarioNombre"] as string))
                     {
                         <span class="navbar-text">Bienvenido, @ViewData["UsuarioNombre"]</span>
                     }
+                    else
+                    {
+                        <a href="/login" class="btn btn-danger me-2" role="button">INGRESAR</a>
+                        <a href="/register" class="btn btn-outline-danger rounded me-5" role="button">REGISTRAR</a>
+                    }
+
                     <a href="/tustickets" class="btn btn-outline-dark rounded-circle" role="button">
                         <i class="fa-solid fa-user"></i>
                     </a>
@@ -104,13 +108,11 @@
             </div>
         </div>
         </footer>
-        <!-- Bootstrap core JS-->
+        <script src="https://kit.fontawesome.com/1836fc5ff0.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
         <script src="~/js/scripts.js"></script>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @await RenderSectionAsync("Scripts", required: false)
+
         </body>
     </html>

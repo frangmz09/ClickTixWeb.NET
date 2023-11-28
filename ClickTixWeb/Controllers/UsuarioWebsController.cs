@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClickTixWeb.Models;
+using System.Diagnostics;
 
 namespace ClickTixWeb.Controllers
 {
@@ -161,21 +162,26 @@ namespace ClickTixWeb.Controllers
 
         public IActionResult Login(string email, string password)
         {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                ViewData["Error"] = "Ingrese correo electrónico y contraseña";
+                return View("Login");
+            }
+
             if (UsuarioAutenticado(email, password))
             {
-                // Autenticación exitosa, establecer el valor en la sesión.
+                Trace.WriteLine("USUARIO EXISTEEEEADFASFASFASFSAFASFAFWQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 HttpContext.Session.SetString("UsuarioEmail", email);
 
-                // Obtener y almacenar el nombre del usuario en la sesión
                 string nombreUsuario = ObtenerNombreUsuario(email);
                 HttpContext.Session.SetString("UsuarioNombre", nombreUsuario);
 
-                // Redirige a la página principal o a donde sea necesario.
+                ViewData["UsuarioNombre"] = nombreUsuario;
+
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                // Autenticación fallida, muestra un mensaje de error.
                 ViewData["Error"] = "Credenciales incorrectas";
                 return View("Login");
             }
@@ -183,8 +189,6 @@ namespace ClickTixWeb.Controllers
 
         private string ObtenerNombreUsuario(string email)
         {
-            // Aquí debes implementar la lógica para obtener el nombre del usuario
-            // Puedes hacer una consulta a la base de datos u otro método que tengas para obtener el nombre.
             var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.email == email);
             return usuario != null ? $"{usuario.Nombre} {usuario.Apellido}" : string.Empty;
         }
@@ -208,6 +212,7 @@ namespace ClickTixWeb.Controllers
         private bool UsuarioAutenticado(string email, string password)
         {
             var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.email == email && u.Pass == password);
+            Console.WriteLine($"Autenticación para {email}: {usuario.Nombre} AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             return usuario != null;
         }
     }

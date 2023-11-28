@@ -1,6 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+@model confirmarButacasViewModel;
+
 <!-- Section-->
 <section class="py-5">
     <div class="container row offset-1">
@@ -89,21 +92,30 @@
                 <div class="col-12 mt-3">
                     <div class="row">
                         <div class="col-6">
-                            <img class="card-img-top" src="https://dummyimage.com/350x500/dee2e6/6c757d.jpg" alt="..." />
+                            <img class="card-img-top" src="" alt="Portada de la pelicula (inner necesario)" />
                         </div>
                         <div class="col-6">
-                            <div class="row "><h2>FECHA</h2></div>
-                            <div class="row"><h4>FROZEN</h4></div>
-                            <div class="row"><p>Idioma: ESPAÑOL</p></div>
-                            <div class="row"><p>Dimension: 3D</p></div>
-                            <div class="row"><p>Numero de Sala: 5</p></div>
+                            <div class="row "><h2>@Model.Funcion.Fecha</h2></div>
+                            <div class="row"><h4>@Model.TituloPelicula</h4></div>
+                            <div class="row"><p>Idioma: @Model.Funcion.IdiomaFuncion</p></div>
+                            <div class="row"><p>Dimension: @Model.Funcion.IdDimension</p></div>
+                            <div class="row"><p>Numero de Sala: @Model.Funcion.IdSala</p></div>
                         </div>
                     </div>
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-6"><p>Numero de Entradas: 1</p></div>
-                    <div class="col-6"><p>Precio unitario: $500</p></div>
+                    <div class="col-6"><p>Numero de Entradas: @Model.Asientos.Length</p></div>
+                    <div class="col-6"><p>Precio unitario: $@Model.Funcion.IdDimension</p></div>
+                    @foreach (int asiento in Model.Asientos)
+                    {
+                        // aca falta buscar la info del asiento mediante el ID
+                        <div class="row">
+                            <div class="col-6"><p>Asiento: @asiento</p></div>
+                        </div>
+                    
+                    }
+
                 </div>
                 <hr>
                 <div class="row">
@@ -121,8 +133,8 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-6 text-center">CLICKTIX ABASTO</div>
-                    <div class="col-6 text-center">18-15159778-3</div>
+                    <div class="col-6 text-center">CLICKTIX ABASTO @Model.Funcion.IdSala</div>
+                    <div class="col-6 text-center">18-15159778-3 @Model.Funcion.IdSala</div>
                 </div>
             </div>
 

@@ -1,10 +1,71 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ClickTixWeb.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using SQLitePCL;
+using System.Diagnostics;
 
 namespace ClickTixWeb.Controllers
 {
     public class SeleccionButacasController : Controller
     {
+
+        private readonly ClicktixContext _context;
+        private readonly ILogger<DetalleController> _logger;
+
+
+        public SeleccionButacasController(ILogger<DetalleController> logger, ClicktixContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
+        public IActionResult ConfirmarButacas(int idFuncion, string selectedSeats)
+        {
+
+
+
+
+
+            var funcionEncontrada = _context.Funcions.Find(idFuncion);
+
+            var nombrePelicula = from funcion in _context.Funcions
+                                 join pelicula in _context.Peliculas on funcion.IdPelicula equals pelicula.Id
+                                 where funcion.IdPelicula == funcionEncontrada.IdPelicula
+                                 select new
+                                 {
+                                     TituloPelicula = pelicula.Titulo
+                                 };
+
+            string tituloFinal = "";
+            foreach (var item in nombrePelicula)
+            {
+                tituloFinal = item.TituloPelicula;
+            }
+
+
+
+            int[] seatIds = JsonConvert.DeserializeObject<int[]>(selectedSeats);
+            if (funcionEncontrada == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+
+            var viewModel = new confirmarButacasViewModel
+            {
+                Funcion = funcionEncontrada,
+                Asientos = seatIds,
+                TituloPelicula = tituloFinal,
+            };
+            return View("~/Views/Compra/Index.cshtml", viewModel);
+        }
+
+
+
+
+
+
         // GET: SeleccionButacasController
         public ActionResult Index()
         {
