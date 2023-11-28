@@ -8,7 +8,7 @@
         <div class="row">
             <div class="mt-3 bg-dark rounded col-6 p-3 offset-1">
 
-                  <form method="post" asp-controller="Register"  asp-action="Create" method="post">
+                  <form method="post" asp-controller="Register"  asp-action="Create">
 
                     @Html.AntiForgeryToken()
                     <h1 class="text-white-50 mb-2">Registrate</h1>
@@ -36,12 +36,12 @@
                         <!-- Contraseña -->
                         <div class="form-group col-6">
                             <label for="pass" class="text-light">Contraseña:</label>
-                            <input type="pass" class="form-control" name="pass" id="pass" placeholder="Ingrese su contraseña" required>
+                            <input type="password" class="form-control" name="pass" id="pass" placeholder="Ingrese su contraseña" required>
                         </div>
                         <!-- confirmar contraseña -->
                         <div class="form-group col-5">
                             <label for="pass" class="text-light">Confirme su contraseña:</label>
-                            <input type="pass" class="form-control" name="passc" id="pass" placeholder="Confirme su contraseña" required>
+                            <input type="password" class="form-control" name="passc" id="pass" placeholder="Confirme su contraseña" required>
                         </div>
                     </div>
 
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <!-- Botón de Enviar -->
-                    <button type="submit" class="btn btn-primary mt-3" class="text-light">Enviar</button>
+                    <button type="submit" class="btn btn-primary mt-3" onclick="return validatePassword()" >Enviar</button>
                 </form>
 
             </div>
@@ -108,3 +108,16 @@
 
         </div>
 </section>
+<script>
+    function validatePassword() {
+        var password = document.getElementById("pass").value;
+        var confirmPassword = document.getElementById("passc").value;
+
+        if (password !== confirmPassword) {
+            alert("Las contraseñas no coinciden");
+            return false;
+        }
+
+        return true;
+    }
+</script>
