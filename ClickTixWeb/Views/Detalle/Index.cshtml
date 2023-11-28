@@ -61,10 +61,15 @@
 @*                     @Html.Partial("_TurnosPartial",Model.ProximasFunciones)
  *@                    <div class="row">
                         <p class="fw-bolder fs-5  text-start">@funcion.IdDimension</p>
-                    </div>
+                       </div>
+                    
                     <div class="row">
-                        <button class="btn btn-danger text-start btn-auto-width m-1">Turno : @funcion.TurnoId </button>
+                         <form method="post" asp-controller="Detalle" asp-action="SeleccionarButaca">
+                            <input type="hidden" name="funcionId" value="@funcion.Id" />
+                            <button class="btn btn-danger text-start btn-auto-width m-1">Turno : @funcion.TurnoId </button>
+                        </form>
                     </div>
+                
 
                 </div>
             }

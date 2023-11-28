@@ -9,12 +9,19 @@ namespace ClickTixWeb.Controllers
     {
 
         private readonly ClicktixContext _context;
+        private readonly ILogger<DetalleController> _logger;
+
 
         // GET: DetalleController
         public ActionResult Index()
         {
 
             return View();
+        }
+        public DetalleController(ILogger<DetalleController> logger, ClicktixContext context)
+        {
+            _logger = logger;
+            _context = context;
         }
         public IActionResult CambioFecha(string fecha, int idPelicula)
         {
@@ -25,6 +32,19 @@ namespace ClickTixWeb.Controllers
 
 
             return PartialView("_TurnosPartial", turnos);
+        }
+
+
+        public IActionResult SeleccionarButaca(int funcionId)
+        {
+            var funcion = _context.Funcions.Find(funcionId);
+
+            if (funcion == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View("~/Views/SeleccionButacas/Index.cshtml", funcion);
         }
 
         private List<Turno> ObtenerTurnosPorFechaYIdPelicula(DateOnly fecha, int idPelicula)
