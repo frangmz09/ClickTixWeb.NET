@@ -55,24 +55,23 @@
                     }
                 </ul>
             </div>
-            @foreach (var funcion in Model.ProximasFunciones)
-            {
-                <div class="card-body" id="turnoContainer">
-@*                     @Html.Partial("_TurnosPartial",Model.ProximasFunciones)
- *@                    <div class="row">
-                        <p class="fw-bolder fs-5  text-start">@funcion.IdDimension</p>
-                       </div>
-                    
-                    <div class="row">
-                         <form method="post" asp-controller="Detalle" asp-action="SeleccionarButaca">
-                            <input type="hidden" name="funcionId" value="@funcion.Id" />
-                            <button class="btn btn-danger text-start btn-auto-width m-1">Turno : @funcion.TurnoId </button>
-                        </form>
-                    </div>
-                
+            @for (int i = 0; i < Model.ProximasFuncionesStrings.Count; i++)
+                {
+                    var funcionStrings = Model.ProximasFuncionesStrings[i];
+                    var funcion = Model.ProximasFunciones[i];
 
-                </div>
-            }
+                    <div class="card-body" id="turnoContainer">
+                        <div class="row">
+                            <p class="fw-bolder fs-5 text-start">@funcionStrings.Dimension</p>
+                        </div>
+                        <div class="row">
+                            <form method="post" asp-controller="Detalle" asp-action="SeleccionarButaca">
+                                <input type="hidden" name="funcionId" value="@funcion.Id" />
+                                <button class="btn btn-danger text-start btn-auto-width m-1">@funcionStrings.Turno </button>
+                            </form>
+                        </div>
+                    </div>
+                }
 
         </div>
     </div>

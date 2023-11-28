@@ -9,5 +9,6 @@
             public int Columnas { get; set; }
             public List<Asiento> Asientos { get; set; }
         
+            public FuncionStrings FuncionStrings { get; set; }
     }
 }

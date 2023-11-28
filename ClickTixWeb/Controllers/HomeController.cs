@@ -18,6 +18,33 @@ namespace ClickTixWeb.Controllers
             _logger = logger;
             _context = context;
         }
+        public FuncionStrings ObtenerFuncionStrings(int funcionIdABuscar)
+        {
+            var funcionStrings = (from f in _context.Funcions
+                                  join pelicula in _context.Peliculas on f.IdPelicula equals pelicula.Id
+                                  join dimension in _context.Dimensions on f.IdDimension equals dimension.Id
+                                  join sala in _context.Salas on f.IdSala equals sala.Id
+                                  join idiomaGroup in _context.Idiomas on f.IdiomaFuncion equals idiomaGroup.Idioma1 into idiomaGroup
+                                  from idioma in idiomaGroup.DefaultIfEmpty()  // Left join
+                                  join turno in _context.Turnos on f.TurnoId equals turno.Id
+                                  join sucursal in _context.Sucursals on sala.IdSucursal equals sucursal.Id
+                                  where f.Id == funcionIdABuscar
+                                  select new FuncionStrings
+                                  {
+                                      Dimension = dimension.Dimension1,
+                                      Pelicula = pelicula.Titulo,
+                                      Sala = sala.NroSala.ToString(),
+                                      Idioma = idioma != null ? idioma.Idioma1 : "Sin idioma",  // Manejar la posibilidad de un idioma nulo
+                                      Turno = turno.Hora.ToString(),
+                                      Sucursal = sucursal.Nombre,
+                                      CuitSucursal = sucursal.Cuit.ToString(),
+                                  }).FirstOrDefault();
+
+            return funcionStrings;
+        }
+
+
+
 
         [HttpPost]
         public IActionResult Detalle(int peliculaId)
@@ -36,10 +63,28 @@ namespace ClickTixWeb.Controllers
             .OrderBy(f => f.Fecha)
             .ToList();
 
-            var model = new DetalleViewModel(); 
-            model.Pelicula = pelicula;
-            model.ProximasFunciones = proximasFunciones;
-            return View("~/Views/Detalle/Index.cshtml", model);
+            List<FuncionStrings> ProximasFuncionesStrings = new List<FuncionStrings>();
+
+            foreach (var funcion in proximasFunciones)
+            {
+                ProximasFuncionesStrings.Add(ObtenerFuncionStrings(funcion.Id));
+            }
+
+            var proximasFuncionesStrings = _context.Funcions
+            .Where(f => f.IdPelicula == peliculaId && f.Fecha > fechaActual && f.Fecha <= fechaActual.AddDays(7))
+            .OrderBy(f => f.Fecha)
+            .ToList();
+
+            var viewModel = new DetalleViewModel
+            {
+                Pelicula = pelicula,
+                ProximasFunciones = proximasFunciones,
+                ProximasFuncionesStrings = ProximasFuncionesStrings,
+            };
+
+
+
+            return View("~/Views/Detalle/Index.cshtml", viewModel);
         }
         public IActionResult Index()
         {
