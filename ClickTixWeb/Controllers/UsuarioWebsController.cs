@@ -167,9 +167,9 @@ namespace ClickTixWeb.Controllers
             }
             else
             {
-                // Autenticación fallida, muestra un mensaje de error o realiza alguna acción.
+                // Autenticación fallida, muestra un mensaje de error.
                 ViewData["Error"] = "Credenciales incorrectas";
-                return View("Login"); // Redirige de nuevo a la vista Login
+                return View("Login");
             }
         }
 
