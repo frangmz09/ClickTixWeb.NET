@@ -39,6 +39,7 @@ namespace ClickTixWeb.Controllers
         public IActionResult SeleccionarButaca(int funcionId)
         {
             var funcion = _context.Funcions.Find(funcionId);
+            var funcionStrings = ObtenerFuncionStrings(funcionId);
 
             if (funcion == null)
             {
@@ -49,15 +50,42 @@ namespace ClickTixWeb.Controllers
 
             List<Asiento> asientos = ObtenerAsientosPorFuncion(funcionId);
 
+
             var viewModel = new SeleccionButacasViewModel
             {
                 Funcion = funcion,
                 Filas = filas,
                 Columnas = columnas,
-                Asientos = asientos
+                Asientos = asientos,
+                FuncionStrings = funcionStrings,
             };
 
             return View("~/Views/SeleccionButacas/Index.cshtml", viewModel);
+        }
+
+        public FuncionStrings ObtenerFuncionStrings(int funcionIdABuscar)
+        {
+            var funcionStrings = (from f in _context.Funcions
+                                  join pelicula in _context.Peliculas on f.IdPelicula equals pelicula.Id
+                                  join dimension in _context.Dimensions on f.IdDimension equals dimension.Id
+                                  join sala in _context.Salas on f.IdSala equals sala.Id
+                                  join idiomaGroup in _context.Idiomas on f.IdiomaFuncion equals idiomaGroup.Idioma1 into idiomaGroup
+                                  from idioma in idiomaGroup.DefaultIfEmpty()  // Left join
+                                  join turno in _context.Turnos on f.TurnoId equals turno.Id
+                                  join sucursal in _context.Sucursals on sala.IdSucursal equals sucursal.Id
+                                  where f.Id == funcionIdABuscar
+                                  select new FuncionStrings
+                                  {
+                                      Dimension = dimension.Dimension1,
+                                      Pelicula = pelicula.Titulo,
+                                      Sala = sala.NroSala.ToString(),
+                                      Idioma = idioma != null ? idioma.Idioma1 : "Sin idioma",  // Manejar la posibilidad de un idioma nulo
+                                      Turno = turno.Hora.ToString(),
+                                      Sucursal = sucursal.Nombre,
+                                      CuitSucursal = sucursal.Cuit.ToString(),
+                                  }).FirstOrDefault();
+
+            return funcionStrings;
         }
 
         private List<Turno> ObtenerTurnosPorFechaYIdPelicula(DateOnly fecha, int idPelicula)
