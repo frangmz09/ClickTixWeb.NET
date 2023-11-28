@@ -1,29 +1,34 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ClickTixWeb.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClickTixWeb.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: LoginController
+        private readonly ClicktixContext _context;
+
+        public LoginController(ClicktixContext context)
+        {
+            _context = context;
+        }
+
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: LoginController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: LoginController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: LoginController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -38,13 +43,11 @@ namespace ClickTixWeb.Controllers
             }
         }
 
-        // GET: LoginController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: LoginController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -59,13 +62,11 @@ namespace ClickTixWeb.Controllers
             }
         }
 
-        // GET: LoginController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: LoginController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
@@ -78,6 +79,25 @@ namespace ClickTixWeb.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Login(string email, string password)
+        {
+            if (UsuarioAutenticado(email, password))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewData["Error"] = "Credenciales incorrectas";
+                return View("Index");
+            }
+        }
+
+        private bool UsuarioAutenticado(string email, string password)
+        {
+            var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.email == email && u.Pass == password);
+            return usuario != null;
         }
     }
 }

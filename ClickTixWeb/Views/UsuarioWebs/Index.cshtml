@@ -21,6 +21,21 @@
             <th>
                 @Html.DisplayNameFor(model => model.Pass)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fnac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.celular)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sucursal_habitual)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -35,6 +50,21 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fnac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.celular)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.sucursal_habitual)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdUsuario">Edit</a> |

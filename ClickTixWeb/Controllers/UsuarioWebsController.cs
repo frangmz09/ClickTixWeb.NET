@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClickTixWeb.Models;
 
@@ -21,9 +18,9 @@ namespace ClickTixWeb.Controllers
         // GET: UsuarioWebs
         public async Task<IActionResult> Index()
         {
-              return _context.UsuarioWebs != null ? 
-                          View(await _context.UsuarioWebs.ToListAsync()) :
-                          Problem("Entity set 'ClicktixContext.UsuarioWebs'  is null.");
+            return _context.UsuarioWebs != null ?
+                      View(await _context.UsuarioWebs.ToListAsync()) :
+                      Problem("Entity set 'ClicktixContext.UsuarioWebs'  is null.");
         }
 
         // GET: UsuarioWebs/Details/5
@@ -51,11 +48,9 @@ namespace ClickTixWeb.Controllers
         }
 
         // POST: UsuarioWebs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido,Pass")] UsuarioWeb usuarioWeb)
+        public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido,Pass,email,fnac,genero,celular,sucursalHabitual")] UsuarioWeb usuarioWeb)
         {
             if (ModelState.IsValid)
             {
@@ -83,11 +78,9 @@ namespace ClickTixWeb.Controllers
         }
 
         // POST: UsuarioWebs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,Nombre,Apellido,Pass")] UsuarioWeb usuarioWeb)
+        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,Nombre,Apellido,Pass,email,fnac,genero,celular,sucursalHabitual")] UsuarioWeb usuarioWeb)
         {
             if (id != usuarioWeb.IdUsuario)
             {
@@ -149,14 +142,46 @@ namespace ClickTixWeb.Controllers
             {
                 _context.UsuarioWebs.Remove(usuarioWeb);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: UsuarioWebs/Login
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        // POST: UsuarioWebs/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+
+        public IActionResult Login(string email, string password)
+        {
+            if (UsuarioAutenticado(email, password))
+            {
+                // Autenticación exitosa, redirige a la página principal o a donde sea necesario.
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                // Autenticación fallida, muestra un mensaje de error o realiza alguna acción.
+                ViewData["Error"] = "Credenciales incorrectas";
+                return View("Login"); // Redirige de nuevo a la vista Login
+            }
+        }
+
         private bool UsuarioWebExists(int id)
         {
-          return (_context.UsuarioWebs?.Any(e => e.IdUsuario == id)).GetValueOrDefault();
+            return (_context.UsuarioWebs?.Any(e => e.IdUsuario == id)).GetValueOrDefault();
+        }
+
+        private bool UsuarioAutenticado(string email, string password)
+        {
+            var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.email == email && u.Pass == password);
+            return usuario != null;
         }
     }
 }
