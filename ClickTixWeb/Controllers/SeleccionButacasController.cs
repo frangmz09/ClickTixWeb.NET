@@ -20,6 +20,25 @@ namespace ClickTixWeb.Controllers
             _logger = logger;
             _context = context;
         }
+        public int ObtenerFilaPorId(int asientoId)
+        {
+            var fila = _context.Asientos
+                .Where(asiento => asiento.Id == asientoId)
+                .Select(asiento => asiento.Fila)
+                .FirstOrDefault();
+
+            return (int)fila;
+        }
+        public int ObtenerColumnaPorId(int asientoId)
+        {
+            var fila = _context.Asientos
+                .Where(asiento => asiento.Id == asientoId)
+                .Select(asiento => asiento.Columna)
+                .FirstOrDefault();
+
+            return (int)fila;
+        }
+
         public IActionResult ConfirmarButacas(int idFuncion, string selectedSeats)
         {
 
@@ -28,28 +47,38 @@ namespace ClickTixWeb.Controllers
 
             var funcionEncontrada = _context.Funcions.Find(idFuncion);
 
-
+            if (funcionEncontrada == null)
+            {
+                return RedirectToAction("Index");
+            }
 
             FuncionStrings fs =  ObtenerFuncionStrings(idFuncion);
 
 
 
 
-
+            List<int> idsAsientos = new List<int>();
+            List<int> filasAsientos = new List<int>();
+            List<int> columnasAsientos = new List<int>();
 
 
             int[] seatIds = JsonConvert.DeserializeObject<int[]>(selectedSeats);
-            if (funcionEncontrada == null)
-            {
-                return RedirectToAction("Index");
-            }
 
+            foreach (int asientoId in seatIds) {
+                idsAsientos.Add(asientoId);
+                filasAsientos.Add(ObtenerFilaPorId(asientoId));
+                columnasAsientos.Add(ObtenerColumnaPorId(asientoId));
+
+            };
 
             var viewModel = new confirmarButacasViewModel
             {
                 Funcion = funcionEncontrada,
-                Asientos = seatIds,
+                AsientosId = idsAsientos,
+                AsientosFilas = filasAsientos,
+                AsientosColumnas = columnasAsientos,
                 FuncionStrings = fs,
+                Asientos = _context.Asientos.Where(asiento => idsAsientos.Contains(asiento.Id)).ToList(),
             };
             return View("~/Views/Compra/Index.cshtml", viewModel);
         }
@@ -140,8 +169,6 @@ namespace ClickTixWeb.Controllers
                                   join pelicula in _context.Peliculas on f.IdPelicula equals pelicula.Id
                                   join dimension in _context.Dimensions on f.IdDimension equals dimension.Id
                                   join sala in _context.Salas on f.IdSala equals sala.Id
-                                  join idiomaGroup in _context.Idiomas on f.IdiomaFuncion equals idiomaGroup.Idioma1 into idiomaGroup
-                                  from idioma in idiomaGroup.DefaultIfEmpty()  // Left join
                                   join turno in _context.Turnos on f.TurnoId equals turno.Id
                                   join sucursal in _context.Sucursals on sala.IdSucursal equals sucursal.Id
                                   where f.Id == funcionIdABuscar
@@ -150,13 +177,29 @@ namespace ClickTixWeb.Controllers
                                       Dimension = dimension.Dimension1,
                                       Pelicula = pelicula.Titulo,
                                       Sala = sala.NroSala.ToString(),
-                                      Idioma = idioma != null ? idioma.Idioma1 : "Sin idioma",  // Manejar la posibilidad de un idioma nulo
                                       Turno = turno.Hora.ToString(),
+                                      Idioma = f.IdiomaFuncion,
                                       Sucursal = sucursal.Nombre,
                                       CuitSucursal = sucursal.Cuit.ToString(),
+                                      precioFuncion = (double)dimension.Precio,
                                   }).FirstOrDefault();
 
+
+            funcionStrings.Idioma = ObtenerNombreIdioma(funcionStrings.Idioma);
+
             return funcionStrings;
+        }
+        public string ObtenerNombreIdioma(string idioma)
+        {
+
+            int idiomaId = int.Parse(idioma);
+
+            var nombreIdioma = _context.Idiomas
+                .Where(idioma => idioma.Id == idiomaId)
+                .Select(idioma => idioma.Idioma1)
+                .FirstOrDefault() ?? "Sin idioma";
+
+            return nombreIdioma;
         }
     }
 }

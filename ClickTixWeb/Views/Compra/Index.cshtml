@@ -98,7 +98,7 @@
                             <div class="row "><h2>@Model.Funcion.Fecha</h2></div>
                             <div class="row"><h4>@Model.FuncionStrings.Pelicula</h4></div>
                             <div class="row"><h4>Hora : @Model.FuncionStrings.Turno</h4></div>
-                            <div class="row"><p>Idioma: Español</p></div>
+                            <div class="row"><p>Idioma: @Model.FuncionStrings.Idioma</p></div>
                             <div class="row"><p>Dimension: @Model.FuncionStrings.Dimension</p></div>
                             <div class="row"><p>Numero de Sala: @Model.FuncionStrings.Sala</p></div>
                         </div>
@@ -106,31 +106,34 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-6"><p>Numero de Entradas: @Model.FuncionStrings.Asientos</p></div>
-                    <div class="col-6"><p>Precio unitario: $1000</p></div>
-                    @foreach (int asiento in Model.Asientos)
-                    {
+                    <div class="col-6"><p>Numero de Entradas: @Model.AsientosId.Count</p></div>
+                    <div class="col-6"><p>Precio unitario: $@Model.FuncionStrings.precioFuncion</p></div>
+                    <div class="col-12">
+                        @foreach (Asiento asiento in Model.Asientos)
+                        {
                         // aca falta buscar la info del asiento mediante el ID
-                        <div class="row">
-                            <div class="col-6"><p>Asiento: @asiento</p></div>
-                        </div>
-                    
-                    }
+                            <div class="row">
+                                <div class="col-12"><p>Fila: @asiento.Fila Columna: @asiento.Columna </p></div>
+                            </div>
+
+                        }
+                    </div>
+
 
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-6"><p>SUBTOTAL</p></div>
-                    <div class="col-6"><p>$500</p></div>
+                    <div class="col-6"><p>$@(Model.AsientosId.Count * Model.FuncionStrings.precioFuncion)</p></div>
                 </div>
                 <div class="row">
                     <div class="col-6"><p>Cargo por servicio</p></div>
-                    <div class="col-6"><p>$200</p></div>
+                    <div class="col-6"><p>$@(350 * Model.AsientosId.Count)</p></div>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-6"><p>TOTAL:</p></div>
-                    <div class="col-6"><p>$200</p></div>
+                    <div class="col-6"><p>$@((Model.AsientosId.Count * Model.FuncionStrings.precioFuncion) + (350 * Model.AsientosId.Count))</p></div>
                 </div>
                 <hr>
                 <div class="row">

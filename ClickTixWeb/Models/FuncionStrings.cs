@@ -10,5 +10,7 @@
         public string[] Asientos { get; set; }
         public string Sucursal { get; set; }
         public string CuitSucursal { get; set; }
+        public double precioFuncion { get; set; }
+
     }
 }
