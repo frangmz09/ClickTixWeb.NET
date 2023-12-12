@@ -12,5 +12,9 @@
         public string CuitSucursal { get; set; }
         public double precioFuncion { get; set; }
 
+        public string Fecha {  get; set; }
+
+        public int Id { get; set; }
+
     }
 }
