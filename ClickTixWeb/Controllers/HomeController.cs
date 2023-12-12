@@ -44,6 +44,8 @@ namespace ClickTixWeb.Controllers
                                       Turno = turno.Hora.ToString(),
                                       Sucursal = sucursal.Nombre,
                                       CuitSucursal = sucursal.Cuit.ToString(),
+                                      Fecha =  f.Fecha.ToString(),
+                                      Id = f.Id
                                   }).FirstOrDefault();
 
             return funcionStrings;
@@ -71,9 +73,19 @@ namespace ClickTixWeb.Controllers
 
             List<FuncionStrings> ProximasFuncionesStrings = new List<FuncionStrings>();
 
+            var fechasUnicas = _context.Funcions
+            .Where(f => f.IdPelicula == peliculaId && f.Fecha > fechaActual && f.Fecha <= fechaActual.AddDays(7))
+            .OrderBy(f => f.Fecha)
+            .Select(f => f.Fecha)
+            .Where(fecha => fecha.HasValue)
+            .Select(fecha => fecha!.Value)
+            .Distinct()
+            .ToList();
+
             foreach (var funcion in proximasFunciones)
             {
                 ProximasFuncionesStrings.Add(ObtenerFuncionStrings(funcion.Id));
+
             }
 
             var proximasFuncionesStrings = _context.Funcions
@@ -85,6 +97,7 @@ namespace ClickTixWeb.Controllers
             {
                 Pelicula = pelicula,
                 ProximasFunciones = proximasFunciones,
+                FechasUnicas = fechasUnicas,
                 ProximasFuncionesStrings = ProximasFuncionesStrings,
             };
 
