@@ -53,7 +53,7 @@
             @for (int i = 0; i < cantidadTabs; i++)
             {
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link @(i == 0 ? "active" : "")" id="pills-tab-@i" data-bs-toggle="pill" data-bs-target="#pills-@i" type="button" role="tab" aria-controls="pills-@i" aria-selected="@(i == 0)">@Model.FechasUnicas.ElementAt(i).ToString("dd/MM")</button>
+                    <button class="nav-link fw-bolder tab-link @(i == 0 ? "active" : "")" id="pills-tab-@i" data-bs-toggle="pill" data-bs-target="#pills-@i" type="button" role="tab" aria-controls="pills-@i" aria-selected="@(i == 0)">@Model.FechasUnicas.ElementAt(i).ToString("dd/MM")</button>
                 </li>
             }
         </ul>
@@ -72,16 +72,23 @@
                                 <p class="fw-bolder fs-5 text-start">@dimension</p>
                             </div>
                             <div class="row">
-                                @foreach (var funcion in Model.ProximasFuncionesStrings
-                                        .Where(f => f.Dimension == dimension && f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString())))
-                                {
-                                    <div class="col-1">
+                                 @if (Model.ProximasFuncionesStrings.Any(f => f.Dimension == dimension && f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString())))
+                        {
+                            @foreach (var funcion in Model.ProximasFuncionesStrings
+                                    .Where(f => f.Dimension == dimension && f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString())))
+                            {
+                                <div class="col-1">
                                     <form method="post" asp-controller="Detalle" asp-action="SeleccionarButaca">
                                         <input type="hidden" name="funcionId" value="@funcion.Id" />
                                         <button class="btn btn-danger text-start btn-auto-width m-1">@funcion.Turno</button>
                                     </form>
-                                    </div>
-                                }
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No hay funciones disponibles de esta película.</p>
+                        }
                             </div>
                         </div>
                     }
@@ -140,6 +147,26 @@
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
+    $(document).ready(function () {
+        // Maneja el clic en las pestañas
+        $('.tab-link').click(function () {
+            // Remueve la clase 'active' de todas las pestañas
+            $('.tab-link').removeClass('active');
+            // Añade la clase 'active' a la pestaña clicada
+            $(this).addClass('active');
+
+            // Agrega estilos adicionales según tus necesidades
+            // Por ejemplo, cambiar el color de fondo y el color del texto
+            $('.tab-link').css('background-color', '');
+            $('.tab-link.active').css('background-color', '#dc3545'); // Color Danger
+            $('.tab-link').css('color', '');
+            $('.tab-link.active').css('color', '#ffffff'); // Color blanco
+        });
+    });
+</script>
+
+<script>
+
     $(document).ready(function () {
         $('#dateTabs a').click(function (e) {
             e.preventDefault();
