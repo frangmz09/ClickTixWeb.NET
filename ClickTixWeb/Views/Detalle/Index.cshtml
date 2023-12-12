@@ -44,7 +44,52 @@
             
         </div>
         <hr>
+        @{
+            var cantidadTabs = Model.FechasUnicas.Count;
+        }
         <div class="card text-center">
+        <div class="card-header p-2">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            @for (int i = 0; i < cantidadTabs; i++)
+            {
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link @(i == 0 ? "active" : "")" id="pills-tab-@i" data-bs-toggle="pill" data-bs-target="#pills-@i" type="button" role="tab" aria-controls="pills-@i" aria-selected="@(i == 0)">@Model.FechasUnicas.ElementAt(i).ToString("dd/MM")</button>
+                </li>
+            }
+        </ul>
+        </div>
+
+        <div class="tab-content" id="pills-tabContent">
+            @for (int i = 0; i < cantidadTabs; i++)
+            {
+                <div class="tab-pane fade @(i == 0 ? "show active" : "")" id="pills-@i" role="tabpanel" aria-labelledby="pills-tab-@i">
+                    @foreach (var dimension in Model.ProximasFuncionesStrings
+                                            .Where(f => f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString()))
+                                            .Select(f => f.Dimension).Distinct())
+                    {
+                        <div class="card-body" id="turnoContainer">
+                            <div class="row">
+                                <p class="fw-bolder fs-5 text-start">@dimension</p>
+                            </div>
+                            <div class="row">
+                                @foreach (var funcion in Model.ProximasFuncionesStrings
+                                        .Where(f => f.Dimension == dimension && f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString())))
+                                {
+                                    <div class="col-1">
+                                    <form method="post" asp-controller="Detalle" asp-action="SeleccionarButaca">
+                                        <input type="hidden" name="funcionId" value="@funcion.Id" />
+                                        <button class="btn btn-danger text-start btn-auto-width m-1">@funcion.Turno</button>
+                                    </form>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        </div>
+@*         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs" id="dateTabs">
                     @foreach (var funcion in Model.ProximasFunciones)
@@ -73,69 +118,12 @@
                     </div>
                 }
 
-        </div>
-    </div>
-
-
-    <div class="container my-4 text-center ">
-        <a href="/seleccionbutacas"><button class="btn btn-lg btn-danger btn-block btn-block btn-lg" type="submit">Continuar</button></a>
-        
+        </div> *@
     </div>
 
 
 
-
-
-
-
-
-
-
-
-                @{
-                var cantidadTabs = Model.FechasUnicas.Count;
-            }
-
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                @for (int i = 0; i < cantidadTabs; i++)
-                {
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link @(i == 0 ? "active" : "")" id="pills-tab-@i" data-bs-toggle="pill" data-bs-target="#pills-@i" type="button" role="tab" aria-controls="pills-@i" aria-selected="@(i == 0)">@Model.FechasUnicas.ElementAt(i).ToString("dd/MM")</button>
-                    </li>
-                }
-            </ul>
-
-            <div class="tab-content" id="pills-tabContent">
-                @for (int i = 0; i < cantidadTabs; i++)
-                {
-                    <div class="tab-pane fade @(i == 0 ? "show active" : "")" id="pills-@i" role="tabpanel" aria-labelledby="pills-tab-@i">
-                    @foreach (var funcionStrings in Model.ProximasFuncionesStrings)
-                        {
-                            var index = Model.ProximasFuncionesStrings.IndexOf(funcionStrings);
-                            var fechaUnica = Model.FechasUnicas.ElementAt(i);
-
-                            if (funcionStrings.Fecha.Equals(fechaUnica.ToString()))
-                            {
-                                var funcion = Model.ProximasFunciones[index];
-
-                                <div class="card-body" id="turnoContainer">
-                                    <div class="row">
-                                        <p class="fw-bolder fs-5 text-start">@funcionStrings.Dimension</p>
-                                    </div>
-                                    <div class="row">
-                                        <form method="post" asp-controller="Detalle" asp-action="SeleccionarButaca">
-                                            <input type="hidden" name="funcionId" value="@funcion.Id" />
-                                            <button class="btn btn-danger text-start btn-auto-width m-1">@funcionStrings.Turno</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            }
-                        }
-
-
-                    </div>
-                }
-            </div>
+    
 
 
 

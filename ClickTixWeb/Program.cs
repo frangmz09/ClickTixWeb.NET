@@ -27,10 +27,12 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+
+
 // Inicializar Firebase
 FirebaseApp.Create(new AppOptions
 {
-    Credential = GoogleCredential.FromFile("C:\\Users\\User\\Source\\Repos\\JuampiLampu\\ClickTixWeb\\ClickTixWeb\\Credential\\clicktixmobile-firebase-adminsdk-vl0f0-453b69dcdc.json"),
+    Credential = GoogleCredential.FromFile("C:\\Users\\Fran\\Source\\Repos\\JuampiLampu\\ClickTixWeb\\ClickTixWeb\\Credential\\clicktixmobile-firebase-adminsdk-vl0f0-453b69dcdc.json"),
 });
 
 
