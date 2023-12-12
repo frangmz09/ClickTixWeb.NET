@@ -20,4 +20,6 @@ public partial class Ticket
     public virtual Funcion IdFuncionNavigation { get; set; } = null!;
 
     public virtual ICollection<Qr> Qrs { get; } = new List<Qr>();
+
+    public int IdUsuario { get; set; }
 }
