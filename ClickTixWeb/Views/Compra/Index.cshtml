@@ -4,25 +4,25 @@
 
 @model confirmarButacasViewModel;
 
-<!-- Section-->
+<!-- Sección -->
 <section class="py-5">
     <div class="container row offset-1">
 
-
         <div class="mt-3 bg-danger rounded col-6 p-3">
-            <form>
+            <form onsubmit="return validarFormulario()">
                 <div class="row">
                     <!-- Email -->
                     <div class="form-group pt-2" class="text-light">
                         <label for="email" class="text-light">Email:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Ingrese su email" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su email" required>
                     </div>
+                    <span class="text-danger" data-valmsg-for="email"></span>
                 </div>
                 <div class="row">
-                    <!-- Nombre de Titular -->
                     <div class="form-group">
                         <label for="nombreTitular" class="text-light">Nombre de Titular:</label>
-                        <input type="text" class="form-control" id="nombreTitular" placeholder="Ingrese el nombre del titular" required>
+                        <input type="text" class="form-control" id="nombreTitular" name="nombreTitular" placeholder="Ingrese el nombre del titular" pattern="[A-Za-z]+" required
+                               >
                     </div>
                 </div>
 
@@ -30,28 +30,27 @@
                     <!-- DNI de Titular -->
                     <div class="form-group">
                         <label for="dniTitular" class="text-light">DNI de Titular:</label>
-                        <input type="text" class="form-control" id="dniTitular" placeholder="Ingrese el DNI del titular" required>
+                        <input type="text" class="form-control" id="dniTitular" placeholder="Ingrese el DNI del titular" pattern="\d{8}" required>
                     </div>
                 </div>
                 <div class="row">
                     <!-- Número de Tarjeta -->
                     <div class="form-group col-6">
                         <label for="numeroTarjeta" class="text-light">Número de Tarjeta:</label>
-                        <input type="text" class="form-control" id="numeroTarjeta" placeholder="Ingrese el número de tarjeta" required>
+                        <input type="text" class="form-control" id="numeroTarjeta" placeholder="Ingrese el número de tarjeta"  required>
                     </div>
                     <!-- Código de Seguridad -->
                     <div class="form-group col-5">
                         <label for="codigoSeguridad" class="text-light">Código de Seguridad:</label>
-                        <input type="text" class="form-control" id="codigoSeguridad" placeholder="Ingrese el código de seguridad" required>
+                        <input type="text" class="form-control" id="codigoSeguridad" placeholder="Ingrese el código de seguridad" pattern="\d{3}" required>
                     </div>
                 </div>
-
 
                 <div class="row">
                     <!-- Fecha de Vencimiento -->
                     <div class="form-group">
                         <label for="fechaVencimiento" class="text-light">Fecha de Vencimiento:</label>
-                        <input type="text" class="form-control" id="fechaVencimiento" placeholder="MM/AA" required>
+                        <input type="text" class="form-control" id="fechaVencimiento" placeholder="MM/AA"  required>
                     </div>
                 </div>
 
@@ -80,7 +79,6 @@
                             <label class="form-check-label" for="checkbox2"><p class="text-light">Autorizo el uso de mis datos personales.</p></label>
                             <input type="checkbox" class="form-check-input" id="checkbox2" required>
                         </div>
-
                     </div>
                 </div>
                 <!-- Botón de Enviar -->
@@ -143,4 +141,14 @@
             </div>
 
         </div>
+    </div>
 </section>
+<script>
+    function validarFormulario() {
+        // Realiza validaciones adicionales si es necesario
+
+        // Muestra el mensaje de confirmación
+        alert("Compra confirmada");
+        return true; // Devuelve true para enviar el formulario
+    }
+</script>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ClickTixWeb.Models; // Asegúrate de importar el espacio de nombres que contiene tu modelo de usuario
+using FirebaseAdmin.Auth;
 
 public class RegisterController : Controller
 {
@@ -30,12 +31,23 @@ public class RegisterController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(UsuarioWeb model)
+    public async Task<ActionResult> CreateAsync(UsuarioWeb model) { 
+
     {
-        if (ModelState.IsValid)
-        {
-            
+
+            FirebaseAuth auth = FirebaseAuth.DefaultInstance;
+
+           
+            var nuevoUsuario = await auth.CreateUserAsync(new UserRecordArgs
+            {
+                Email = model.email,
+                Password = model.Pass,
+            });
+
+            Console.WriteLine($"Usuario creado: {nuevoUsuario.Uid}");
+
             var usuarioWeb = new UsuarioWeb
+
             {
                 
                 Nombre = model.Nombre,

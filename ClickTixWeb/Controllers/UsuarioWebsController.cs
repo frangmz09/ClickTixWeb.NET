@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClickTixWeb.Models;
 using System.Diagnostics;
+using FirebaseAdmin.Auth;
+using FirebaseAdmin;
 
 namespace ClickTixWeb.Controllers
 {
@@ -215,5 +217,11 @@ namespace ClickTixWeb.Controllers
             Console.WriteLine($"Autenticación para {email}: {usuario.Nombre} AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             return usuario != null;
         }
+
+       
+
+
+
+
     }
 }

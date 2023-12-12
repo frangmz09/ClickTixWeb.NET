@@ -1,17 +1,24 @@
 ﻿using ClickTixWeb.Models;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
+using FirebaseAdmin.Auth;
 
 namespace ClickTixWeb.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly ClicktixContext _context;
 
-        public LoginController(ClicktixContext context)
+        FirebaseAuth auth = FirebaseAuth.DefaultInstance;
+        private readonly ClicktixContext _context;
+        private readonly IConfiguration _configuration;
+        public LoginController(ClicktixContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public ActionResult Index()
@@ -81,10 +88,36 @@ namespace ClickTixWeb.Controllers
             }
         }
 
+        public string IniciarSesion(string email)
+        {
+            var uid = ObtenerUidDeUsuario(email); 
+            var token = CrearTokenPersonalizado(uid);
+
+            return token;
+        }
+
+        private string CrearTokenPersonalizado(Task<UserRecord> uid)
+        {
+            return "sesion" + uid.ToString();
+        }
+
+        private Task<UserRecord> ObtenerUidDeUsuario(string email)
+        {
+            return auth.GetUserByEmailAsync(email);
+
+        }
+
         public ActionResult Login(string email, string password)
         {
+
+           
+
+
             if (UsuarioAutenticado(email, password))
             {
+
+     
+                ViewData["Token"] = email;
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -96,8 +129,33 @@ namespace ClickTixWeb.Controllers
 
         private bool UsuarioAutenticado(string email, string password)
         {
+
+
+
             var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.email == email && u.Pass == password);
             return usuario != null;
         }
+
+
+       
+
+       
+           
+        
+
+
+
+
+        public void Metodo()
+        {
+            var apiKey = _configuration["Firebase:ApiKey"];
+            var authDomain = _configuration["Firebase:AuthDomain"];
+            var privateKey = _configuration["Firebase:PrivateKey"];
+
+            var credentials = GoogleCredential.FromJson(privateKey);
+
+           
+        }
+
     }
 }
