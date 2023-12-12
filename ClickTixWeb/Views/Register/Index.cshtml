@@ -1,6 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
 }
+
+
+
 
 <!-- Section-->
 <section class="py-5">
@@ -42,7 +46,7 @@
                         <!-- confirmar contraseña -->
                         <div class="form-group col-5">
                             <label for="pass" class="text-light">Confirme su contraseña:</label>
-                            <input type="password" class="form-control" name="passc" id="pass" placeholder="Confirme su contraseña" required>
+                            <input type="password" class="form-control" name="passc" id="passc" placeholder="Confirme su contraseña" required>
                         </div>
                     </div>
 
@@ -97,7 +101,7 @@
                         </div>
                     </div>
                     <!-- Botón de Enviar -->
-                    <button type="submit" class="btn btn-primary mt-3" onclick="return validatePassword()" >Enviar</button>
+                    <button type="submit" class="btn btn-primary mt-3"  >Enviar</button>
                 </form>
 
             </div>
@@ -109,16 +113,12 @@
 
         </div>
 </section>
-<script>
-    function validatePassword() {
-        var password = document.getElementById("pass").value;
-        var confirmPassword = document.getElementById("passc").value;
 
-        if (password !== confirmPassword) {
-            alert("Las contraseñas no coinciden");
-            return false;
-        }
 
-        return true;
-    }
-</script>
+
+
+
+
+
+
+

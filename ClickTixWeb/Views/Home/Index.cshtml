@@ -12,6 +12,8 @@
         </div>
     </div>
 </header>
+
+<p id="correoParrafo"></p>
 <!-- Section-->
 <section class="py-5">
     <div class="container">
@@ -63,3 +65,22 @@
     </div>
    
 </section>
+
+@section scripts {
+        <script>
+            (function () {
+                'use strict';
+
+                window.addEventListener('load', function () {
+                    // Obtén el correo electrónico desde localStorage
+                    var email = localStorage.getItem('email');
+
+                    // Llena el párrafo con el correo electrónico
+                    var correoParrafo = document.getElementById('correoParrafo');
+                    correoParrafo.textContent = 'Correo electrónico: ' + email;
+
+                    console.log('Correo electrónico del usuario:', email);
+                });
+            })();
+        </script>
+}

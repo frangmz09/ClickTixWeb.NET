@@ -1,12 +1,17 @@
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using System;
 using ClickTixWeb.Models;
+using Microsoft.AspNetCore.Builder.Extensions;
+using Microsoft.EntityFrameworkCore;
+using System.Drawing.Text;
+using FirebaseAdmin;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
 
 builder.Services.AddControllersWithViews();
 
@@ -21,6 +26,15 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// Inicializar Firebase
+FirebaseApp.Create(new AppOptions
+{
+    Credential = GoogleCredential.FromFile("C:\\Users\\User\\Source\\Repos\\JuampiLampu\\ClickTixWeb\\ClickTixWeb\\Credential\\clicktixmobile-firebase-adminsdk-vl0f0-453b69dcdc.json"),
+});
+
+
+
 
 var app = builder.Build();
 
@@ -37,7 +51,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-// Agrega esta línea para habilitar el uso de sesiones.
+
 app.UseSession();
 
 app.MapControllerRoute(
