@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ClickTixWeb.Models; // Asegúrate de importar el espacio de nombres que contiene tu modelo de usuario
+using ClickTixWeb.Models;
 using FirebaseAdmin.Auth;
 
 public class RegisterController : Controller
