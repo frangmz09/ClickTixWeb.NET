@@ -5,6 +5,8 @@ namespace ClickTixWeb.Controllers
 {
     public class TusTicketsController : Controller
     {
+
+
         // GET: TusTicketsController
         public ActionResult Index()
         {
@@ -19,7 +21,9 @@ namespace ClickTixWeb.Controllers
 
         // GET: TusTicketsController/Create
         public ActionResult Create()
+
         {
+
             return View();
         }
 

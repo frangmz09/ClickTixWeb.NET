@@ -8,9 +8,9 @@
 <section class="py-5">
     <div class="container bg-light">
         <div class="row p-3">
-            <div class="col-4 fw-bolder">@Model.FuncionStrings.Pelicula</div>
-            <div class="col-4 fw-bolder">@Model.FuncionStrings.Sucursal</div>
-            <div class="col-4 fw-bolder">@Model.FuncionStrings.Turno</div>
+            <div class="col-4 fw-bolder text-center">@Model.FuncionStrings.Pelicula</div>
+            <div class="col-4 fw-bolder text-center">@Model.FuncionStrings.Sucursal</div>
+            <div class="col-4 fw-bolder text-center">@Model.FuncionStrings.Turno</div>
         </div>
         <div class="row">
             <div class="col-8 bg-dark mt-5 rounded text-center text-light fw-bolder offset-2"> PANTALLA </div>
@@ -18,26 +18,32 @@
 
         <form method="post" asp-controller="SeleccionButacas" asp-action="ConfirmarButacas">
             <div class="container mt-5 justify-content-center p-5">
-                @{
-                    var selectedSeats = new List<int>();
-                }
-
-                @foreach (var asiento in Model.Asientos)
+                @for (int fila = 1; fila <= Model.Filas; fila++)
                 {
-                    if (asiento.Disponible == 1)
-                    {
-                        <button type="button"  class="btn btn-light butaca" data-estado="disponible" data-asiento-id="@asiento.Id" style="width: fit-content;"><i class="fa-solid fa-couch"></i></button>
-                    }
-                    else
-                    {
-                        <button type="button"  class="btn btn-light butaca" data-estado="ocupado" data-asiento-id="@asiento.Id" style="width: fit-content;" disabled><i class="fa-solid fa-couch" style="color: #ff090f;"></i></button>
-                    }
+                    <div class="d-flex justify-content-center">
+                        @for (int columna = 1; columna <= Model.Columnas; columna++)
+                        {
+                            var asiento = Model.Asientos.FirstOrDefault(a => a.Fila == fila && a.Columna == columna);
+
+                            if (asiento != null)
+                            {
+                                <button type="button" class="btn btn-light butaca" data-estado="@((asiento.Disponible == 1) ? "disponible" : "ocupado")" data-asiento-id="@asiento.Id" style="width: fit-content;">
+                                    <i class="fa-solid fa-couch" style="color: @(asiento.Disponible == 1 ? "#000000" : "#ff090f");"></i>
+                                </button>
+                            }
+                            else
+                            {
+                                <div style="width: 30px; height: 30px;"></div>
+                            }
+                        }
+                    </div>
                 }
                 <input type="hidden" id="idFuncion" name="idFuncion" value="@Model.Funcion.Id" />
                 <input type="hidden" id="selectedSeatsInput" name="SelectedSeats" />
             </div>
 
-            <div class="container justify-content-center">
+
+            <div class="container text-center mt-3 mb-3">
                 <button type="submit" class="btn btn-danger fw-bolder" id="confirmarAsientos">Confirmar asientos</button>
             </div>
         </form>
