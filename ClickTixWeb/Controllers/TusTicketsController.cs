@@ -98,18 +98,8 @@ namespace ClickTixWeb.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult ObtenerTickets(string email)
-        {
-
-            int idUsuario =  ObtenerIdUsuarioPorEmail(email);
-
-
-            var tickets = ObtenerTicketsDelUsuario(9);
-
-            return Json(tickets);
-        }
-
+       
+      
 
         public List<Ticket> ObtenerTicketsDelUsuario(int id)
         {
@@ -119,6 +109,8 @@ namespace ClickTixWeb.Controllers
 
             return tickets;
         }
+
+
 
         public int ObtenerIdUsuarioPorEmail(string email)
         {
@@ -142,6 +134,41 @@ namespace ClickTixWeb.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult ObtenerTickets(string email)
+        {
+            int idUsuario = ObtenerIdUsuarioPorEmail(email);
+            var tickets = ObtenerTicketsDelUsuario(idUsuario);
+
+            // Enviar solo los IDs de las funciones
+            var idsFunciones = tickets.Select(ticket => ticket.IdFuncion).ToList();
+
+            return Json(new { Tickets = tickets, IdsFunciones = idsFunciones });
+        }
+
+
+
+        public List<Funcion> ObtenerFuncionesDeTickets(List<Ticket> tickets)
+        {
+            
+            var idsFunciones = tickets.Select(ticket => ticket.IdFuncion).ToList();
+
+            
+            var funciones = _context.Funcions
+                .Where(funcion => idsFunciones.Contains(funcion.Id))
+                .ToList();
+
+            return funciones;
+        }
+
+        public List<Funcion> ObtenerFuncionesPorIds(List<int> idsFunciones)
+{
+        var funciones = _context.Funcions
+            .Where(funcion => idsFunciones.Contains(funcion.Id))
+            .ToList();
+
+    return funciones;
+}
 
 
     }
