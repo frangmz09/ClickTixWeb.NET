@@ -124,12 +124,23 @@ namespace ClickTixWeb.Controllers
         {
             
             var idUsuario = _context.UsuarioWebs
-                .Where(usuario => usuario.email == email)
+                .Where(usuario => usuario.Email == email)
                 .Select(usuario => usuario.IdUsuario)
                 .FirstOrDefault();
 
             return idUsuario;
         }
+
+        public Funcion ObtenerFuncionPorId(int idFuncionTicket)
+        {
+           
+            var funcion = _context.Funcions
+                .Where(f => f.Id == idFuncionTicket)
+                .FirstOrDefault();
+
+            return funcion;
+        }
+
 
 
 

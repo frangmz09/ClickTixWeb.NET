@@ -132,7 +132,7 @@ namespace ClickTixWeb.Controllers
 
 
 
-            var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.email == email && u.Pass == password);
+            var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.Email == email && u.Pass == password);
             return usuario != null;
         }
 

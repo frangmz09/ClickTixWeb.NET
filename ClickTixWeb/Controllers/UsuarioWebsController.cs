@@ -191,7 +191,7 @@ namespace ClickTixWeb.Controllers
 
         private string ObtenerNombreUsuario(string email)
         {
-            var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.email == email);
+            var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.Email == email);
             return usuario != null ? $"{usuario.Nombre} {usuario.Apellido}" : string.Empty;
         }
         public IActionResult CerrarSesion()
@@ -213,7 +213,7 @@ namespace ClickTixWeb.Controllers
 
         private bool UsuarioAutenticado(string email, string password)
         {
-            var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.email == email && u.Pass == password);
+            var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.Email == email && u.Pass == password);
             Console.WriteLine($"Autenticación para {email}: {usuario.Nombre} AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             return usuario != null;
         }

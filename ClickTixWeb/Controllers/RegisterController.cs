@@ -40,7 +40,7 @@ public class RegisterController : Controller
            
             var nuevoUsuario = await auth.CreateUserAsync(new UserRecordArgs
             {
-                Email = model.email,
+                Email = model.Email,
                 Password = model.Pass,
             });
 
@@ -53,11 +53,11 @@ public class RegisterController : Controller
                 Nombre = model.Nombre,
                 Apellido = model.Apellido,
                 Pass = model.Pass,
-                email = model.email,
-                fnac = model.fnac,
-                genero = model.genero,
-                celular = model.celular,
-                sucursal_habitual = model.sucursal_habitual
+                Email = model.Email,
+                Fnac = model.Fnac,
+                Genero = model.Genero,
+                Celular = model.Celular,
+                SucursalHabitual = model.SucursalHabitual
             };
 
             _context.UsuarioWebs.Add(usuarioWeb);
