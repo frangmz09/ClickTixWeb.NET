@@ -49,21 +49,24 @@ public partial class ClicktixContext : DbContext
 
     public virtual DbSet<UsuarioWeb> UsuarioWebs { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder);
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseMySql("server=localhost;port=3306;database=clicktix;uid=root", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.24-mariadb"));
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseMySql("server=localhost;port=3306;database=clicktix;uid=root", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.24-mariadb"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .UseCollation("utf8_general_ci")
-            .HasCharSet("utf8");
+            .UseCollation("utf8mb4_general_ci")
+            .HasCharSet("utf8mb4");
 
         modelBuilder.Entity<Asiento>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("asiento");
+            entity
+                .ToTable("asiento")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdFuncion, "fk_asiento_funcion1_idx");
 
@@ -94,7 +97,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("categoria_candy");
+            entity
+                .ToTable("categoria_candy")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -109,7 +115,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("categoria");
+            entity
+                .ToTable("categoria")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -124,7 +133,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("clasificacion");
+            entity
+                .ToTable("clasificacion")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -139,7 +151,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("dimension");
+            entity
+                .ToTable("dimension")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -155,7 +170,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("funcion");
+            entity
+                .ToTable("funcion")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdDimension, "fk_funcion_dimension1_idx");
 
@@ -211,7 +229,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("idioma");
+            entity
+                .ToTable("idioma")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -226,7 +247,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("pelicula");
+            entity
+                .ToTable("pelicula")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdCategoria, "fk_pelicula_categoria1_idx");
 
@@ -256,7 +280,7 @@ public partial class ClicktixContext : DbContext
                 .HasColumnType("int(11)")
                 .HasColumnName("id_clasificacion");
             entity.Property(e => e.Portada)
-                .HasMaxLength(45)
+                .HasMaxLength(600)
                 .HasColumnName("portada");
             entity.Property(e => e.Titulo)
                 .HasMaxLength(45)
@@ -288,7 +312,10 @@ public partial class ClicktixContext : DbContext
                         j.HasKey("IdPelicula", "IdIdioma")
                             .HasName("PRIMARY")
                             .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-                        j.ToTable("pelicula_idioma");
+                        j
+                            .ToTable("pelicula_idioma")
+                            .HasCharSet("utf8")
+                            .UseCollation("utf8_general_ci");
                         j.HasIndex(new[] { "IdIdioma" }, "fk_pelicula_has_idioma_idioma1_idx");
                         j.HasIndex(new[] { "IdPelicula" }, "fk_pelicula_has_idioma_pelicula1_idx");
                     });
@@ -298,7 +325,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("producto_candy");
+            entity
+                .ToTable("producto_candy")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdCategoria, "fk_catalogo_candy_categoria_candy1_idx");
 
@@ -330,7 +360,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("qr");
+            entity
+                .ToTable("qr")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdTicket, "fk_qr_ticket1_idx");
 
@@ -365,7 +398,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("sala");
+            entity
+                .ToTable("sala")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdSucursal, "fk_sala_sucursal1_idx");
 
@@ -399,7 +435,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("sucursal");
+            entity
+                .ToTable("sucursal")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -420,9 +459,14 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("ticket");
+            entity
+                .ToTable("ticket")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdFuncion, "fk_ticket_funcion1_idx");
+
+            entity.HasIndex(e => e.IdUsuario, "usuario");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -440,19 +484,29 @@ public partial class ClicktixContext : DbContext
             entity.Property(e => e.IdFuncion)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_funcion");
+            entity.Property(e => e.IdUsuario)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_usuario");
             entity.Property(e => e.PrecioAlMomento).HasColumnName("precio_al_momento");
 
             entity.HasOne(d => d.IdFuncionNavigation).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.IdFuncion)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_ticket_funcion1");
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Tickets)
+                .HasForeignKey(d => d.IdUsuario)
+                .HasConstraintName("usuario");
         });
 
         modelBuilder.Entity<TicketCandy>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("ticket_candy");
+            entity
+                .ToTable("ticket_candy")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -478,7 +532,10 @@ public partial class ClicktixContext : DbContext
                         j.HasKey("IdTicket", "IdProducto")
                             .HasName("PRIMARY")
                             .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-                        j.ToTable("pedido_candy");
+                        j
+                            .ToTable("pedido_candy")
+                            .HasCharSet("utf8")
+                            .UseCollation("utf8_general_ci");
                         j.HasIndex(new[] { "IdProducto" }, "fk_ticket_candy_has_producto_candy_producto_candy1_idx");
                         j.HasIndex(new[] { "IdTicket" }, "fk_ticket_candy_has_producto_candy_ticket_candy1_idx");
                     });
@@ -488,7 +545,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("turno");
+            entity
+                .ToTable("turno")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -503,7 +563,10 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("usuario_sistema");
+            entity
+                .ToTable("usuario_sistema")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdSucursal, "fk_empleado_sucursal_idx");
 
@@ -540,21 +603,42 @@ public partial class ClicktixContext : DbContext
         {
             entity.HasKey(e => e.IdUsuario).HasName("PRIMARY");
 
-            entity.ToTable("usuario_web");
+            entity
+                .ToTable("usuario_web")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
+
+            entity.HasIndex(e => e.SucursalHabitual, "fk_sucursal_habitual");
 
             entity.Property(e => e.IdUsuario)
-                .ValueGeneratedNever()
                 .HasColumnType("int(11)")
                 .HasColumnName("id_usuario");
             entity.Property(e => e.Apellido)
                 .HasMaxLength(45)
                 .HasColumnName("apellido");
+            entity.Property(e => e.Celular)
+                .HasMaxLength(15)
+                .HasColumnName("celular");
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .HasColumnName("email");
+            entity.Property(e => e.Fnac).HasColumnName("fnac");
+            entity.Property(e => e.Genero)
+                .HasMaxLength(10)
+                .HasColumnName("genero");
             entity.Property(e => e.Nombre)
                 .HasMaxLength(45)
                 .HasColumnName("nombre");
             entity.Property(e => e.Pass)
                 .HasMaxLength(45)
                 .HasColumnName("pass");
+            entity.Property(e => e.SucursalHabitual)
+                .HasColumnType("int(11)")
+                .HasColumnName("sucursal_habitual");
+
+            entity.HasOne(d => d.SucursalHabitualNavigation).WithMany(p => p.UsuarioWebs)
+                .HasForeignKey(d => d.SucursalHabitual)
+                .HasConstraintName("fk_sucursal_habitual");
         });
 
         OnModelCreatingPartial(modelBuilder);

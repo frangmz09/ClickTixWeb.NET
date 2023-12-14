@@ -16,4 +16,6 @@ public partial class Sucursal
     public virtual ICollection<Sala> Salas { get; } = new List<Sala>();
 
     public virtual ICollection<UsuarioSistema> UsuarioSistemas { get; } = new List<UsuarioSistema>();
+
+    public virtual ICollection<UsuarioWeb> UsuarioWebs { get; } = new List<UsuarioWeb>();
 }
