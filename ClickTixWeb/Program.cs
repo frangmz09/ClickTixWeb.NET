@@ -30,10 +30,12 @@ builder.Services.AddSession(options =>
 string basePath = AppDomain.CurrentDomain.BaseDirectory; // o Environment.CurrentDirectory
 string jsonFilePath = Path.Combine(basePath, "Credential", "clicktixmobile-firebase-adminsdk-vl0f0-453b69dcdc.json");
 
+
 // Inicializar Firebase
 FirebaseApp.Create(new AppOptions
 {
-    Credential = GoogleCredential.FromFile("C:\\Users\\User\\Source\\Repos\\JuampiLampu\\ClickTixWeb\\ClickTixWeb\\Credential\\clicktixmobile-firebase-adminsdk-vl0f0-453b69dcdc.json"),
+
+    Credential = GoogleCredential.FromFile(jsonFilePath),
 });
 
 
