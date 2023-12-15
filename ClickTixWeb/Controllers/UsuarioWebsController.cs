@@ -214,11 +214,17 @@ namespace ClickTixWeb.Controllers
         private bool UsuarioAutenticado(string email, string password)
         {
             var usuario = _context.UsuarioWebs.FirstOrDefault(u => u.Email == email && u.Pass == password);
-            Console.WriteLine($"Autenticación para {email}: {usuario.Nombre} AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            return usuario != null;
+
+            if (usuario != null)
+            {
+                Console.WriteLine($"Autenticación para {email}: {usuario.Nombre} AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                return true;
+            }
+
+            return false;
         }
 
-       
+
 
 
 
