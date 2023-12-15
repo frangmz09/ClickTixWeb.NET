@@ -86,9 +86,12 @@
             {
                 <form method="post" asp-controller="Home" asp-action="Detalle">
                     <input type="hidden" name="peliculaId" value="@pelicula.Id" />
+                    <input type="hidden" name="sucursalId" value="@Model.SucursalId" />
+
                     <button class="col mb-5 btn" type="submit">
                         <div class="card shadow-sm">
                             <img class="card-img-top" src="@pelicula.Portada" alt="..." />
+
                         </div>
                         <div class="card-sub text-center">
                             <h5 class="fw-bolder mt-2 align-content-center">@pelicula.Titulo</h5>
