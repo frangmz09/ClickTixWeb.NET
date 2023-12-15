@@ -2,6 +2,7 @@
 {
     public class confirmarButacasViewModel
     {
+        public string portadaDePelicula {  get; set; }
         public Funcion Funcion { get; set; }
         public List<int> AsientosId { get; set; }
         public List<int> AsientosFilas { get; set; }

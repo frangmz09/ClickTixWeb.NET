@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model Tuple<List<Pelicula>, List<Sucursal>>
+@model HomeViewModel
 <!-- Header-->
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
@@ -27,6 +27,30 @@
 <section class="py-5">
     <div class="container">
         <div class="row">
+
+
+
+
+
+
+            
+            @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+            {
+                <label for="sucursalId">Selecciona una sucursal:</label>
+                <select name="sucursalId" id="sucursalId">
+                    <option value="">Todas las sucursales</option>
+                    @foreach (var sucursal in Model.Sucursales)
+                    {
+                        <option value="@sucursal.Id">
+                            @sucursal.Nombre
+                        </option>
+                    }
+                </select>
+                <input type="submit" value="Filtrar">
+            }
+
+
+
             @* <div class="col-3">
                 <select class="form-select form-select-lg sucursalSelect" aria-label=".form-select-lg example" id="sucursalSelect">
                     <option selected>Sucursales</option>
@@ -50,19 +74,21 @@
                     <input class="form-control mr-sm-2 p-2 form-select-lg" type="search" placeholder="Buscar peliculas..." aria-label="Search">
                 </div>
             </div> *@
+
+
         </div>
 
     </div>
 
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="resultadosContainer">
-            @foreach (var pelicula in Model.Item1)
+            @foreach (var pelicula in @Model.Peliculas)
             {
                 <form method="post" asp-controller="Home" asp-action="Detalle">
                     <input type="hidden" name="peliculaId" value="@pelicula.Id" />
                     <button class="col mb-5 btn" type="submit">
                         <div class="card shadow-sm">
-                            <img class="card-img-top" src="~/imgs/peliculas/@pelicula.Portada" alt="..." />
+                            <img class="card-img-top" src="@pelicula.Portada" alt="..." />
                         </div>
                         <div class="card-sub text-center">
                             <h5 class="fw-bolder mt-2 align-content-center">@pelicula.Titulo</h5>

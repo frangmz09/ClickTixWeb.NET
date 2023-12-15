@@ -47,6 +47,8 @@ namespace ClickTixWeb.Controllers
 
             var funcionEncontrada = _context.Funcions.Find(idFuncion);
 
+
+
             if (funcionEncontrada == null)
             {
                 return RedirectToAction("Index");
@@ -54,7 +56,11 @@ namespace ClickTixWeb.Controllers
 
             FuncionStrings fs =  ObtenerFuncionStrings(idFuncion);
 
-
+            string portadaDePelicula = (from pelicula in _context.Peliculas
+                                     join funcion in _context.Funcions on pelicula.Id equals funcion.IdPelicula
+                                     where funcion.Id == idFuncion
+                                     select pelicula.Portada)
+                        .FirstOrDefault();
 
 
             List<int> idsAsientos = new List<int>();
@@ -73,6 +79,7 @@ namespace ClickTixWeb.Controllers
 
             var viewModel = new confirmarButacasViewModel
             {
+                portadaDePelicula = portadaDePelicula,
                 Funcion = funcionEncontrada,
                 AsientosId = idsAsientos,
                 AsientosFilas = filasAsientos,

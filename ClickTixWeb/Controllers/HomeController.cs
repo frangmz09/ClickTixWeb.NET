@@ -105,21 +105,53 @@ namespace ClickTixWeb.Controllers
 
             return View("~/Views/Detalle/Index.cshtml", viewModel);
         }
-        public IActionResult Index()
+        public IActionResult Index(int? sucursalId)
         {
             var fechaActual = DateOnly.FromDateTime(DateTime.Now.Date);
 
-            var peliculasConFunciones = _context.Peliculas
-                .Where(p => _context.Funcions.Any(f => f.IdPelicula == p.Id && f.Fecha > fechaActual))
+            var query = _context.Peliculas
+                .Where(p => _context.Funcions
+                    .Any(f => f.IdPelicula == p.Id && f.Fecha > fechaActual));
+            var peliculasConFunciones = query.ToList();
+
+
+            if (sucursalId.HasValue)
+            {
+                //peliculasConFunciones = peliculasConFunciones
+                //    .Where(p => p.Funcions.Any(f => f.IdSalaNavigation.IdSucursal == sucursalId))
+                //    .ToList();
+
+                peliculasConFunciones = peliculasConFunciones
+                .Join(_context.Funcions,
+                    pelicula => pelicula.Id,
+                    funcion => funcion.IdPelicula,
+                    (pelicula, funcion) => new { Pelicula = pelicula, Funcion = funcion })
+                .Join(_context.Salas,
+                    peliculaFuncion => peliculaFuncion.Funcion.IdSala,
+                    sala => sala.Id,
+                    (peliculaFuncion, sala) => new { peliculaFuncion.Pelicula, peliculaFuncion.Funcion, Sala = sala })
+                .Join(_context.Sucursals,
+                    sala => sala.Sala.IdSucursal,
+                    sucursal => sucursal.Id,
+                    (sala, sucursal) => new { sala.Pelicula, sala.Funcion, Sala = sala.Sala, Sucursal = sucursal })
+                .Where(s => s.Sucursal.Id == sucursalId)
+                .Select(s => s.Pelicula)
+                .Distinct()
                 .ToList();
+            }
 
-            var sucursales = _context.Sucursals.ToList();  // Obtener todas las sucursales
+            var sucursales = _context.Sucursals.ToList();
 
-            var model = new Tuple<List<Pelicula>, List<Sucursal>>(peliculasConFunciones, sucursales);
+            var model = new HomeViewModel
+            {
+                Peliculas = peliculasConFunciones,
+                Sucursales = sucursales,
+                SucursalId = sucursalId
+            };
 
             return View(model);
-
         }
+
 
 
         public IActionResult Privacy()
