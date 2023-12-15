@@ -140,11 +140,25 @@ namespace ClickTixWeb.Controllers
             int idUsuario = ObtenerIdUsuarioPorEmail(email);
             var tickets = ObtenerTicketsDelUsuario(idUsuario);
 
-            // Enviar solo los IDs de las funciones
             var idsFunciones = tickets.Select(ticket => ticket.IdFuncion).ToList();
 
-            return Json(new { Tickets = tickets, IdsFunciones = idsFunciones });
+         
+
+            // Obtener las funciones como strings
+            var funcionesStrings = ListarFunciones(idsFunciones);
+
+
+            TusTicketsViewModel ttvm = new TusTicketsViewModel(funcionesStrings);
+
+
+            return View("~/Views/TusTickets/Index.cshtml", funcionesStrings);
+
+            //return Json(new { Tickets = tickets, FuncionesStrings = funcionesStrings });
         }
+
+
+
+
 
 
 
@@ -162,13 +176,76 @@ namespace ClickTixWeb.Controllers
         }
 
         public List<Funcion> ObtenerFuncionesPorIds(List<int> idsFunciones)
-{
+        {
         var funciones = _context.Funcions
             .Where(funcion => idsFunciones.Contains(funcion.Id))
             .ToList();
 
-    return funciones;
-}
+        return funciones;
+        }
+
+        public List<FuncionStrings> ListarFunciones(List<int> idsFunciones)
+        {
+
+            List<FuncionStrings> funcionesStrings = new List<FuncionStrings>();
+            for (int i = 0; i < idsFunciones.Count; i++)
+            {
+                var funcion = ObtenerFuncionStrings(idsFunciones[i]);
+
+                funcionesStrings.Add(funcion);
+                
+            }
+
+            return funcionesStrings;
+
+
+        }
+
+
+
+        public FuncionStrings ObtenerFuncionStrings(int funcionIdABuscar)
+        {
+            var funcionStrings = (from f in _context.Funcions
+                                  join pelicula in _context.Peliculas on f.IdPelicula equals pelicula.Id
+                                  join dimension in _context.Dimensions on f.IdDimension equals dimension.Id
+                                  join sala in _context.Salas on f.IdSala equals sala.Id
+                                  join turno in _context.Turnos on f.TurnoId equals turno.Id
+                                  join sucursal in _context.Sucursals on sala.IdSucursal equals sucursal.Id
+                                  where f.Id == funcionIdABuscar
+                                  select new FuncionStrings
+                                  {
+                                      Dimension = dimension.Dimension1,
+                                      Pelicula = pelicula.Titulo,
+                                      Sala = sala.NroSala.ToString(),
+                                      Turno = turno.Hora.ToString(),
+                                      Idioma = f.IdiomaFuncion,
+                                      Sucursal = sucursal.Nombre,
+                                      CuitSucursal = sucursal.Cuit.ToString(),
+                                      precioFuncion = (double)dimension.Precio,
+                                      Fecha = f.Fecha.ToString(),
+                                     
+                                      
+                                  }).FirstOrDefault();
+
+
+            funcionStrings.Idioma = ObtenerNombreIdioma(funcionStrings.Idioma);
+
+            return funcionStrings;
+        }
+        public string ObtenerNombreIdioma(string idioma)
+        {
+
+            int idiomaId = int.Parse(idioma);
+
+            var nombreIdioma = _context.Idiomas
+                .Where(idioma => idioma.Id == idiomaId)
+                .Select(idioma => idioma.Idioma1)
+                .FirstOrDefault() ?? "Sin idioma";
+
+            return nombreIdioma;
+        }
+
+
 
 
     }

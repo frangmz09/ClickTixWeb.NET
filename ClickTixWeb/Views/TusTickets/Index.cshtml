@@ -2,6 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model TusTicketsViewModel;
+
     <div class="container col-6 mt-5 bg-danger-subtle">
         <div class="card">
             <div class="card-header">
@@ -19,43 +21,36 @@
 
 
 
-
         <div class="card mb-3 p-2" style="max-width: 540px;">
-            <div class="row g-0 ">
-                <div class="col-md-2 mr-2">
-                    <img src="https://dummyimage.com/100x200/dee2e6/6c757d.jpg" class="img-fluid " alt="...">
-                    <small>fechaCompra</small>
-                </div>
-                <div class="col-md-6  p-3">
-                    <div class="text-body-secondary">
-                        <h5 class="text-body-secondary">NombrePelicula</h5>
-                        <small>sucursal</small><br>
-                        <small>horario</small><br>
-                        <small>idioma</small><br>
-                        <small>numeroEntradas</small><br>
-                        <small>butacas seleccionada</small><br>
-
+                @foreach (var funcionString in Model.funcionesStrings)
+                {
+                    <div class="row g-0">
+                        <div class="col-md-2 mr-2">
+                            <img src="https://dummyimage.com/100x200/dee2e6/6c757d.jpg" class="img-fluid " alt="...">
+                            <small>10/10*/1010</small>
+                        </div>
+                        <div class="col-md-6  p-3">
+                            <div class="text-body-secondary">
+                                <h5 class="text-body-secondary">NombrePelicula</h5>
+                                <small>@funcionString.Sucursal</small><br>
+                                <small>@funcionString.Turno</small><br>
+                                <small>@funcionString.Idioma</small><br>
+                                <small>numeroEntradas</small><br>
+                                <small>butacas seleccionada</small><br>
+                            </div>
+                        </div>
+                        <div class="col-md-4 align-items-center">
+                            <img src="https://dummyimage.com/150x150/dee2e6/6c757d.jpg" class="img-thumbnail align-items-center" alt="...">
+                            <p class="text-center">9999999999999</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 align-items-center">
-                    <img src="https://dummyimage.com/150x150/dee2e6/6c757d.jpg" class="img-thumbnail align-items-center" alt="...">
-                    <p class="text-center">9999999999999</p>
-                </div>
-            </div>
+                }
         </div>
-
-       
-
-
-    
-    
-   
-    
 
 
 
     </section>
-   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -69,6 +64,9 @@
                 url: url,
                 data: { email: email },
                 success: function (response) {
+                    var tickets = response.Tickets;
+                    var funciones = response.Funciones;
+                    var funcionesStrings = response.FuncionesStrings;
                     
                     console.log("Tickets obtenidos con éxito:", response);
                 },
