@@ -171,9 +171,9 @@ namespace ClickTixWeb.Controllers
                     Console.WriteLine($"TTVM :  {ttvm.funcionesStrings[0].Idioma}");
 
 
+                    
 
-
-                    return View("~/Views/TusTickets/Index.cshtml", ttvm);
+                    return PartialView("~/Views/TusTickets/_PartialLayout.cshtml", ttvm);
 
                     
                 }
