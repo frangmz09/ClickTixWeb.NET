@@ -104,13 +104,16 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-6"><p>Numero de Entradas: @Model.AsientosId.Count</p></div>
+                    <div class="col-6"><p>Numero de Entradas: @Model.AsientosId.Count</p></div
                     <div class="col-6"><p>Precio unitario: $@Model.FuncionStrings.precioFuncion</p></div>
-                    <div class="col-12">
-                       
-                    
 
-
+                <div class="row">
+                    <div class="ms-2">
+                    @for (int i = 0; i < Model.AsientosId.Count; i++)
+                    {
+                        <p>Fila: @Model.AsientosFilas[i] Columna: @Model.AsientosColumnas[i]</p>
+                    }
+                    </div>
                 </div>
                 <hr>
                 <div class="row">
@@ -131,6 +134,7 @@
                     <div class="col-6 text-center"> @Model.FuncionStrings.Sucursal </div>
                     <div class="col-6 text-center"> @Model.FuncionStrings.CuitSucursal</div>
                 </div>
+            </div>
             </div>
 
         </div>
