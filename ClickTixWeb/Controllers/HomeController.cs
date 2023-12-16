@@ -82,7 +82,7 @@ namespace ClickTixWeb.Controllers
 
             var proximasFuncionesQuery = _context.Funcions
                 .Where(f => f.IdPelicula == peliculaId
-                            && f.Fecha > fechaActual
+                            && f.Fecha >= fechaActual
                             && f.Fecha <= fechaActual.AddDays(7)
                             && (!SucursalId.HasValue || _context.Salas.Any(s => s.Id == f.IdSala && s.IdSucursal == SucursalId)))
                 .OrderBy(f => f.Fecha)
@@ -94,7 +94,7 @@ namespace ClickTixWeb.Controllers
             List<FuncionStrings> ProximasFuncionesStrings = new List<FuncionStrings>();
 
             var fechasUnicas = _context.Funcions
-                .Where(f => f.IdPelicula == peliculaId && f.Fecha > fechaActual && f.Fecha <= fechaActual.AddDays(7))
+                .Where(f => f.IdPelicula == peliculaId && f.Fecha >= fechaActual && f.Fecha <= fechaActual.AddDays(7))
                 .OrderBy(f => f.Fecha)
                 .Where(f => !SucursalId.HasValue || _context.Salas.Any(s => s.Id == f.IdSala && s.IdSucursal == SucursalId))
                 .Select(f => f.Fecha)
@@ -141,7 +141,7 @@ namespace ClickTixWeb.Controllers
 
             var query = _context.Peliculas
                 .Where(p => _context.Funcions
-                    .Any(f => f.IdPelicula == p.Id && f.Fecha > fechaActual));
+                    .Any(f => f.IdPelicula == p.Id && f.Fecha >= fechaActual));
             var peliculasConFunciones = query.ToList();
 
 
