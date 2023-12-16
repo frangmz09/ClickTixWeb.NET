@@ -9,7 +9,15 @@
     <div class="container row offset-1">
 
         <div class="mt-3 bg-danger rounded col-6 p-3">
-            <form onsubmit="return validarFormulario()">
+                <form onsubmit="return validarFormulario()" method="post" action="@Url.Action("ConfirmarCompra", "Compra")">    
+                      <input type="hidden" name="funcionId" value="@Model.Funcion.Id" />
+                      <input type="hidden" name="precioMomento" value="@Model.FuncionStrings.precioFuncion" />
+                      <input type="hidden" id="emailHidden" name="email" />
+
+                    @foreach (var asientoId in Model.AsientosId)
+                {
+                    <input type="hidden" name="asientosId" value="@asientoId" />
+                }
                 <div class="row">
                     <!-- Email -->
                     <div class="form-group pt-2" class="text-light">
@@ -148,4 +156,11 @@
         alert("Compra confirmada");
         return true; // Devuelve true para enviar el formulario
     }
+</script>
+<script>
+    $(document).ready(function () {
+        var email = localStorage.getItem("email");
+
+        $("#emailHidden").val(email);
+    });
 </script>
