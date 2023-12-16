@@ -98,8 +98,8 @@ namespace ClickTixWeb.Controllers
         }
 
 
-       
-      
+
+
 
         public List<Ticket> ObtenerTicketsDelUsuario(int id)
         {
@@ -107,8 +107,16 @@ namespace ClickTixWeb.Controllers
                 .Where(ticket => ticket.IdUsuario == id)
                 .ToList();
 
+            Console.WriteLine($"Número total de tickets del usuario: {tickets.Count}");
+
+            for (int i = 0; i < tickets.Count; i++)
+            {
+                Console.WriteLine($"Ticket {i + 1}: {tickets[i].Id}");
+            }
+
             return tickets;
         }
+
 
 
 
@@ -120,18 +128,12 @@ namespace ClickTixWeb.Controllers
                 .Select(usuario => usuario.IdUsuario)
                 .FirstOrDefault();
 
+
+            Console.WriteLine($"USUARIO ID: {idUsuario}");
+
             return idUsuario;
         }
 
-        public Funcion ObtenerFuncionPorId(int idFuncionTicket)
-        {
-           
-            var funcion = _context.Funcions
-                .Where(f => f.Id == idFuncionTicket)
-                .FirstOrDefault();
-
-            return funcion;
-        }
 
 
         [HttpPost]
@@ -140,66 +142,64 @@ namespace ClickTixWeb.Controllers
             int idUsuario = ObtenerIdUsuarioPorEmail(email);
             var tickets = ObtenerTicketsDelUsuario(idUsuario);
 
-            var idsFunciones = tickets.Select(ticket => ticket.IdFuncion).ToList();
+            if (tickets != null && tickets.Any())
+            {
+                var idsFunciones = tickets.Select(ticket => ticket.IdFuncion).ToList();
 
-         
-
-            // Obtener las funciones como strings
-            var funcionesStrings = ListarFunciones(idsFunciones);
-
-
-            TusTicketsViewModel ttvm = new TusTicketsViewModel(funcionesStrings);
+                for (int i = 0; i < idsFunciones.Count; i++)
+                {
+                    Console.WriteLine($"FUCNION {i + 1}: {idsFunciones[i]} ");
+                }
 
 
-            return View("~/Views/TusTickets/Index.cshtml", funcionesStrings);
+                // Obtener las funciones como strings
+                var funcionesStrings = ListarFunciones(idsFunciones);
 
-            //return Json(new { Tickets = tickets, FuncionesStrings = funcionesStrings });
+
+                for (int i = 0; i < funcionesStrings.Count; i++)
+                {
+                    Console.WriteLine($"FUCNION STRING {i + 1}: {funcionesStrings[i]} ");
+                }
+
+
+                Console.WriteLine($"FUNCIONES STRINGS: {funcionesStrings}");
+                if (funcionesStrings != null && funcionesStrings.Any())
+                {
+                    TusTicketsViewModel ttvm = new TusTicketsViewModel(funcionesStrings);
+
+                    Console.WriteLine($"TTVM :  {ttvm.funcionesStrings[0].Pelicula}");
+                    Console.WriteLine($"TTVM :  {ttvm.funcionesStrings[0].Idioma}");
+
+
+                    return View("~/Views/TusTickets/Index.cshtml", ttvm);
+                }
+            }
+
+            // Manejo de caso donde no hay tickets o funcionesStrings
+            return Content("No se encontraron tickets para el usuario");
         }
 
 
-
-
-
-
-
-        public List<Funcion> ObtenerFuncionesDeTickets(List<Ticket> tickets)
-        {
-            
-            var idsFunciones = tickets.Select(ticket => ticket.IdFuncion).ToList();
-
-            
-            var funciones = _context.Funcions
-                .Where(funcion => idsFunciones.Contains(funcion.Id))
-                .ToList();
-
-            return funciones;
-        }
-
-        public List<Funcion> ObtenerFuncionesPorIds(List<int> idsFunciones)
-        {
-        var funciones = _context.Funcions
-            .Where(funcion => idsFunciones.Contains(funcion.Id))
-            .ToList();
-
-        return funciones;
-        }
 
         public List<FuncionStrings> ListarFunciones(List<int> idsFunciones)
         {
-
             List<FuncionStrings> funcionesStrings = new List<FuncionStrings>();
-            for (int i = 0; i < idsFunciones.Count; i++)
-            {
-                var funcion = ObtenerFuncionStrings(idsFunciones[i]);
 
-                funcionesStrings.Add(funcion);
-                
+            foreach (var idFuncion in idsFunciones)
+            {
+                var funcion = ObtenerFuncionStrings(idFuncion);
+
+
+
+                if (funcion != null)
+                {
+                    funcionesStrings.Add(funcion);
+                }
             }
 
             return funcionesStrings;
-
-
         }
+
 
 
 
@@ -229,6 +229,14 @@ namespace ClickTixWeb.Controllers
 
 
             funcionStrings.Idioma = ObtenerNombreIdioma(funcionStrings.Idioma);
+
+
+            if (funcionStrings == null)
+            {
+                Console.WriteLine($"No se encontró función para ID: {funcionIdABuscar}");
+            }
+
+
 
             return funcionStrings;
         }

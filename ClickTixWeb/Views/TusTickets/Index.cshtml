@@ -18,11 +18,11 @@
 
 
 
-
-
+            
 
         <div class="card mb-3 p-2" style="max-width: 540px;">
-                @foreach (var funcionString in Model.funcionesStrings)
+        @if (Model != null && Model.funcionesStrings != null){
+            @foreach (var funcion in Model.funcionesStrings)
                 {
                     <div class="row g-0">
                         <div class="col-md-2 mr-2">
@@ -31,10 +31,10 @@
                         </div>
                         <div class="col-md-6  p-3">
                             <div class="text-body-secondary">
-                                <h5 class="text-body-secondary">NombrePelicula</h5>
-                                <small>@funcionString.Sucursal</small><br>
-                                <small>@funcionString.Turno</small><br>
-                                <small>@funcionString.Idioma</small><br>
+                                <h5 class="text-body-secondary">@funcion.CuitSucursal</h5>
+                                    <small>@funcion.Sucursal</small><br>
+                                    <small>@funcion.Turno</small><br>
+                                    <small>@funcion.Idioma</small><br>
                                 <small>numeroEntradas</small><br>
                                 <small>butacas seleccionada</small><br>
                             </div>
@@ -45,6 +45,11 @@
                         </div>
                     </div>
                 }
+        }
+        else
+        {
+        <p>No hay funciones para mostrar.</p>
+        }
         </div>
 
 
@@ -64,15 +69,18 @@
                 url: url,
                 data: { email: email },
                 success: function (response) {
-                    var tickets = response.Tickets;
-                    var funciones = response.Funciones;
-                    var funcionesStrings = response.FuncionesStrings;
+                console.log("Respuesta del servidor:", response);
+
+                var tickets = response.Tickets;
+                var funcionesStrings = response.FuncionesStrings;
+
+                if (funcionesStrings) {
                     
-                    console.log("Tickets obtenidos con éxito:", response);
-                },
-                error: function (error) {
-                    console.error("Error al obtener tickets:", error);
+                } else {
+                    console.error("La respuesta del servidor no contiene FuncionesStrings");
                 }
+                },
+
             });
         }
     });
