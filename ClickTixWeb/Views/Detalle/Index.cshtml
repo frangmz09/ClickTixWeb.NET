@@ -26,7 +26,29 @@
 
  @model DetalleViewModel
 </div>
+
+
 <section class="container mt-3 mb-5 ">
+                <form method="post" asp-controller="Detalle" asp-action="DetalleUpdate">
+                     <input type="hidden" name="peliculaId" value="@Model.Pelicula.Id" />
+                     <label for="sucursalId">Selecciona una sucursal:</label>
+                     <select name="sucursalId" id="sucursalId">
+                        <option value="">Todas las sucursales</option>
+                        @foreach (var sucursal in Model.Sucursales)
+                        {
+                            <option value="@sucursal.Id">
+                                @sucursal.Nombre
+                            </option>
+                        }
+                    </select>
+                    <input type="submit" value="Filtrar">
+                </form> 
+                
+    @if (!Model.sucursalId.HasValue)
+    {
+        
+                            <h3 class="mb-4 text-center">Por favor, seleccione una sucursal </h3>
+    }
     <div class="row shadow p-5 rounded">
         <div class="col-md-4 mb-2 text-center">
             
@@ -47,56 +69,66 @@
         @{
             var cantidadTabs = Model.FechasUnicas.Count;
         }
-        <div class="card text-center">
-        <div class="card-header p-2">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            @for (int i = 0; i < cantidadTabs; i++)
-            {
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link fw-bolder tab-link @(i == 0 ? "active" : "")" id="pills-tab-@i" data-bs-toggle="pill" data-bs-target="#pills-@i" type="button" role="tab" aria-controls="pills-@i" aria-selected="@(i == 0)">@Model.FechasUnicas.ElementAt(i).ToString("dd/MM")</button>
-                </li>
-            }
-        </ul>
-        </div>
+        @if (Model.sucursalId.HasValue){
+                 <h3 class="mb-4 text-center">Funciones en Clicktix @Model.sucursalNombre</h3>
 
-        <div class="tab-content" id="pills-tabContent">
-            @for (int i = 0; i < cantidadTabs; i++)
-            {
-                <div class="tab-pane fade @(i == 0 ? "show active" : "")" id="pills-@i" role="tabpanel" aria-labelledby="pills-tab-@i">
-                    @foreach (var dimension in Model.ProximasFuncionesStrings
-                                            .Where(f => f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString()))
-                                            .Select(f => f.Dimension).Distinct())
+                <div class="card text-center">
+                <div class="card-header p-2">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    @for (int i = 0; i < cantidadTabs; i++)
                     {
-                        <div class="card-body" id="turnoContainer">
-                            <div class="row">
-                                <p class="fw-bolder fs-5 text-start">@dimension</p>
-                            </div>
-                            <div class="row">
-                                 @if (Model.ProximasFuncionesStrings.Any(f => f.Dimension == dimension && f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString())))
-                        {
-                            @foreach (var funcion in Model.ProximasFuncionesStrings
-                                    .Where(f => f.Dimension == dimension && f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString())))
-                            {
-                                <div class="col-1">
-                                    <form method="post" asp-controller="Detalle" asp-action="SeleccionarButaca">
-                                        <input type="hidden" name="funcionId" value="@funcion.Id" />
-                                        <button class="btn btn-danger text-start btn-auto-width m-1">@funcion.Turno</button>
-                                    </form>
-                                </div>
-                            }
-                        }
-                        else
-                        {
-                            <p>No hay funciones disponibles de esta película.</p>
-                        }
-                            </div>
-                        </div>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link fw-bolder tab-link @(i == 0 ? "active" : "")" id="pills-tab-@i" data-bs-toggle="pill" data-bs-target="#pills-@i" type="button" role="tab" aria-controls="pills-@i" aria-selected="@(i == 0)">@Model.FechasUnicas.ElementAt(i).ToString("dd/MM")</button>
+                        </li>
                     }
+                </ul>
                 </div>
-            }
-        </div>
-        </div>
-@*         <div class="card text-center">
+
+                <div class="tab-content" id="pills-tabContent">
+                    @if (Model.FechasUnicas != null && Model.FechasUnicas.Any())
+        {
+                    @for (int i = 0; i < cantidadTabs; i++)
+                    {
+                        <div class="tab-pane fade @(i == 0 ? "show active" : "")" id="pills-@i" role="tabpanel" aria-labelledby="pills-tab-@i">
+                            @if (Model.ProximasFuncionesStrings != null)
+                                {
+                                    @foreach (var dimension in Model.ProximasFuncionesStrings
+                                                                              .Where(f => f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString()))
+                                                                              .Select(f => f.Dimension).Distinct())
+                                    {
+                                        <div class="card-body" id="turnoContainer">
+                                            <div class="row">
+                                                <p class="fw-bolder fs-5 text-start">@dimension</p>
+                                            </div>
+                                            <div class="row">
+                                                @if (Model.ProximasFuncionesStrings.Any(f => f.Dimension == dimension && f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString())))
+                                                {
+                                                    @foreach (var funcion in Model.ProximasFuncionesStrings
+                                                                                      .Where(f => f.Dimension == dimension && f.Fecha.Equals(Model.FechasUnicas.ElementAt(i).ToString())))
+                                                    {
+                                                        if (funcion != null)
+            {
+                                                        <div class="col-1">
+                                                            <form method="post" asp-controller="Detalle" asp-action="SeleccionarButaca">
+                                                                <input type="hidden" name="funcionId" value="@funcion.Id" />
+                                                                <button class="btn btn-danger text-start btn-auto-width m-1">@funcion.Turno</button>
+                                                            </form>
+                                                        </div>
+                                                     }}
+                                                }
+                                                else
+                                                {
+                                                    <p>No hay funciones disponibles de esta película.</p>
+                                                }
+                                    </div>
+                                </div>
+                            }}
+                        </div>
+                    }}
+                </div>
+            </div>
+        }
+        @*         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs" id="dateTabs">
                     @foreach (var funcion in Model.ProximasFunciones)

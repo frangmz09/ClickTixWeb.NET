@@ -35,6 +35,71 @@ namespace ClickTixWeb.Controllers
             return PartialView("_TurnosPartial", turnos);
         }
 
+        public IActionResult DetalleUpdate(int peliculaId, int? sucursalId)
+        {
+            var pelicula = _context.Peliculas.Find(peliculaId);
+
+            if (pelicula == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var fechaActual = DateOnly.FromDateTime(DateTime.Now.Date);
+
+            var proximasFuncionesQuery = _context.Funcions
+                .Where(f => f.IdPelicula == peliculaId
+                            && f.Fecha > fechaActual
+                            && f.Fecha <= fechaActual.AddDays(7)
+                            && (!sucursalId.HasValue || _context.Salas.Any(s => s.Id == f.IdSala && s.IdSucursal == sucursalId)))
+                .OrderBy(f => f.Fecha)
+                .ToList();
+
+            var proximasFuncionesList = proximasFuncionesQuery
+                .ToList();
+
+            List<FuncionStrings> ProximasFuncionesStrings = new List<FuncionStrings>();
+
+            var fechasUnicas = _context.Funcions
+                .Where(f => f.IdPelicula == peliculaId && f.Fecha > fechaActual && f.Fecha <= fechaActual.AddDays(7))
+                .OrderBy(f => f.Fecha)
+                .Where(f => !sucursalId.HasValue || _context.Salas.Any(s => s.Id == f.IdSala && s.IdSucursal == sucursalId))
+                .Select(f => f.Fecha)
+                .Where(fecha => fecha.HasValue)
+                .Select(fecha => fecha!.Value)
+                .Distinct()
+                .ToList();
+
+            foreach (var funcion in proximasFuncionesList)
+            {
+                ProximasFuncionesStrings.Add(ObtenerFuncionStrings(funcion.Id));
+            }
+
+            var viewModel = new DetalleViewModel
+            {
+                Pelicula = pelicula,
+                ProximasFunciones = proximasFuncionesList,
+                FechasUnicas = fechasUnicas,
+                ProximasFuncionesStrings = ProximasFuncionesStrings,
+            };
+
+            var sucursalesConFunciones = _context.Sucursals
+                .Where(sucursal => sucursal.Salas
+                    .Any(sala => sala.Funcions
+                        .Any(funcion => funcion.IdPelicula == peliculaId)))
+                .ToList();
+            viewModel.Sucursales = sucursalesConFunciones;
+
+            if (sucursalId.HasValue)
+            {
+                viewModel.sucursalId = sucursalId;
+                viewModel.sucursalNombre = _context.Sucursals
+        .Where(s => s.Id == sucursalId)
+        .Select(s => s.Nombre)
+        .FirstOrDefault();
+            }
+
+            return View("Index", viewModel);
+        }
 
         public IActionResult SeleccionarButaca(int funcionId)
         {
@@ -83,6 +148,8 @@ namespace ClickTixWeb.Controllers
                                       Turno = turno.Hora.ToString(),
                                       Sucursal = sucursal.Nombre,
                                       CuitSucursal = sucursal.Cuit.ToString(),
+                                      Fecha = f.Fecha.ToString(),
+                                      Id = f.Id
                                   }).FirstOrDefault();
 
             return funcionStrings;

@@ -99,6 +99,7 @@ namespace ClickTixWeb.Controllers
                 ProximasFunciones = proximasFuncionesList,
                 FechasUnicas = fechasUnicas,
                 ProximasFuncionesStrings = ProximasFuncionesStrings,
+                
             };
 
             var sucursalesConFunciones = _context.Sucursals
@@ -111,6 +112,10 @@ namespace ClickTixWeb.Controllers
             if (SucursalId.HasValue)
             {
                 viewModel.sucursalId = SucursalId;
+                viewModel.sucursalNombre = _context.Sucursals
+        .Where(s => s.Id == SucursalId)
+        .Select(s => s.Nombre)
+        .FirstOrDefault();
             }
 
             return View("~/Views/Detalle/Index.cshtml", viewModel);
