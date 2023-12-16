@@ -134,8 +134,6 @@ namespace ClickTixWeb.Controllers
                                   join pelicula in _context.Peliculas on f.IdPelicula equals pelicula.Id
                                   join dimension in _context.Dimensions on f.IdDimension equals dimension.Id
                                   join sala in _context.Salas on f.IdSala equals sala.Id
-                                  join idiomaGroup in _context.Idiomas on f.IdiomaFuncion equals idiomaGroup.Idioma1 into idiomaGroup
-                                  from idioma in idiomaGroup.DefaultIfEmpty()  // Left join
                                   join turno in _context.Turnos on f.TurnoId equals turno.Id
                                   join sucursal in _context.Sucursals on sala.IdSucursal equals sucursal.Id
                                   where f.Id == funcionIdABuscar
@@ -144,15 +142,31 @@ namespace ClickTixWeb.Controllers
                                       Dimension = dimension.Dimension1,
                                       Pelicula = pelicula.Titulo,
                                       Sala = sala.NroSala.ToString(),
-                                      Idioma = idioma != null ? idioma.Idioma1 : "Sin idioma",  // Manejar la posibilidad de un idioma nulo
                                       Turno = turno.Hora.ToString(),
+                                      Idioma = f.IdiomaFuncion,
                                       Sucursal = sucursal.Nombre,
                                       CuitSucursal = sucursal.Cuit.ToString(),
+                                      precioFuncion = (double)dimension.Precio,
                                       Fecha = f.Fecha.ToString(),
                                       Id = f.Id
                                   }).FirstOrDefault();
 
+
+            funcionStrings.Idioma = ObtenerNombreIdioma(funcionStrings.Idioma);
+
             return funcionStrings;
+        }
+        public string ObtenerNombreIdioma(string idioma)
+        {
+
+            int idiomaId = int.Parse(idioma);
+
+            var nombreIdioma = _context.Idiomas
+                .Where(idioma => idioma.Id == idiomaId)
+                .Select(idioma => idioma.Idioma1)
+                .FirstOrDefault() ?? "Sin idioma";
+
+            return nombreIdioma;
         }
 
         private List<Turno> ObtenerTurnosPorFechaYIdPelicula(DateOnly fecha, int idPelicula)

@@ -227,18 +227,9 @@ namespace ClickTixWeb.Controllers
                                       CuitSucursal = sucursal.Cuit.ToString(),
                                       precioFuncion = (double)dimension.Precio,
                                       Fecha = f.Fecha.ToString(),
-                                     
-                                      
+                                      Id = f.Id
+
                                   }).FirstOrDefault();
-
-
-            funcionStrings.Idioma = ObtenerNombreIdioma(funcionStrings.Idioma);
-
-
-            if (funcionStrings == null)
-            {
-                Console.WriteLine($"No se encontró función para ID: {funcionIdABuscar}");
-            }
 
 
 
