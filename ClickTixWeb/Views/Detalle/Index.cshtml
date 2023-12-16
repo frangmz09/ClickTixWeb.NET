@@ -33,7 +33,6 @@
                      <input type="hidden" name="peliculaId" value="@Model.Pelicula.Id" />
                      <label for="sucursalId">Selecciona una sucursal:</label>
                      <select name="sucursalId" id="sucursalId">
-                        <option value="">Todas las sucursales</option>
                         @foreach (var sucursal in Model.Sucursales)
                         {
                             <option value="@sucursal.Id">
@@ -41,7 +40,7 @@
                             </option>
                         }
                     </select>
-                    <input type="submit" value="Filtrar">
+                    <input type="submit" value="Seleccionar">
                 </form> 
                 
     @if (!Model.sucursalId.HasValue)
@@ -111,7 +110,7 @@
                                                         <div class="col-1">
                                                             <form method="post" asp-controller="Detalle" asp-action="SeleccionarButaca">
                                                                 <input type="hidden" name="funcionId" value="@funcion.Id" />
-                                                                <button class="btn btn-danger text-start btn-auto-width m-1">@funcion.Turno</button>
+                                                                <button class="btn btn-danger text-start btn-auto-width m-1">@funcion.Turno @funcion.Idioma.ToUpper()</button>
                                                             </form>
                                                         </div>
                                                      }}

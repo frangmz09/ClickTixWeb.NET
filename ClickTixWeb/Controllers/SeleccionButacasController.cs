@@ -189,10 +189,12 @@ namespace ClickTixWeb.Controllers
                                       Sucursal = sucursal.Nombre,
                                       CuitSucursal = sucursal.Cuit.ToString(),
                                       precioFuncion = (double)dimension.Precio,
+                                      Fecha = f.Fecha.ToString(),
+                                      Id = f.Id
+
                                   }).FirstOrDefault();
 
 
-            funcionStrings.Idioma = ObtenerNombreIdioma(funcionStrings.Idioma);
 
             return funcionStrings;
         }
