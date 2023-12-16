@@ -148,7 +148,7 @@ namespace ClickTixWeb.Controllers
 
                 for (int i = 0; i < idsFunciones.Count; i++)
                 {
-                    Console.WriteLine($"FUCNION {i + 1}: {idsFunciones[i]} ");
+                    Console.WriteLine($"FUNCION {i + 1}: {idsFunciones[i]} ");
                 }
 
 
@@ -171,7 +171,11 @@ namespace ClickTixWeb.Controllers
                     Console.WriteLine($"TTVM :  {ttvm.funcionesStrings[0].Idioma}");
 
 
+
+
                     return View("~/Views/TusTickets/Index.cshtml", ttvm);
+
+                    
                 }
             }
 

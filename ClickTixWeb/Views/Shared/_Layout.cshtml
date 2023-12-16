@@ -54,9 +54,20 @@
                         <a href="/register" class="btn btn-outline-danger rounded me-5" role="button">REGISTRAR</a>
                     }
 
-                    <a href="/tustickets" class="btn btn-outline-dark rounded-circle" role="button">
-                        <i class="fa-solid fa-user"></i>
-                    </a>
+              
+
+
+                    <div class="dropdown">
+                      <button class="btn btn-outline-dark rounded-circle dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                         <i class="fa-solid fa-user"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a href="/tustickets" class="dropdown-item" role="button"> Tus Tickets </a></li>
+                        <li><a class="dropdown-item" href="/login">Cerrar sesion</a></li>
+                      </ul>
+                    </div>
+
+
                 </form>
             </div>
             </div>
@@ -133,3 +144,5 @@
 
         </body>
     </html>
+
+   
