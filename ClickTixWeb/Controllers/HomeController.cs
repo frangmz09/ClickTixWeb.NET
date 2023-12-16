@@ -54,8 +54,7 @@ namespace ClickTixWeb.Controllers
 
 
 
-        [HttpPost]
-        public IActionResult Detalle(int peliculaId)
+        public IActionResult Detalle(int peliculaId, int? SucursalId)
         {
             var pelicula = _context.Peliculas.Find(peliculaId);
 
@@ -66,42 +65,53 @@ namespace ClickTixWeb.Controllers
 
             var fechaActual = DateOnly.FromDateTime(DateTime.Now.Date);
 
-            var proximasFunciones = _context.Funcions
-            .Where(f => f.IdPelicula == peliculaId && f.Fecha > fechaActual && f.Fecha <= fechaActual.AddDays(7))
-            .OrderBy(f => f.Fecha)
-            .ToList();
+            var proximasFuncionesQuery = _context.Funcions
+                .Where(f => f.IdPelicula == peliculaId
+                            && f.Fecha > fechaActual
+                            && f.Fecha <= fechaActual.AddDays(7)
+                            && (!SucursalId.HasValue || _context.Salas.Any(s => s.Id == f.IdSala && s.IdSucursal == SucursalId)))
+                .OrderBy(f => f.Fecha)
+                .ToList();
+
+            var proximasFuncionesList = proximasFuncionesQuery
+                .ToList();
 
             List<FuncionStrings> ProximasFuncionesStrings = new List<FuncionStrings>();
 
             var fechasUnicas = _context.Funcions
-            .Where(f => f.IdPelicula == peliculaId && f.Fecha > fechaActual && f.Fecha <= fechaActual.AddDays(7))
-            .OrderBy(f => f.Fecha)
-            .Select(f => f.Fecha)
-            .Where(fecha => fecha.HasValue)
-            .Select(fecha => fecha!.Value)
-            .Distinct()
-            .ToList();
+                .Where(f => f.IdPelicula == peliculaId && f.Fecha > fechaActual && f.Fecha <= fechaActual.AddDays(7))
+                .OrderBy(f => f.Fecha)
+                .Where(f => !SucursalId.HasValue || _context.Salas.Any(s => s.Id == f.IdSala && s.IdSucursal == SucursalId))
+                .Select(f => f.Fecha)
+                .Where(fecha => fecha.HasValue)
+                .Select(fecha => fecha!.Value)
+                .Distinct()
+                .ToList();
 
-            foreach (var funcion in proximasFunciones)
+            foreach (var funcion in proximasFuncionesList)
             {
                 ProximasFuncionesStrings.Add(ObtenerFuncionStrings(funcion.Id));
-
             }
-
-            var proximasFuncionesStrings = _context.Funcions
-            .Where(f => f.IdPelicula == peliculaId && f.Fecha > fechaActual && f.Fecha <= fechaActual.AddDays(7))
-            .OrderBy(f => f.Fecha)
-            .ToList();
 
             var viewModel = new DetalleViewModel
             {
                 Pelicula = pelicula,
-                ProximasFunciones = proximasFunciones,
+                ProximasFunciones = proximasFuncionesList,
                 FechasUnicas = fechasUnicas,
                 ProximasFuncionesStrings = ProximasFuncionesStrings,
             };
 
+            var sucursalesConFunciones = _context.Sucursals
+                .Where(sucursal => sucursal.Salas
+                    .Any(sala => sala.Funcions
+                        .Any(funcion => funcion.IdPelicula == peliculaId)))
+                .ToList();
+            viewModel.Sucursales = sucursalesConFunciones;
 
+            if (SucursalId.HasValue)
+            {
+                viewModel.sucursalId = SucursalId;
+            }
 
             return View("~/Views/Detalle/Index.cshtml", viewModel);
         }
