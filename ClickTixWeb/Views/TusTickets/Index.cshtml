@@ -1,5 +1,6 @@
 ﻿
-
+  <script src="path/to/qrcode.min.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
    <section class="container col-6 mt-5 align-items-center mb-5" style="max-height: 800px; overflow-y: auto;">
 
 
@@ -23,16 +24,10 @@
                 data: { email: email },
                 success: function (response) {
                 console.log("Respuesta del servidor:", response);
-
+                 
                 
-                        
+
                         $('#respuestaServidorContainer').html(response);
-                    
-
-
-
-                //var tickets = response.Tickets;
-                //var funcionesStrings = response.FuncionesStrings;
 
                 if (funcionesStrings) {
                     
@@ -44,9 +39,10 @@
             });
         }
     });
+
+
+
 </script>
+<div style="height: 100px;"></div>
 
 
-
-    <div style="height: 100px;">
-    </div>

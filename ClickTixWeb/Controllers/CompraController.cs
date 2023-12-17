@@ -48,7 +48,7 @@ namespace ClickTixWeb.Controllers
                     Fila = ObtenerFilaPorId(idAsiento), 
                     Columna = ObtenerColumnaPorId(idAsiento), 
                     PrecioAlMomento = (double)precioMomento,
-                    IdUsuario = UserId,
+                    IdUsuario = 1,
                     };
                     _context.Tickets.Add(nuevoTicket);
 

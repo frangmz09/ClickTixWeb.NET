@@ -3,6 +3,8 @@
 *@
 @{
 }
+    <script src="path/to/qrcode.min.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
         <div class="card mb-3 p-2" style="max-width: 700px;">
     @if (Model != null && Model.funcionesStrings != null)
@@ -12,23 +14,26 @@
                             <div class="row g-0">
                                 <div class="col-md-2 mr-2">
                                     <img src="https://dummyimage.com/100x200/dee2e6/6c757d.jpg" class="img-fluid " alt="...">
-                                    <small>10/10*/1010</small>
+                                            <small>@funcion.Fecha</small>
                                 </div>
                                 <div class="col-md-6  p-3">
                                     <div class="text-body-secondary">
-                                        <h5 class="text-body-secondary">@funcion.CuitSucursal</h5>
+                                        <h5 class="text-body-secondary">@funcion.Pelicula</h5>
                                                     <small>@(funcion.Sucursal ?? "Sin Sucursal")</small><br>
                                                     <small>@(funcion.Turno ?? "Sin Turno")</small><br>
                                                     <small>@(funcion.Idioma ?? "Sin Idioma")</small><br>
-                                        <small>numeroEntradas</small><br>
+                                        <small></small><br>
                                         <small>butacas seleccionada</small><br>
                                     </div>
                                 </div>
-                                <div class="col-md-4 align-items-center">
-                                    <img src="https://dummyimage.com/150x150/dee2e6/6c757d.jpg" class="img-thumbnail align-items-center" alt="...">
-                                    <p class="text-center">9999999999999</p>
+                                      <div class="col-md-4 align-items-center" id="qrcode">
+                                            <img src="" class="img-thumbnail align-items-center " alt="...">
+                                            <p class="text-center">9999999999999</p>
+                                       </div>
                                 </div>
-                            </div>
                             <hr>
         }
     }
+
+
+

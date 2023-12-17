@@ -165,7 +165,7 @@ namespace ClickTixWeb.Controllers
                 Console.WriteLine($"FUNCIONES STRINGS: {funcionesStrings}");
                 if (funcionesStrings != null && funcionesStrings.Any())
                 {
-                    TusTicketsViewModel ttvm = new TusTicketsViewModel(funcionesStrings);
+                    TusTicketsViewModel ttvm = new TusTicketsViewModel(funcionesStrings,tickets);
 
                     Console.WriteLine($"TTVM :  {ttvm.funcionesStrings[0].Pelicula}");
                     Console.WriteLine($"TTVM :  {ttvm.funcionesStrings[0].Idioma}");
@@ -193,7 +193,7 @@ namespace ClickTixWeb.Controllers
             {
                 var funcion = ObtenerFuncionStrings(idFuncion);
 
-
+                
 
                 if (funcion != null)
                 {
@@ -247,6 +247,33 @@ namespace ClickTixWeb.Controllers
 
             return nombreIdioma;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
