@@ -3,6 +3,7 @@ using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace ClickTixWeb.Controllers
 {
@@ -25,7 +26,46 @@ namespace ClickTixWeb.Controllers
             var precioMomento = decimal.Parse(formCollection["precioMomento"]);
             var email = formCollection["emailHidden"];
             var asientosIds = formCollection["asientosId"].Select(id => int.Parse(id)).ToList();
+
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine(funcionId);
+            Console.WriteLine(email);
+            Console.WriteLine(precioMomento);
+            Console.WriteLine(asientosIds);
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("-----------------------------------");
+
             string UserId = ObtenerUid(email);
+            int idAsetear = _context.Tickets.OrderByDescending(ticket => ticket.Id).Select(ticket => ticket.Id).FirstOrDefault();
+            foreach (var idAsiento in asientosIds)
+            {
+                idAsetear++;
+
+                DateTime fechaActual = DateTime.Now;
+                var nuevoTicket = new Ticket
+                {
+                        Id = idAsetear,
+                        IdFuncion = funcionId,
+                        Fecha = fechaActual,
+                        Fila = ObtenerFilaPorId(idAsiento), 
+                        Columna = ObtenerColumnaPorId(idAsiento), 
+                        PrecioAlMomento = (double)precioMomento,
+                        UidFb = UserId,
+                    };
+                var entry = _context.Entry(nuevoTicket);
+                if (entry.State != EntityState.Detached)
+                {
+                    entry.State = EntityState.Detached;
+                }
+
+                _context.Tickets.Add(nuevoTicket);
+            }
+            _context.SaveChanges();
 
             foreach (var asientoId in asientosIds)
             {
@@ -37,22 +77,6 @@ namespace ClickTixWeb.Controllers
                 }
             }
 
-            _context.SaveChanges();
-            foreach (var idAsiento in asientosIds)
-            {
-                DateTime fechaActual = DateTime.Now;
-                var nuevoTicket = new Ticket
-                {
-                    IdFuncion = funcionId,
-                    Fecha = fechaActual,
-                    Fila = ObtenerFilaPorId(idAsiento), 
-                    Columna = ObtenerColumnaPorId(idAsiento), 
-                    PrecioAlMomento = (double)precioMomento,
-                    IdUsuario = 1,
-                    };
-                    _context.Tickets.Add(nuevoTicket);
-
-                }
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home"); 

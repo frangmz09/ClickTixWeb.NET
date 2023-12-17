@@ -22,8 +22,8 @@ namespace ClickTixWeb.Controllers
                 {
                     DisableECI = true,
                     CharacterSet = "UTF-8",
-                    Width = 300,
-                    Height = 300
+                    Width = 150,
+                    Height = 150
                 }
             };
 

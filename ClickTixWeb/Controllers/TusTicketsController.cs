@@ -1,4 +1,5 @@
 ﻿using ClickTixWeb.Models;
+using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ namespace ClickTixWeb.Controllers
 
         private readonly ClicktixContext _context;
 
+        FirebaseAuth auth = FirebaseAuth.DefaultInstance;
 
 
         public TusTicketsController(ClicktixContext context)
@@ -101,10 +103,10 @@ namespace ClickTixWeb.Controllers
 
 
 
-        public List<Ticket> ObtenerTicketsDelUsuario(int id)
+        public List<Ticket> ObtenerTicketsDelUsuario(string id)
         {
             var tickets = _context.Tickets
-                .Where(ticket => ticket.IdUsuario == id)
+                .Where(ticket => ticket.UidFb.Equals(id))
                 .ToList();
 
             Console.WriteLine($"Número total de tickets del usuario: {tickets.Count}");
@@ -120,26 +122,20 @@ namespace ClickTixWeb.Controllers
 
 
 
-        public int ObtenerIdUsuarioPorEmail(string email)
+
+        public string ObtenerIdUsuarioPorEmail(string email)
         {
-            
-            var idUsuario = _context.UsuarioWebs
-                .Where(usuario => usuario.Email == email)
-                .Select(usuario => usuario.IdUsuario)
-                .FirstOrDefault();
+            var userRecord = auth.GetUserByEmailAsync(email).Result;
 
+            return userRecord.Uid;
 
-            Console.WriteLine($"USUARIO ID: {idUsuario}");
-
-            return idUsuario;
         }
-
 
 
         [HttpPost]
         public ActionResult ObtenerTickets(string email)
         {
-            int idUsuario = ObtenerIdUsuarioPorEmail(email);
+            string idUsuario = ObtenerIdUsuarioPorEmail(email);
             var tickets = ObtenerTicketsDelUsuario(idUsuario);
 
             if (tickets != null && tickets.Any())
@@ -156,6 +152,31 @@ namespace ClickTixWeb.Controllers
                 var funcionesStrings = ListarFunciones(idsFunciones);
 
 
+
+
+                if (tickets.Count == funcionesStrings.Count)
+                {
+                    for (int i = 0; i < tickets.Count; i++)
+                    {
+                       
+                        funcionesStrings[i].Ticket  = tickets[i].Id;
+                        funcionesStrings[i].Columna = tickets[i].Columna;
+                        funcionesStrings[i].Fila    = tickets[i].Fila;
+
+
+                    }
+                }
+                else
+                {
+                    
+                    Console.WriteLine("Error: The lists have different lengths.");
+                }
+
+
+
+
+
+
                 for (int i = 0; i < funcionesStrings.Count; i++)
                 {
                     Console.WriteLine($"FUCNION STRING {i + 1}: {funcionesStrings[i]} ");
@@ -165,17 +186,17 @@ namespace ClickTixWeb.Controllers
                 Console.WriteLine($"FUNCIONES STRINGS: {funcionesStrings}");
                 if (funcionesStrings != null && funcionesStrings.Any())
                 {
-                    TusTicketsViewModel ttvm = new TusTicketsViewModel(funcionesStrings,tickets);
+                    TusTicketsViewModel ttvm = new TusTicketsViewModel(funcionesStrings);
 
                     Console.WriteLine($"TTVM :  {ttvm.funcionesStrings[0].Pelicula}");
                     Console.WriteLine($"TTVM :  {ttvm.funcionesStrings[0].Idioma}");
 
 
-                    
+
 
                     return PartialView("~/Views/TusTickets/_PartialLayout.cshtml", ttvm);
 
-                    
+
                 }
             }
 
@@ -192,8 +213,8 @@ namespace ClickTixWeb.Controllers
             foreach (var idFuncion in idsFunciones)
             {
                 var funcion = ObtenerFuncionStrings(idFuncion);
+               
 
-                
 
                 if (funcion != null)
                 {
@@ -215,11 +236,13 @@ namespace ClickTixWeb.Controllers
                                   join sala in _context.Salas on f.IdSala equals sala.Id
                                   join turno in _context.Turnos on f.TurnoId equals turno.Id
                                   join sucursal in _context.Sucursals on sala.IdSucursal equals sucursal.Id
+                                  
                                   where f.Id == funcionIdABuscar
                                   select new FuncionStrings
                                   {
                                       Dimension = dimension.Dimension1,
                                       Pelicula = pelicula.Titulo,
+                                      Portada = pelicula.Portada,
                                       Sala = sala.NroSala.ToString(),
                                       Turno = turno.Hora.ToString(),
                                       Idioma = f.IdiomaFuncion,
@@ -232,7 +255,7 @@ namespace ClickTixWeb.Controllers
                                   }).FirstOrDefault();
 
 
-
+            funcionStrings.Idioma = ObtenerNombreIdioma(funcionStrings.Idioma);
             return funcionStrings;
         }
         public string ObtenerNombreIdioma(string idioma)
@@ -247,33 +270,6 @@ namespace ClickTixWeb.Controllers
 
             return nombreIdioma;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

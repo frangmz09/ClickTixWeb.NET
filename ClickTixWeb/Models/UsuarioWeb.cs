@@ -24,6 +24,4 @@ public partial class UsuarioWeb
     public int IdUsuario { get; set; }
 
     public virtual Sucursal? SucursalHabitualNavigation { get; set; }
-
-    public virtual ICollection<Ticket> Tickets { get; } = new List<Ticket>();
 }

@@ -9,7 +9,5 @@ public partial class TicketCandy
 
     public DateTime? Fecha { get; set; }
 
-    public virtual ICollection<Qr> Qrs { get; } = new List<Qr>();
-
     public virtual ICollection<ProductoCandy> IdProductos { get; } = new List<ProductoCandy>();
 }

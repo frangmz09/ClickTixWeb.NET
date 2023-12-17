@@ -9,10 +9,10 @@
     <div class="container row offset-1">
 
         <div class="mt-3 bg-danger rounded col-6 p-3">
-                <form onsubmit="return validarFormulario()" method="post" action="@Url.Action("ConfirmarCompra", "Compra")">    
+                <form method="post" action="@Url.Action("ConfirmarCompra", "Compra")">    
                       <input type="hidden" name="funcionId" value="@Model.Funcion.Id" />
                       <input type="hidden" name="precioMomento" value="@Model.FuncionStrings.precioFuncion" />
-                      <input type="hidden" id="emailHidden" name="email" />
+                      <input type="hidden" id="emailHidden" name="emailHidden" />
 
                     @foreach (var asientoId in Model.AsientosId)
                 {
@@ -148,6 +148,7 @@
         </div>
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     function validarFormulario() {
         // Realiza validaciones adicionales si es necesario
