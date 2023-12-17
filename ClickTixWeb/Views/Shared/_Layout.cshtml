@@ -76,22 +76,16 @@
                 </ul>
                 <form class="d-flex">
 
-                    @if (!string.IsNullOrEmpty(ViewData["UsuarioNombre"] as string))
-                    {
-                        <span class="navbar-text">Bienvenido, @ViewData["UsuarioNombre"]</span>
-                    }
-                    else
-                    {
+                    <div id="notLoged">
                         <a href="/login" class="btn btn-danger me-2" role="button">INGRESAR</a>
                         <a href="/register" class="btn btn-outline-danger rounded me-5" role="button">REGISTRAR</a>
-                    }
+                    </div>
 
-              
 
 
                     <div class="dropdown" id="userDropdown">
                       <button class="btn btn-outline-dark rounded-circle dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                         <i class="fa-solid fa-user"></i>
+                         <i class="fa-solid fa-user py-2"></i>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a href="/tustickets" class="dropdown-item" role="button"> Tus Tickets </a></li>
@@ -177,6 +171,8 @@
                 
                 if (!email) {
                     $('#userDropdown').hide();
+                } else {
+                $('#notLoged').hide();
                 }
 
                
@@ -186,8 +182,10 @@
                     
                     window.location.href = '/login';
                 });
+                
             });
         </script>
+
 
 
         <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
