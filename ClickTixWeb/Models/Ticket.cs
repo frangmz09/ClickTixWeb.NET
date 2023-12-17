@@ -17,11 +17,7 @@ public partial class Ticket
 
     public double? PrecioAlMomento { get; set; }
 
-    public int? IdUsuario { get; set; }
+    public string? UidFb { get; set; }
 
     public virtual Funcion IdFuncionNavigation { get; set; } = null!;
-
-    public virtual UsuarioWeb? IdUsuarioNavigation { get; set; }
-
-    public virtual ICollection<Qr> Qrs { get; } = new List<Qr>();
 }

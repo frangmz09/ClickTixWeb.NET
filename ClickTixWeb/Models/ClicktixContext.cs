@@ -33,8 +33,6 @@ public partial class ClicktixContext : DbContext
 
     public virtual DbSet<ProductoCandy> ProductoCandies { get; set; }
 
-    public virtual DbSet<Qr> Qrs { get; set; }
-
     public virtual DbSet<Sala> Salas { get; set; }
 
     public virtual DbSet<Sucursal> Sucursals { get; set; }
@@ -356,44 +354,6 @@ public partial class ClicktixContext : DbContext
                 .HasConstraintName("fk_catalogo_candy_categoria_candy1");
         });
 
-        modelBuilder.Entity<Qr>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity
-                .ToTable("qr")
-                .HasCharSet("utf8")
-                .UseCollation("utf8_general_ci");
-
-            entity.HasIndex(e => e.IdTicket, "fk_qr_ticket1_idx");
-
-            entity.HasIndex(e => e.IdTicketcandy, "fk_qr_ticket_candy1_idx");
-
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnType("int(11)")
-                .HasColumnName("id");
-            entity.Property(e => e.Codigo)
-                .HasMaxLength(45)
-                .HasColumnName("codigo");
-            entity.Property(e => e.IdTicket)
-                .HasColumnType("int(11)")
-                .HasColumnName("id_ticket");
-            entity.Property(e => e.IdTicketcandy)
-                .HasColumnType("int(11)")
-                .HasColumnName("id_ticketcandy");
-
-            entity.HasOne(d => d.IdTicketNavigation).WithMany(p => p.Qrs)
-                .HasForeignKey(d => d.IdTicket)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_qr_ticket1");
-
-            entity.HasOne(d => d.IdTicketcandyNavigation).WithMany(p => p.Qrs)
-                .HasForeignKey(d => d.IdTicketcandy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_qr_ticket_candy1");
-        });
-
         modelBuilder.Entity<Sala>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -466,8 +426,6 @@ public partial class ClicktixContext : DbContext
 
             entity.HasIndex(e => e.IdFuncion, "fk_ticket_funcion1_idx");
 
-            entity.HasIndex(e => e.IdUsuario, "usuario");
-
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnType("int(11)")
@@ -484,19 +442,15 @@ public partial class ClicktixContext : DbContext
             entity.Property(e => e.IdFuncion)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_funcion");
-            entity.Property(e => e.IdUsuario)
-                .HasColumnType("int(11)")
-                .HasColumnName("id_usuario");
             entity.Property(e => e.PrecioAlMomento).HasColumnName("precio_al_momento");
+            entity.Property(e => e.UidFb)
+                .HasMaxLength(300)
+                .HasColumnName("uid_fb");
 
             entity.HasOne(d => d.IdFuncionNavigation).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.IdFuncion)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_ticket_funcion1");
-
-            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Tickets)
-                .HasForeignKey(d => d.IdUsuario)
-                .HasConstraintName("usuario");
         });
 
         modelBuilder.Entity<TicketCandy>(entity =>

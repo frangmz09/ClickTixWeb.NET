@@ -42,17 +42,16 @@ namespace ClickTixWeb.Controllers
             {
                 DateTime fechaActual = DateTime.Now;
                 var nuevoTicket = new Ticket
-                {
-                    IdFuncion = funcionId,
-                    Fecha = fechaActual,
-                    Fila = ObtenerFilaPorId(idAsiento), 
-                    Columna = ObtenerColumnaPorId(idAsiento), 
-                    PrecioAlMomento = (double)precioMomento,
-                    IdUsuario = UserId,
+                    {
+                        IdFuncion = funcionId,
+                        Fecha = fechaActual,
+                        Fila = ObtenerFilaPorId(idAsiento), 
+                        Columna = ObtenerColumnaPorId(idAsiento), 
+                        PrecioAlMomento = (double)precioMomento,
+                        UidFb = UserId,
                     };
                     _context.Tickets.Add(nuevoTicket);
-
-                }
+            }
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home"); 
