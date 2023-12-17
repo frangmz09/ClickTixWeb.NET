@@ -1,4 +1,5 @@
 ﻿using ClickTixWeb.Models;
+using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ namespace ClickTixWeb.Controllers
 
         private readonly ClicktixContext _context;
 
+        FirebaseAuth auth = FirebaseAuth.DefaultInstance;
 
 
         public TusTicketsController(ClicktixContext context)
@@ -101,10 +103,10 @@ namespace ClickTixWeb.Controllers
 
 
 
-        public List<Ticket> ObtenerTicketsDelUsuario(int id)
+        public List<Ticket> ObtenerTicketsDelUsuario(string id)
         {
             var tickets = _context.Tickets
-                .Where(ticket => ticket.IdUsuario == id)
+                .Where(ticket => ticket.UidFb.Equals(id))
                 .ToList();
 
             Console.WriteLine($"Número total de tickets del usuario: {tickets.Count}");
@@ -120,26 +122,20 @@ namespace ClickTixWeb.Controllers
 
 
 
-        public int ObtenerIdUsuarioPorEmail(string email)
+        
+        public string ObtenerIdUsuarioPorEmail(string email)
         {
-            
-            var idUsuario = _context.UsuarioWebs
-                .Where(usuario => usuario.Email == email)
-                .Select(usuario => usuario.IdUsuario)
-                .FirstOrDefault();
+            var userRecord = auth.GetUserByEmailAsync(email).Result;
 
+            return userRecord.Uid;
 
-            Console.WriteLine($"USUARIO ID: {idUsuario}");
-
-            return idUsuario;
         }
-
 
 
         [HttpPost]
         public ActionResult ObtenerTickets(string email)
         {
-            int idUsuario = ObtenerIdUsuarioPorEmail(email);
+            string idUsuario = ObtenerIdUsuarioPorEmail(email);
             var tickets = ObtenerTicketsDelUsuario(idUsuario);
 
             if (tickets != null && tickets.Any())
