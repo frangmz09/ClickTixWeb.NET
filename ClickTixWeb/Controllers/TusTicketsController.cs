@@ -148,7 +148,6 @@ namespace ClickTixWeb.Controllers
                 }
 
 
-                // Obtener las funciones como strings
                 var funcionesStrings = ListarFunciones(idsFunciones);
 
 
