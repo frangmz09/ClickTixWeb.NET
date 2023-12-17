@@ -1,9 +1,21 @@
 ﻿
 
-   <section class="container col-6 mt-5 align-items-center mb-5" style="max-height: 800px; overflow-y: auto;">
 
 
-        <div id="respuestaServidorContainer"></div>
+
+ <script src="path/to/qrcode.min.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<section class="container col-6 mt-5 align-items-center mb-5" style="max-height: 800px; overflow-y: auto;">
+
+
+         <div id="loader-container" class="loader-container">
+            <div class="loader"></div>
+        </div>
+        
+         <div id="respuestaServidorContainer"></div>
+         
+
+       
             
 
 
@@ -11,6 +23,10 @@
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
+
+    startTask()
+
+
     $(document).ready(function () {
         var email = localStorage.getItem("email");
 
@@ -22,17 +38,13 @@
                 url: url,
                 data: { email: email },
                 success: function (response) {
-                console.log("Respuesta del servidor:", response);
 
                 
-                        
+                console.log("Respuesta del servidor:", response);
+                 
+                
+
                         $('#respuestaServidorContainer').html(response);
-                    
-
-
-
-                //var tickets = response.Tickets;
-                //var funcionesStrings = response.FuncionesStrings;
 
                 if (funcionesStrings) {
                     
@@ -44,9 +56,20 @@
             });
         }
     });
+    function startTask() {
+    
+    document.getElementById('loader-container').style.display = 'flex';
+
+    
+    setTimeout(() => {
+        
+        document.getElementById('loader-container').style.display = 'none';
+    }, 2000); 
+}
+
+
+
 </script>
+<div style="height: 100px;"></div>
 
 
-
-    <div style="height: 100px;">
-    </div>

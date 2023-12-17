@@ -147,10 +147,7 @@ namespace ClickTixWeb.Controllers
 
             if (sucursalId.HasValue)
             {
-                //peliculasConFunciones = peliculasConFunciones
-                //    .Where(p => p.Funcions.Any(f => f.IdSalaNavigation.IdSucursal == sucursalId))
-                //    .ToList();
-
+               
                 peliculasConFunciones = peliculasConFunciones
                 .Join(_context.Funcions,
                     pelicula => pelicula.Id,

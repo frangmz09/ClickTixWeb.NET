@@ -11,9 +11,11 @@
         public string Sucursal { get; set; }
         public string CuitSucursal { get; set; }
         public double precioFuncion { get; set; }
-
+        public string Portada { get; set; }
+        public int Ticket { get; set; }
+        public int? Fila { get; set; }
+        public int? Columna { get; set; }
         public string Fecha {  get; set; }
-
         public int Id { get; set; }
 
     }

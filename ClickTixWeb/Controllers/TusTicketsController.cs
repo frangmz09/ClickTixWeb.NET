@@ -122,7 +122,7 @@ namespace ClickTixWeb.Controllers
 
 
 
-        
+
         public string ObtenerIdUsuarioPorEmail(string email)
         {
             var userRecord = auth.GetUserByEmailAsync(email).Result;
@@ -151,6 +151,31 @@ namespace ClickTixWeb.Controllers
                 var funcionesStrings = ListarFunciones(idsFunciones);
 
 
+
+
+                if (tickets.Count == funcionesStrings.Count)
+                {
+                    for (int i = 0; i < tickets.Count; i++)
+                    {
+                       
+                        funcionesStrings[i].Ticket  = tickets[i].Id;
+                        funcionesStrings[i].Columna = tickets[i].Columna;
+                        funcionesStrings[i].Fila    = tickets[i].Fila;
+
+
+                    }
+                }
+                else
+                {
+                    
+                    Console.WriteLine("Error: The lists have different lengths.");
+                }
+
+
+
+
+
+
                 for (int i = 0; i < funcionesStrings.Count; i++)
                 {
                     Console.WriteLine($"FUCNION STRING {i + 1}: {funcionesStrings[i]} ");
@@ -166,11 +191,11 @@ namespace ClickTixWeb.Controllers
                     Console.WriteLine($"TTVM :  {ttvm.funcionesStrings[0].Idioma}");
 
 
-                    
+
 
                     return PartialView("~/Views/TusTickets/_PartialLayout.cshtml", ttvm);
 
-                    
+
                 }
             }
 
@@ -187,7 +212,7 @@ namespace ClickTixWeb.Controllers
             foreach (var idFuncion in idsFunciones)
             {
                 var funcion = ObtenerFuncionStrings(idFuncion);
-
+               
 
 
                 if (funcion != null)
@@ -210,11 +235,13 @@ namespace ClickTixWeb.Controllers
                                   join sala in _context.Salas on f.IdSala equals sala.Id
                                   join turno in _context.Turnos on f.TurnoId equals turno.Id
                                   join sucursal in _context.Sucursals on sala.IdSucursal equals sucursal.Id
+                                  
                                   where f.Id == funcionIdABuscar
                                   select new FuncionStrings
                                   {
                                       Dimension = dimension.Dimension1,
                                       Pelicula = pelicula.Titulo,
+                                      Portada = pelicula.Portada,
                                       Sala = sala.NroSala.ToString(),
                                       Turno = turno.Hora.ToString(),
                                       Idioma = f.IdiomaFuncion,
@@ -227,7 +254,7 @@ namespace ClickTixWeb.Controllers
                                   }).FirstOrDefault();
 
 
-
+            funcionStrings.Idioma = ObtenerNombreIdioma(funcionStrings.Idioma);
             return funcionStrings;
         }
         public string ObtenerNombreIdioma(string idioma)
