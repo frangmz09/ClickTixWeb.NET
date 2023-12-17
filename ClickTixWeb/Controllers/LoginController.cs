@@ -107,24 +107,40 @@ namespace ClickTixWeb.Controllers
 
         }
 
+        public Boolean verificarEmail(string email)
+        {
+
+
+
+
+            if (auth.GetUserByEmailAsync(email).Result == null)
+            {
+
+                return false;
+
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
         public ActionResult Login(string email, string password)
         {
 
-           
 
 
-            if (UsuarioAutenticado(email, password))
+            if (verificarEmail(email))
             {
-
-     
                 ViewData["Token"] = email;
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                ViewData["Error"] = "Credenciales incorrectas";
-                return View("Index");
+                return View("CuentaError.cshtml");
             }
+
         }
 
         private bool UsuarioAutenticado(string email, string password)

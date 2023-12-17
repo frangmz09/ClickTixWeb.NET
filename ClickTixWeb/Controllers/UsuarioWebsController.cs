@@ -13,6 +13,8 @@ namespace ClickTixWeb.Controllers
     {
         private readonly ClicktixContext _context;
 
+        FirebaseAuth auth = FirebaseAuth.DefaultInstance;
+
         public UsuarioWebsController(ClicktixContext context)
         {
             _context = context;
@@ -156,35 +158,65 @@ namespace ClickTixWeb.Controllers
             return View();
         }
 
+
+
+        
+
+
+
+
+
+
+
+
+
         // POST: UsuarioWebs/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-
-
-        public IActionResult Login(string email, string password)
+        public async Task<IActionResult> Login(string email, string password)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            try
             {
-                ViewData["Error"] = "Ingrese correo electrónico y contraseña";
-                return View("Login");
+                if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                {
+                    ViewData["Error"] = "Ingrese correo electrónico y contraseña";
+                    return View("Login");
+                }
+
+                if (await VerificarEmailAsync(email))
+                {
+                    ViewData["Token"] = email;
+                    // Redirigir al Home si el correo existe
+
+                    if (UsuarioAutenticado(email,password))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return View("/Views/UsuarioWebs/CuentaError.cshtml");
+                    }
+
+
+
+
+
+                   
+
+                }
+                else
+                {
+
+                    
+                    
+                    ViewData["Error"] = "El correo electrónico no existe";
+                    return View("/Views/UsuarioWebs/CuentaError.cshtml");
+                }
             }
-
-            if (UsuarioAutenticado(email, password))
+            catch (Exception ex)
             {
-                Trace.WriteLine("USUARIO EXISTEEEEADFASFASFASFSAFASFAFWQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                HttpContext.Session.SetString("UsuarioEmail", email);
-
-                string nombreUsuario = ObtenerNombreUsuario(email);
-                HttpContext.Session.SetString("UsuarioNombre", nombreUsuario);
-
-                ViewData["UsuarioNombre"] = nombreUsuario;
-
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ViewData["Error"] = "Credenciales incorrectas";
+                // Loguear o manejar la excepción de alguna manera
+                ViewData["Error"] = "Error al intentar iniciar sesión.";
                 return View("Login");
             }
         }
@@ -226,7 +258,19 @@ namespace ClickTixWeb.Controllers
 
 
 
-
+        private async Task<bool> VerificarEmailAsync(string email)
+        {
+            try
+            {
+                var userRecord = await auth.GetUserByEmailAsync(email);
+                return userRecord != null;
+            }
+            catch (FirebaseAuthException ex)
+            {
+                // Manejar la excepción de Firebase, puedes loguearla o manejarla de alguna otra manera
+                return false;
+            }
+        }
 
 
     }

@@ -14,7 +14,7 @@
 </header>
 
  
-<p id="correoParrafo"></p>
+
 
 @*<img src="@Url.Action("ShowQRCode", "QR", new { data = "aca iria el idTicket" })" alt="QR Code"  />*@ 
 
@@ -26,7 +26,7 @@
 <!-- Section-->
 <section class="py-5">
     <div class="container">
-        <div class="row">
+        <div class="row card p-2">
 
 
 
@@ -37,7 +37,7 @@
             @using (Html.BeginForm("Index", "Home", FormMethod.Get))
             {
                 <label for="sucursalId">Selecciona una sucursal:</label>
-                <select name="sucursalId" id="sucursalId">
+                <select  name="sucursalId" id="sucursalId">
                     <option value="">Todas las sucursales</option>
                     @foreach (var sucursal in Model.Sucursales)
                     {
@@ -46,7 +46,7 @@
                         </option>
                     }
                 </select>
-                <input type="submit" value="Filtrar">
+                <input class="btn btn-danger" type="submit" value="Filtrar">
             }
 
 
