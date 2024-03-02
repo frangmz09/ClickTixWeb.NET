@@ -404,6 +404,9 @@ public partial class ClicktixContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
+            entity.Property(e => e.Abreviatura)
+                .HasMaxLength(3)
+                .HasColumnName("abreviatura");
             entity.Property(e => e.Cuit)
                 .HasMaxLength(45)
                 .HasColumnName("cuit");
@@ -442,6 +445,10 @@ public partial class ClicktixContext : DbContext
             entity.Property(e => e.IdFuncion)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_funcion");
+            entity.Property(e => e.IdLabel)
+                .HasMaxLength(13)
+                .HasColumnName("id_label");
+            entity.Property(e => e.IsWithdrawn).HasColumnName("is_withdrawn");
             entity.Property(e => e.PrecioAlMomento).HasColumnName("precio_al_momento");
             entity.Property(e => e.UidFb)
                 .HasMaxLength(300)

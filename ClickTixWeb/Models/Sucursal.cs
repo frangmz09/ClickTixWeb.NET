@@ -13,6 +13,8 @@ public partial class Sucursal
 
     public string? Direccion { get; set; }
 
+    public string? Abreviatura { get; set; }
+
     public virtual ICollection<Sala> Salas { get; } = new List<Sala>();
 
     public virtual ICollection<UsuarioSistema> UsuarioSistemas { get; } = new List<UsuarioSistema>();

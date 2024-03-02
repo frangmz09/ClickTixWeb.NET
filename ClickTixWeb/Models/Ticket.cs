@@ -19,5 +19,9 @@ public partial class Ticket
 
     public string? UidFb { get; set; }
 
+    public string? IdLabel { get; set; }
+
+    public bool? IsWithdrawn { get; set; }
+
     public virtual Funcion IdFuncionNavigation { get; set; } = null!;
 }
