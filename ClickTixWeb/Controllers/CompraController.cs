@@ -42,6 +42,7 @@ namespace ClickTixWeb.Controllers
 
             string UserId = ObtenerUid(email);
             int idAsetear = _context.Tickets.OrderByDescending(ticket => ticket.Id).Select(ticket => ticket.Id).FirstOrDefault();
+            string abreviatura = ObtenerAbreviaturaSucursalPorIdFuncion(funcionId, _context);
             foreach (var idAsiento in asientosIds)
             {
                 idAsetear++;
@@ -56,6 +57,8 @@ namespace ClickTixWeb.Controllers
                         Columna = ObtenerColumnaPorId(idAsiento), 
                         PrecioAlMomento = (double)precioMomento,
                         UidFb = UserId,
+                        IdLabel = abreviatura + idAsetear.ToString("D10"),
+                        IsWithdrawn = false,
                     };
                 var entry = _context.Entry(nuevoTicket);
                 if (entry.State != EntityState.Detached)
@@ -80,6 +83,22 @@ namespace ClickTixWeb.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home"); 
+        }
+        public static string ObtenerAbreviaturaSucursalPorIdFuncion(int idFuncion, ClicktixContext dbContext)
+        {
+            var funcion = dbContext.Funcions
+            .Include(f => f.IdSalaNavigation)
+                .ThenInclude(s => s.IdSucursalNavigation)
+            .FirstOrDefault(f => f.Id == idFuncion);
+
+            if (funcion != null && funcion.IdSalaNavigation != null && funcion.IdSalaNavigation.IdSucursalNavigation != null)
+            {
+                return funcion.IdSalaNavigation.IdSucursalNavigation.Abreviatura;
+            }
+            else
+            {
+                return "";
+            }
         }
         public int ObtenerFilaPorId(int asientoId)
         {

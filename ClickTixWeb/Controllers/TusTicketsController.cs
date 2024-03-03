@@ -159,6 +159,7 @@ namespace ClickTixWeb.Controllers
                     {
                        
                         funcionesStrings[i].Ticket  = tickets[i].Id;
+                        funcionesStrings[i].TicketLabel = tickets[i].IdLabel;
                         funcionesStrings[i].Columna = tickets[i].Columna;
                         funcionesStrings[i].Fila    = tickets[i].Fila;
 
