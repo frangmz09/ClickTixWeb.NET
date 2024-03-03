@@ -195,7 +195,7 @@ namespace ClickTixWeb.Controllers
                                   }).FirstOrDefault();
 
 
-
+            funcionStrings.Idioma = ObtenerNombreIdioma(funcionStrings.Idioma);
             return funcionStrings;
         }
         public string ObtenerNombreIdioma(string idioma)

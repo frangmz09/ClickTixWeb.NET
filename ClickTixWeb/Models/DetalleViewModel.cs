@@ -13,6 +13,9 @@
         public string? sucursalNombre { get; set; }
         public List<Sucursal> Sucursales { get; set; }
 
+        public string? CategoriaString { get; set; }
+        public string? ClasificacionString { get; set; }
+
 
     }
 }

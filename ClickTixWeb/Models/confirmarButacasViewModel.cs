@@ -11,6 +11,7 @@
         public List<int> AsientosColumnas { get; set; }
 
         public FuncionStrings FuncionStrings { get; set; }
+
      
     }
 }

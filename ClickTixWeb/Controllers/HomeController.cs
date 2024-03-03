@@ -114,7 +114,9 @@ namespace ClickTixWeb.Controllers
                 ProximasFunciones = proximasFuncionesList,
                 FechasUnicas = fechasUnicas,
                 ProximasFuncionesStrings = ProximasFuncionesStrings,
-                
+                CategoriaString = ObtenerCategoriaPorPeliculaId(peliculaId),
+                ClasificacionString = ObtenerClasificacionPorPeliculaId(peliculaId),
+
             };
 
             var sucursalesConFunciones = _context.Sucursals
@@ -134,6 +136,24 @@ namespace ClickTixWeb.Controllers
             }
 
             return View("~/Views/Detalle/Index.cshtml", viewModel);
+        }
+        public string ObtenerCategoriaPorPeliculaId(int peliculaId)
+        {
+            var categoria = _context.Peliculas
+               .Where(p => p.Id == peliculaId)
+               .Select(p => p.IdCategoriaNavigation.Nombre)
+               .FirstOrDefault();
+
+            return categoria;
+        }
+        public string ObtenerClasificacionPorPeliculaId(int peliculaId)
+        {
+            var clasificacion = _context.Peliculas
+                .Where(p => p.Id == peliculaId)
+                .Select(p => p.IdClasificacionNavigation.Clasificacion1)
+                .FirstOrDefault();
+
+            return clasificacion;
         }
         public IActionResult Index(int? sucursalId)
         {
